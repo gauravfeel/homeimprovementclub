@@ -57,16 +57,19 @@ const About = () => (
           <h2 className="heading-lg text-center mb-10">Our Story</h2>
           <div className="space-y-6 body-lg">
             <p>
-              It started with a frustrating bathroom remodel. Unreturned calls. Missed deadlines. Budget overruns. 
-              We knew there had to be a better way.
+              Home Improvement Club was born from a moment we will never forget.
             </p>
             <p>
-              So we built Home Improvement Club — a curated network of trusted professionals, matched to your 
-              specific needs, with full project guidance from start to finish.
+              We met a single mother who had spent 28 years saving every dollar she could while raising her children as an immigrant in this country. She finally had enough to build her first home. It was supposed to be her moment. Instead, contractors kept inflating their quotes mid-project, draining her construction loan faster than the walls were going up. She was running out of money, running out of options, and on the verge of losing everything she had worked her entire life to build.
             </p>
             <p>
-              Today, we've helped thousands of homeowners transform their spaces without the stress. 
-              Because your home is more than a building — it's where life happens.
+              We stepped in. We took on the project, stabilized the budget, and made sure her home got finished the right way. Watching her walk through the front door of a home that was truly hers was the moment this became more than just a job for us.
+            </p>
+            <p>
+              That story is not unique. Homeowners, especially those who can least afford it, are too often taken advantage of by contractors who see vulnerability as an opportunity. We built Home Improvement Club to change that.
+            </p>
+            <p>
+              We connect families with tradespeople who are honest, skilled, and accountable. We support contractors who want to build real careers on reputation and quality. And we show up for the communities we serve because we have seen firsthand what is at stake when no one does.
             </p>
           </div>
         </motion.div>
