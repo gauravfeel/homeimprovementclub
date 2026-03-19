@@ -4,12 +4,12 @@ import Layout from "@/components/Layout";
 import CTASection from "@/components/CTASection";
 
 const testimonials = [
-  { name: "Sarah M.", location: "Austin, TX", project: "Kitchen Remodel", text: "They made our kitchen remodel completely stress-free. The contractor they matched us with was incredible — on time, on budget, and the results exceeded every expectation. Our kitchen is now the heart of our home." },
-  { name: "David & Lisa K.", location: "Denver, CO", project: "Outdoor Living", text: "From the first call to the final walkthrough, everything was seamless. Our new deck and outdoor kitchen have literally changed how we live. We spend every evening outside now." },
-  { name: "Michael T.", location: "Portland, OR", project: "Solar Installation", text: "Going solar felt overwhelming until Home Improvement Club walked us through every step. The installation was quick, professional, and our energy bills have dropped by 70%. Best investment we've made." },
-  { name: "Jennifer R.", location: "Nashville, TN", project: "HVAC Upgrade", text: "Our old system was costing us a fortune. The team recommended a high-efficiency system that cut our bills in half. The installation crew was polite, clean, and finished in one day." },
-  { name: "Robert & Amy W.", location: "Charlotte, NC", project: "Full Renovation", text: "We renovated our entire first floor — kitchen, living room, and bathrooms. Having one point of contact who managed everything was a game-changer. It felt like having a personal concierge for our home." },
-  { name: "Patricia L.", location: "Scottsdale, AZ", project: "Smart Home", text: "I wanted to make my home smarter but didn't know where to start. They designed a complete smart home package — lighting, security, climate — and the installer was fantastic. My home feels like the future." },
+  { name: "Sarah M.", location: "Chilliwack, BC", project: "Kitchen Remodel", text: "They made our kitchen remodel completely stress-free. The contractor they matched us with was incredible — on time, on budget, and the results exceeded every expectation. Our kitchen is now the heart of our home." },
+  { name: "David & Lisa K.", location: "Abbotsford, BC", project: "Outdoor Living", text: "From the first call to the final walkthrough, everything was seamless. Our new deck and outdoor kitchen have literally changed how we live. We spend every evening outside now." },
+  { name: "Michael T.", location: "White Rock, BC", project: "Solar Installation", text: "Going solar felt overwhelming until Home Improvement Club walked us through every step. The installation was quick, professional, and our energy bills have dropped by 70%. Best investment we've made." },
+  { name: "Jennifer R.", location: "Mission, BC", project: "HVAC Upgrade", text: "Our old system was costing us a fortune. The team recommended a high-efficiency system that cut our bills in half. The installation crew was polite, clean, and finished in one day." },
+  { name: "Robert & Amy W.", location: "Surrey, BC", project: "Full Renovation", text: "We renovated our entire first floor — kitchen, living room, and bathrooms. Having one point of contact who managed everything was a game-changer. It felt like having a personal concierge for our home." },
+  { name: "Patricia L.", location: "Chilliwack, BC", project: "Smart Home", text: "I wanted to make my home smarter but didn't know where to start. They designed a complete smart home package — lighting, security, climate — and the installer was fantastic. My home feels like the future." },
 ];
 
 const Testimonials = () => (
@@ -20,7 +20,7 @@ const Testimonials = () => (
           <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-4">Testimonials</p>
           <h1 className="heading-xl mb-6">Real Stories. Real Transformations.</h1>
           <p className="body-lg max-w-2xl mx-auto">
-            Don't just take our word for it. Here's what homeowners across the country have to say about their experience.
+           Don't just take our word for it. Here's what homeowners across the Fraser Valley have to say about their experience.
           </p>
         </motion.div>
       </div>
