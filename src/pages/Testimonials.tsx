@@ -20,7 +20,7 @@ const Testimonials = () => (
           <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-4">Testimonials</p>
           <h1 className="heading-xl mb-6">Real Stories. Real Transformations.</h1>
           <p className="body-lg max-w-2xl mx-auto">
-            Don't just take our word for it. Here's what homeowners across the country have to say about their experience.
+           Don't just take our word for it. Here's what homeowners across the Fraser Valley have to say about their experience.
           </p>
         </motion.div>
       </div>
