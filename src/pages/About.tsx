@@ -16,9 +16,9 @@ const About = () => (
       <div className="max-w-4xl mx-auto text-center mb-20">
         <motion.div {...fadeUp}>
           <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-4">About Us</p>
-          <h1 className="heading-xl mb-6">We Believe Every Home Tells a Story</h1>
+          <h1 className="heading-xl mb-6">Built to Protect Homeowners</h1>
           <p className="body-lg max-w-2xl mx-auto">
-            Home Improvement Club was founded on a simple idea: upgrading your home should feel as good as living in the result.
+            Home Improvement Club exists because too many families are taken advantage of during the most important investment of their lives. We're here to change that.
           </p>
         </motion.div>
       </div>
