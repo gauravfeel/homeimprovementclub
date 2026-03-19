@@ -16,9 +16,9 @@ const About = () => (
       <div className="max-w-4xl mx-auto text-center mb-20">
         <motion.div {...fadeUp}>
           <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-4">About Us</p>
-          <h1 className="heading-xl mb-6">We Believe Every Home Tells a Story</h1>
+          <h1 className="heading-xl mb-6">Built to Protect Homeowners</h1>
           <p className="body-lg max-w-2xl mx-auto">
-            Home Improvement Club was founded on a simple idea: upgrading your home should feel as good as living in the result.
+            Home Improvement Club exists because too many families are taken advantage of during the most important investment of their lives. We're here to change that.
           </p>
         </motion.div>
       </div>
@@ -28,9 +28,9 @@ const About = () => (
       <div className="max-w-5xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {[
-            { icon: Target, title: "Our Mission", desc: "To make home improvement accessible, transparent, and enjoyable for every homeowner — regardless of budget or experience." },
-            { icon: Heart, title: "Our Values", desc: "Quality over quantity. We'd rather connect you with one exceptional contractor than ten average ones." },
-            { icon: Users, title: "Our Network", desc: "Every professional in our network is personally vetted, background-checked, and reviewed by real homeowners." },
+            { icon: Target, title: "Our Mission", desc: "To stand between homeowners and the contractors who would take advantage of them — ensuring every project is honest, fair, and finished right." },
+            { icon: Heart, title: "Our Values", desc: "Integrity over profit. We built this company because we saw what happens when no one holds contractors accountable, and we refuse to look the other way." },
+            { icon: Users, title: "Our Network", desc: "Every tradesperson in our network is vetted for skill, honesty, and accountability. We back contractors who build careers on reputation, not shortcuts." },
           ].map((item, i) => (
             <motion.div
               key={item.title}
