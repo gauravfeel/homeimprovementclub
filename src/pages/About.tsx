@@ -28,9 +28,9 @@ const About = () => (
       <div className="max-w-5xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {[
-            { icon: Target, title: "Our Mission", desc: "To make home improvement accessible, transparent, and enjoyable for every homeowner — regardless of budget or experience." },
-            { icon: Heart, title: "Our Values", desc: "Quality over quantity. We'd rather connect you with one exceptional contractor than ten average ones." },
-            { icon: Users, title: "Our Network", desc: "Every professional in our network is personally vetted, background-checked, and reviewed by real homeowners." },
+            { icon: Target, title: "Our Mission", desc: "To stand between homeowners and the contractors who would take advantage of them — ensuring every project is honest, fair, and finished right." },
+            { icon: Heart, title: "Our Values", desc: "Integrity over profit. We built this company because we saw what happens when no one holds contractors accountable, and we refuse to look the other way." },
+            { icon: Users, title: "Our Network", desc: "Every tradesperson in our network is vetted for skill, honesty, and accountability. We back contractors who build careers on reputation, not shortcuts." },
           ].map((item, i) => (
             <motion.div
               key={item.title}
