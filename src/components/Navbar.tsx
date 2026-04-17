@@ -8,6 +8,7 @@ const navLinks = [
   { label: "Home", path: "/" },
   { label: "How It Works", path: "/how-it-works" },
   { label: "Services", path: "/services" },
+  { label: "BC Rebates", path: "/rebates" },
   { label: "About", path: "/about" },
   { label: "Testimonials", path: "/testimonials" },
   { label: "For Contractors", path: "/contractors" },
