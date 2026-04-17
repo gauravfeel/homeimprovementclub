@@ -74,6 +74,24 @@ const Index = () => (
       </div>
     </section>
 
+    {/* BC REBATES BAND */}
+    <section className="section-padding bg-primary text-primary-foreground" aria-label="BC rebates highlight">
+      <div className="max-w-6xl mx-auto grid md:grid-cols-[1fr_auto] gap-8 items-center">
+        <div>
+          <p className="text-primary-foreground/80 font-semibold text-xs uppercase tracking-widest mb-3">BC Rebates & Government Funding</p>
+          <h2 className="font-display text-2xl md:text-3xl font-semibold mb-3 leading-tight">
+            Up to $19,000 in BC rebates — we file the paperwork for you.
+          </h2>
+          <p className="text-primary-foreground/85 max-w-2xl leading-relaxed">
+            CleanBC, BC Hydro, FortisBC, PST exemptions, and municipal top-ups. Most homeowners miss thousands because of one missed pre-approval form. Members don't.
+          </p>
+        </div>
+        <Button variant="hero-outline" size="xl" asChild className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary whitespace-nowrap">
+          <Link to="/rebates">See All Rebates <ArrowRight size={18} /></Link>
+        </Button>
+      </div>
+    </section>
+
     {/* PROBLEM — Why homeowners lose thousands */}
     <section className="section-padding-lg" aria-label="The contractor problem">
       <div className="max-w-5xl mx-auto">
