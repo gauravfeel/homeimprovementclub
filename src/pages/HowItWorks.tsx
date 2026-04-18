@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
-import { ClipboardList, Lightbulb, Users, Heart } from "lucide-react";
+import { ClipboardList, Lightbulb, Hammer, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
 import CTASection from "@/components/CTASection";
+import SEO from "@/components/SEO";
 
 const fadeUp = {
   initial: { opacity: 0, y: 30 },
@@ -16,38 +17,43 @@ const steps = [
   {
     icon: ClipboardList,
     step: "01",
-    title: "Tell Us Your Vision",
-    desc: "Fill out a quick form or hop on a call. Tell us what you'd love to change about your home — no detail is too small.",
+    title: "Complimentary Consultation",
+    desc: "We meet at your home, walk the space, and listen. No sales pitch — just a conversation about what you want and what's possible.",
   },
   {
     icon: Lightbulb,
     step: "02",
-    title: "Get Your Personalized Plan",
-    desc: "We analyze your needs and create a curated Home Upgrade Plan — with options, timelines, and transparent pricing.",
+    title: "Design & Transparent Plan",
+    desc: "We deliver a clear renovation plan: scope of work, material selections, defined timeline, and a transparent investment range.",
   },
   {
-    icon: Users,
+    icon: Hammer,
     step: "03",
-    title: "Meet Your Professionals",
-    desc: "We match you with vetted, top-rated contractors who specialize in exactly what you need. No cold-calling, no guesswork.",
+    title: "Vetted Craftsmen Build",
+    desc: "Matched to specialists in your exact project. Licensed, insured, accountable to us, and managed by us — not left to figure it out themselves.",
   },
   {
     icon: Heart,
     step: "04",
-    title: "Love Your Upgraded Home",
-    desc: "We oversee the process from start to finish. You sit back, relax, and enjoy the transformation.",
+    title: "Final Walkthrough & Care",
+    desc: "Weekly updates throughout. A detailed final walkthrough. We stand behind the work — the project is ours until you love it.",
   },
 ];
 
 const HowItWorks = () => (
   <Layout>
+    <SEO
+      title="How It Works | Premium Renovation Process — Home Improvement Club"
+      description="Our four-step renovation process: consultation, design, vetted build, and final care. Transparent pricing, defined timelines, no surprises."
+      canonical="/how-it-works"
+    />
     <section className="section-padding-lg">
       <div className="max-w-4xl mx-auto text-center mb-20">
         <motion.div {...fadeUp}>
-          <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-4">How It Works</p>
-          <h1 className="heading-xl mb-6">Simple. Seamless. Stress-Free.</h1>
+          <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-4">The Process</p>
+          <h1 className="heading-xl mb-6">Premium, Without the Pain.</h1>
           <p className="body-lg max-w-2xl mx-auto">
-            We've removed every obstacle between you and your dream home. Here's exactly how we do it.
+            We've taken everything that makes renovations stressful — vague pricing, missed timelines, vanishing crews — and built a process that removes all of it.
           </p>
         </motion.div>
       </div>
@@ -59,7 +65,7 @@ const HowItWorks = () => (
             initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={{ duration: 0.6 }}
             className="flex gap-6 md:gap-10 items-start"
           >
             <div className="flex-shrink-0 w-16 h-16 rounded-2xl bg-sage-light flex items-center justify-center">
@@ -77,12 +83,12 @@ const HowItWorks = () => (
 
     <section className="section-padding bg-card text-center">
       <motion.div {...fadeUp}>
-        <h2 className="heading-md mb-4">No Hidden Fees. No Surprises.</h2>
+        <h2 className="heading-md mb-4">Transparent. End to End.</h2>
         <p className="body-lg max-w-xl mx-auto mb-8">
-          Our service is completely free for homeowners. We earn our keep by partnering with the best contractors in your area.
+          The on-site consultation is complimentary. The plan we deliver is yours to keep — no obligation.
         </p>
         <Button variant="hero" size="xl" asChild>
-          <Link to="/contact">Start My Plan — It's Free</Link>
+          <Link to="/contact">Book My Consultation</Link>
         </Button>
       </motion.div>
     </section>

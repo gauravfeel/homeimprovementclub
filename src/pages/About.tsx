@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
-import { Target, Heart, Users } from "lucide-react";
+import { Target, Award, Users } from "lucide-react";
 import Layout from "@/components/Layout";
 import CTASection from "@/components/CTASection";
+import SEO from "@/components/SEO";
 
 const fadeUp = {
   initial: { opacity: 0, y: 30 },
@@ -12,13 +13,18 @@ const fadeUp = {
 
 const About = () => (
   <Layout>
+    <SEO
+      title="About | Home Improvement Club — Premium BC Renovations"
+      description="Home Improvement Club delivers high-end home renovations across British Columbia. Vetted craftsmen, transparent process, premium materials, and accountable delivery."
+      canonical="/about"
+    />
     <section className="section-padding-lg">
       <div className="max-w-4xl mx-auto text-center mb-20">
         <motion.div {...fadeUp}>
           <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-4">About Us</p>
-          <h1 className="heading-xl mb-6">Built to Protect Homeowners</h1>
+          <h1 className="heading-xl mb-6">A Different Standard for BC Homeowners.</h1>
           <p className="body-lg max-w-2xl mx-auto">
-            Home Improvement Club exists because too many families are taken advantage of during the most important investment of their lives. We're here to change that.
+            Home Improvement Club exists because premium renovations shouldn't feel like a gamble. We curate craftsmen, manage projects end-to-end, and stand behind every result.
           </p>
         </motion.div>
       </div>
@@ -28,9 +34,9 @@ const About = () => (
       <div className="max-w-5xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {[
-            { icon: Target, title: "Our Mission", desc: "To stand between homeowners and the contractors who would take advantage of them — ensuring every project is honest, fair, and finished right." },
-            { icon: Heart, title: "Our Values", desc: "Integrity over profit. We built this company because we saw what happens when no one holds contractors accountable, and we refuse to look the other way." },
-            { icon: Users, title: "Our Network", desc: "Every tradesperson in our network is vetted for skill, honesty, and accountability. We back contractors who build careers on reputation, not shortcuts." },
+            { icon: Target, title: "Our Mission", desc: "To deliver high-end home renovations that homeowners can trust on day one and still love a decade later." },
+            { icon: Award, title: "Our Standard", desc: "Hotel-grade materials. Master-level craftsmanship. Transparent communication. No builder-grade shortcuts, ever." },
+            { icon: Users, title: "Our Network", desc: "A curated bench of BC craftsmen — kitchen specialists, tile masters, lighting designers — vetted, insured, and accountable to us." },
           ].map((item, i) => (
             <motion.div
               key={item.title}
@@ -57,19 +63,16 @@ const About = () => (
           <h2 className="heading-lg text-center mb-10">Our Story</h2>
           <div className="space-y-6 body-lg">
             <p>
-              Home Improvement Club was born from a moment we will never forget.
+              Home Improvement Club was founded on a simple frustration: BC homeowners investing in premium renovations were too often handed builder-grade results, vague timelines, and crews that vanished after the first cheque.
             </p>
             <p>
-              We met a single mother who had spent 28 years saving every dollar she could while raising her children as an immigrant in this country. She finally had enough to build her first home. It was supposed to be her moment. Instead, contractors kept inflating their quotes mid-project, draining her construction loan faster than the walls were going up. She was running out of money, running out of options, and on the verge of losing everything she had worked her entire life to build.
+              We saw what was missing — not more contractors, but a higher standard of curation, project management, and accountability. So we built it. We assembled a vetted bench of BC's best kitchen specialists, tile masters, lighting designers, and exterior craftsmen, and we project-manage every job ourselves.
             </p>
             <p>
-              We stepped in. We took on the project, stabilized the budget, and made sure her home got finished the right way. Watching her walk through the front door of a home that was truly hers was the moment this became more than just a job for us.
+              Today we deliver high-end kitchens, bathrooms, lighting, tile, HVAC, and exterior renovations across British Columbia. Every project is led by craftsmen whose careers are built on this exact work, finished with hotel-grade materials, and stood behind by us — long after the keys are handed back.
             </p>
             <p>
-              That story is not unique. Homeowners, especially those who can least afford it, are too often taken advantage of by contractors who see vulnerability as an opportunity. We built Home Improvement Club to change that.
-            </p>
-            <p>
-              We connect families with tradespeople who are honest, skilled, and accountable. We support contractors who want to build real careers on reputation and quality. And we show up for the communities we serve because we have seen firsthand what is at stake when no one does.
+              That's the difference. And once you've seen it, you understand why our clients refuse to renovate any other way.
             </p>
           </div>
         </motion.div>
