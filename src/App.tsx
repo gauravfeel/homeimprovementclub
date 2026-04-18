@@ -11,6 +11,7 @@ import Contractors from "./pages/Contractors";
 import Contact from "./pages/Contact";
 import Testimonials from "./pages/Testimonials";
 import Rebates from "./pages/Rebates";
+import ServiceDetail from "./pages/ServiceDetail";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/how-it-works" element={<HowItWorks />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/services/:slug" element={<ServiceDetail />} />
           <Route path="/about" element={<About />} />
           <Route path="/contractors" element={<Contractors />} />
           <Route path="/contact" element={<Contact />} />
