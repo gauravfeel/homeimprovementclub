@@ -6,7 +6,7 @@ import { useToast } from "@/hooks/use-toast";
 import logo from "@/assets/hic-logo.png";
 
 // Sign up at formspree.io, create a form, and replace YOUR_FORM_ID below
-const FORMSPREE_ID = "YOUR_FORM_ID";
+const FORMSPREE_ID = "mgorpzpy";
 
 const STORAGE_KEY = "hic_lead_popup_dismissed";
 
@@ -61,7 +61,7 @@ const LeadCapturePopup = () => {
     }
     setSubmitting(true);
     try {
-      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+      const res = await fetch(`https://formspree.io/f/mgorpzpy`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
