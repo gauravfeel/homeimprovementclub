@@ -15,8 +15,8 @@ const fadeUp = {
 const Services = () => (
   <Layout>
     <SEO
-      title="Premium Home Renovation Services in BC | Home Improvement Club"
-      description="Luxury kitchen, bathroom, lighting, tile, HVAC, and exterior renovations across British Columbia. Vetted craftsmen, transparent process, premium materials."
+      title="Home Renovation Services in Abbotsford, Chilliwack & Fraser Valley | Home Improvement Club"
+      description="Luxury kitchen, bathroom, lighting, tile, HVAC, and exterior renovations across Abbotsford, Chilliwack, Hope, and Langley. Vetted craftsmen, transparent process, premium materials."
       canonical="/services"
     />
     <section className="section-padding-lg">

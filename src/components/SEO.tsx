@@ -7,7 +7,7 @@ interface SEOProps {
   schema?: object;
 }
 
-const SITE = "https://home-upgrade-spark.lovable.app";
+const SITE = "https://homeimprovementclub.co";
 
 const SEO = ({ title, description, canonical, schema }: SEOProps) => {
   const url = canonical ? `${SITE}${canonical}` : SITE;

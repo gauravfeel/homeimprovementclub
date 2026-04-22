@@ -21,13 +21,18 @@ const ServiceDetail = () => {
       "@type": "HomeAndConstructionBusiness",
       name: "Home Improvement Club",
     },
-    areaServed: { "@type": "AdministrativeArea", name: "British Columbia, Canada" },
+    areaServed: [
+      { "@type": "City", name: "Abbotsford" },
+      { "@type": "City", name: "Chilliwack" },
+      { "@type": "City", name: "Hope" },
+      { "@type": "City", name: "Langley" },
+    ],
   };
 
   return (
     <Layout>
       <SEO
-        title={`${service.title} | Home Improvement Club BC`}
+        title={`${service.title} in Abbotsford, Chilliwack & Fraser Valley | Home Improvement Club`}
         description={service.short}
         canonical={`/services/${service.slug}`}
         schema={schema}
