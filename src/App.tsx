@@ -1,27 +1,29 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import Index from "./pages/Index";
-import HowItWorks from "./pages/HowItWorks";
-import Services from "./pages/Services";
-import About from "./pages/About";
-import Contractors from "./pages/Contractors";
-import Contact from "./pages/Contact";
-import Testimonials from "./pages/Testimonials";
-import Rebates from "./pages/Rebates";
-import ServiceDetail from "./pages/ServiceDetail";
-import NotFound from "./pages/NotFound";
+import PageLoader from "@/components/PageLoader";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
 
-const queryClient = new QueryClient();
+const Index = lazy(() => import("./pages/Index"));
+const HowItWorks = lazy(() => import("./pages/HowItWorks"));
+const Services = lazy(() => import("./pages/Services"));
+const About = lazy(() => import("./pages/About"));
+const Contractors = lazy(() => import("./pages/Contractors"));
+const Contact = lazy(() => import("./pages/Contact"));
+const Testimonials = lazy(() => import("./pages/Testimonials"));
+const Rebates = lazy(() => import("./pages/Rebates"));
+const ServiceDetail = lazy(() => import("./pages/ServiceDetail"));
+const NotFound = lazy(() => import("./pages/NotFound"));
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
+  <TooltipProvider>
+    <Toaster />
+    <Sonner />
+    <BrowserRouter>
+      <WhatsAppButton variant="floating" />
+      <Suspense fallback={<PageLoader />}>
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/how-it-works" element={<HowItWorks />} />
@@ -34,9 +36,9 @@ const App = () => (
           <Route path="/rebates" element={<Rebates />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+      </Suspense>
+    </BrowserRouter>
+  </TooltipProvider>
 );
 
 export default App;

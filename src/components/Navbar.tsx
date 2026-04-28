@@ -4,6 +4,7 @@ import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import logo from "@/assets/hic-logo.png";
+import { ContactInfo } from "@/components/ContactInfo";
 
 const navLinks = [
   { label: "How It Works", path: "/how-it-works" },
@@ -28,16 +29,16 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border/50">
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-3">
-        <Link to="/" className="flex items-center gap-3" aria-label="Home Improvement Club">
-          <img src={logo} alt="Home Improvement Club" className="h-10 w-auto" />
-          <span className="hidden sm:inline font-display text-base font-semibold tracking-tight text-foreground">
+      <div className="max-w-7xl mx-auto flex items-center justify-between gap-3 px-6 py-3">
+        <Link to="/" className="flex items-center gap-3 min-w-0 shrink" aria-label="Home Improvement Club">
+          <img src={logo} alt="Home Improvement Club" className="h-10 w-auto shrink-0" />
+          <span className="hidden sm:inline font-display text-base font-semibold tracking-tight text-foreground truncate">
             Home Improvement Club
           </span>
         </Link>
 
         {/* Desktop */}
-        <div className="hidden lg:flex items-center gap-8">
+        <div className="hidden lg:flex items-center gap-6 xl:gap-8">
           <div
             className="relative"
             onMouseEnter={() => setServicesOpen(true)}
@@ -82,15 +83,26 @@ const Navbar = () => {
                 {link.label}
               </Link>
             ))}
+          <ContactInfo
+            linkClassName="text-muted-foreground hover:text-primary"
+            iconClassName="text-primary"
+          />
           <Button variant="hero" size="lg" asChild>
             <Link to="/contact">Book Consultation</Link>
           </Button>
         </div>
 
-        {/* Mobile toggle */}
-        <button className="lg:hidden text-foreground" onClick={() => setOpen(!open)} aria-label="Menu">
-          {open ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        {/* Mobile: phone + menu */}
+        <div className="flex lg:hidden items-center gap-2 shrink-0">
+          <ContactInfo
+            compact
+            linkClassName="text-foreground/90 hover:text-primary"
+            iconClassName="text-primary"
+          />
+          <button type="button" className="text-foreground p-1 -mr-1" onClick={() => setOpen(!open)} aria-label="Menu">
+            {open ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu */}

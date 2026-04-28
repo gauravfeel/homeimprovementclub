@@ -1,13 +1,15 @@
 import { Link } from "react-router-dom";
 import logo from "@/assets/hic-logo.png";
+import { ContactInfo } from "@/components/ContactInfo";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
 
 const Footer = () => (
   <footer className="bg-foreground text-background">
     <div className="max-w-7xl mx-auto section-padding">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
-        <div className="md:col-span-2">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
+        <div className="lg:col-span-2">
           <div className="flex items-center gap-3 mb-5">
-            <img src={logo} alt="Home Improvement Club" className="h-12 w-auto brightness-0 invert" />
+            <img src={logo} alt="Home Improvement Club" className="h-12 w-auto " />
             <h3 className="font-display text-xl font-semibold">Home Improvement Club</h3>
           </div>
           <p className="text-background/60 max-w-md leading-relaxed">
@@ -42,10 +44,20 @@ const Footer = () => (
             <Link to="/contractors" className="text-background/60 hover:text-background transition-colors text-sm">For Contractors</Link>
           </div>
         </div>
+        <div>
+          <h4 className="font-sans text-sm font-semibold uppercase tracking-widest mb-4 text-background/40">Contact</h4>
+          <div className="flex flex-col gap-4 items-start">
+            <ContactInfo
+              linkClassName="text-background/90 hover:text-background"
+              iconClassName="text-primary"
+            />
+            <WhatsAppButton variant="footer" className="w-full sm:w-auto justify-center" />
+          </div>
+        </div>
       </div>
       <div className="border-t border-background/10 pt-8 flex flex-col md:flex-row gap-4 items-center justify-between">
         <div className="flex items-center gap-3">
-          <img src={logo} alt="Home Improvement Club" className="h-8 w-auto brightness-0 invert" />
+          <img src={logo} alt="Home Improvement Club" className="h-8 w-auto" />
           <p className="text-background/40 text-sm">© 2026 Home Improvement Club. Serving the Fraser Valley.</p>
         </div>
         <p className="text-background/40 text-xs">Premium renovations · Vetted professionals · Transparent process</p>

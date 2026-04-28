@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useEffect, useRef } from "react";
+import type { FieldValues } from "@formspree/core";
+import { useForm, ValidationError } from "@formspree/react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -6,9 +8,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import Layout from "@/components/Layout";
 import SEO from "@/components/SEO";
+import { cn } from "@/lib/utils";
 
-// Sign up at formspree.io, create a form, and replace YOUR_FORM_ID below
-const FORMSPREE_ID = "xlgaonqb";
+/** Formspree form id (dashboard → Integration → form endpoint). Override with VITE_FORMSPREE_ID in .env */
+const FORM_ID = import.meta.env.VITE_FORMSPREE_ID || "xlgaonqb";
 
 const projectTypes = [
   "HVAC & Comfort",
@@ -28,52 +31,23 @@ const budgetRanges = [
   "$100,000+",
 ];
 
+const errorClass = "text-sm text-destructive mt-1.5";
+
 const Contact = () => {
   const { toast } = useToast();
-  const [submitting, setSubmitting] = useState(false);
-  const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    project: "",
-    budget: "",
-    message: "",
-  });
+  const [state, handleSubmit, reset] = useForm<FieldValues>(FORM_ID);
+  const wasSubmitting = useRef(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!form.firstName.trim() || !form.email.trim()) {
-      toast({ title: "Please fill in required fields", variant: "destructive" });
-      return;
-    }
-    setSubmitting(true);
-    try {
-      const res = await fetch(`https://formspree.io/f/xlgaonqb`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          _subject: "New Consultation Request — Home Improvement Club",
-          name: `${form.firstName} ${form.lastName}`,
-          email: form.email,
-          phone: form.phone,
-          "project type": form.project,
-          budget: form.budget,
-          message: form.message,
-        }),
+  useEffect(() => {
+    if (wasSubmitting.current && !state.submitting && !state.succeeded && state.errors) {
+      toast({
+        title: "Something went wrong",
+        description: "Please email us at homeimprovementclub.co@gmail.com",
+        variant: "destructive",
       });
-      if (res.ok) {
-        toast({ title: "Thank you!", description: "We'll be in touch within 24 hours with your personalized plan." });
-        setForm({ firstName: "", lastName: "", email: "", phone: "", project: "", budget: "", message: "" });
-      } else {
-        throw new Error("Submission failed");
-      }
-    } catch {
-      toast({ title: "Something went wrong", description: "Please email us at homeimprovementclub.co@gmail.com", variant: "destructive" });
-    } finally {
-      setSubmitting(false);
     }
-  };
+    wasSubmitting.current = state.submitting;
+  }, [state.submitting, state.succeeded, state.errors, toast]);
 
   return (
     <Layout>
@@ -100,88 +74,136 @@ const Contact = () => {
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.2 }}>
-            <form onSubmit={handleSubmit} className="bg-card rounded-2xl p-8 border border-border space-y-5">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="text-sm font-medium mb-1.5 block">First Name *</label>
-                  <Input
-                    value={form.firstName}
-                    onChange={(e) => setForm({ ...form, firstName: e.target.value })}
-                    placeholder="John"
-                    maxLength={100}
-                  />
+            <div className="bg-card rounded-2xl p-8 border border-border space-y-5">
+              {state.succeeded ? (
+                <div className="text-center py-6 space-y-4">
+                  <p className="text-xl font-semibold text-foreground">Thank you!</p>
+                  <p className="text-muted-foreground">
+                    We'll be in touch within 24 hours with your personalized plan.
+                  </p>
+                  <Button type="button" variant="outline" onClick={() => reset()}>
+                    Send another message
+                  </Button>
                 </div>
-                <div>
-                  <label className="text-sm font-medium mb-1.5 block">Last Name</label>
-                  <Input
-                    value={form.lastName}
-                    onChange={(e) => setForm({ ...form, lastName: e.target.value })}
-                    placeholder="Smith"
-                    maxLength={100}
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+                  <input
+                    type="hidden"
+                    name="_subject"
+                    value="New Consultation Request — Home Improvement Club"
                   />
-                </div>
-              </div>
-              <div>
-                <label className="text-sm font-medium mb-1.5 block">Email *</label>
-                <Input
-                  type="email"
-                  value={form.email}
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  placeholder="john@example.com"
-                  maxLength={255}
-                />
-              </div>
-              <div>
-                <label className="text-sm font-medium mb-1.5 block">Phone</label>
-                <Input
-                  type="tel"
-                  value={form.phone}
-                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                  placeholder="(555) 123-4567"
-                  maxLength={20}
-                />
-              </div>
-              <div>
-                <label className="text-sm font-medium mb-1.5 block">Ideal Style of Renovation</label>
-                <select
-                  value={form.project}
-                  onChange={(e) => setForm({ ...form, project: e.target.value })}
-                  className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-                >
-                  <option value="">Select a project type</option>
-                  {projectTypes.map((p) => (
-                    <option key={p} value={p}>{p}</option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label className="text-sm font-medium mb-1.5 block">Budget</label>
-                <select
-                  value={form.budget}
-                  onChange={(e) => setForm({ ...form, budget: e.target.value })}
-                  className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-                >
-                  <option value="">Select a budget range</option>
-                  {budgetRanges.map((b) => (
-                    <option key={b} value={b}>{b}</option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label className="text-sm font-medium mb-1.5 block">Tell Us More</label>
-                <Textarea
-                  value={form.message}
-                  onChange={(e) => setForm({ ...form, message: e.target.value })}
-                  placeholder="Describe your project vision..."
-                  rows={4}
-                  maxLength={1000}
-                />
-              </div>
-              <Button variant="hero" size="xl" type="submit" className="w-full" disabled={submitting}>
-                {submitting ? "Sending…" : "Get My Free Plan"}
-              </Button>
-              <p className="text-xs text-muted-foreground text-center">We respect your privacy. No spam, ever.</p>
-            </form>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="contact-firstName" className="text-sm font-medium mb-1.5 block">
+                        First Name *
+                      </label>
+                      <Input
+                        id="contact-firstName"
+                        name="firstName"
+                        required
+                        placeholder="John"
+                        maxLength={100}
+                      />
+                      <ValidationError prefix="First name" field="firstName" errors={state.errors} className={cn(errorClass)} />
+                    </div>
+                    <div>
+                      <label htmlFor="contact-lastName" className="text-sm font-medium mb-1.5 block">
+                        Last Name
+                      </label>
+                      <Input id="contact-lastName" name="lastName" placeholder="Smith" maxLength={100} />
+                      <ValidationError prefix="Last name" field="lastName" errors={state.errors} className={cn(errorClass)} />
+                    </div>
+                  </div>
+                  <div>
+                    <label htmlFor="contact-email" className="text-sm font-medium mb-1.5 block">
+                      Email *
+                    </label>
+                    <Input
+                      id="contact-email"
+                      name="email"
+                      type="email"
+                      required
+                      placeholder="john@example.com"
+                      maxLength={255}
+                    />
+                    <ValidationError prefix="Email" field="email" errors={state.errors} className={cn(errorClass)} />
+                  </div>
+                  <div>
+                    <label htmlFor="contact-phone" className="text-sm font-medium mb-1.5 block">
+                      Phone
+                    </label>
+                    <Input
+                      id="contact-phone"
+                      name="phone"
+                      type="tel"
+                      placeholder="(555) 123-4567"
+                      maxLength={20}
+                    />
+                    <ValidationError prefix="Phone" field="phone" errors={state.errors} className={cn(errorClass)} />
+                  </div>
+                  <div>
+                    <label htmlFor="contact-project" className="text-sm font-medium mb-1.5 block">
+                      Ideal Style of Renovation
+                    </label>
+                    <select
+                      id="contact-project"
+                      name="project type"
+                      defaultValue=""
+                      className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                    >
+                      <option value="">Select a project type</option>
+                      {projectTypes.map((p) => (
+                        <option key={p} value={p}>
+                          {p}
+                        </option>
+                      ))}
+                    </select>
+                    <ValidationError
+                      prefix="Project"
+                      field="project type"
+                      errors={state.errors}
+                      className={cn(errorClass)}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="contact-budget" className="text-sm font-medium mb-1.5 block">
+                      Budget
+                    </label>
+                    <select
+                      id="contact-budget"
+                      name="budget"
+                      defaultValue=""
+                      className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                    >
+                      <option value="">Select a budget range</option>
+                      {budgetRanges.map((b) => (
+                        <option key={b} value={b}>
+                          {b}
+                        </option>
+                      ))}
+                    </select>
+                    <ValidationError prefix="Budget" field="budget" errors={state.errors} className={cn(errorClass)} />
+                  </div>
+                  <div>
+                    <label htmlFor="contact-message" className="text-sm font-medium mb-1.5 block">
+                      Tell Us More
+                    </label>
+                    <Textarea
+                      id="contact-message"
+                      name="message"
+                      placeholder="Describe your project vision..."
+                      rows={4}
+                      maxLength={1000}
+                    />
+                    <ValidationError prefix="Message" field="message" errors={state.errors} className={cn(errorClass)} />
+                  </div>
+                  <Button variant="hero" size="xl" type="submit" className="w-full" disabled={state.submitting}>
+                    {state.submitting ? "Sending…" : "Get My Free Plan"}
+                  </Button>
+                  <p className="text-xs text-muted-foreground text-center">We respect your privacy. No spam, ever.</p>
+                </form>
+              )}
+            </div>
           </motion.div>
         </div>
       </section>
