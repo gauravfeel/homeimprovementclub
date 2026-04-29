@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import logo from "@/assets/hic-logo.png";
 import { ContactInfo } from "@/components/ContactInfo";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { ENABLE_CONTRACTOR_MEMBERSHIP } from "@/lib/features";
 
 const Footer = () => (
   <footer className="bg-foreground text-background">
@@ -41,7 +42,9 @@ const Footer = () => (
             <Link to="/rebates" className="text-background/60 hover:text-background transition-colors text-sm">BC Rebates</Link>
             <Link to="/testimonials" className="text-background/60 hover:text-background transition-colors text-sm">Testimonials</Link>
             <Link to="/contact" className="text-background/60 hover:text-background transition-colors text-sm">Book Consultation</Link>
-            <Link to="/contractors" className="text-background/60 hover:text-background transition-colors text-sm">For Contractors</Link>
+            {ENABLE_CONTRACTOR_MEMBERSHIP && (
+              <Link to="/contractors" className="text-background/60 hover:text-background transition-colors text-sm">For Contractors</Link>
+            )}
           </div>
         </div>
         <div>

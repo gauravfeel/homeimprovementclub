@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import PageLoader from "@/components/PageLoader";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { ENABLE_CONTRACTOR_MEMBERSHIP } from "@/lib/features";
 
 const Index = lazy(() => import("./pages/Index"));
 const HowItWorks = lazy(() => import("./pages/HowItWorks"));
@@ -30,7 +31,10 @@ const App = () => (
           <Route path="/services" element={<Services />} />
           <Route path="/services/:slug" element={<ServiceDetail />} />
           <Route path="/about" element={<About />} />
-          <Route path="/contractors" element={<Contractors />} />
+          <Route
+            path="/contractors"
+            element={ENABLE_CONTRACTOR_MEMBERSHIP ? <Contractors /> : <NotFound />}
+          />
           <Route path="/contact" element={<Contact />} />
           <Route path="/testimonials" element={<Testimonials />} />
           <Route path="/rebates" element={<Rebates />} />

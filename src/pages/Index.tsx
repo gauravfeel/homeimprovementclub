@@ -302,7 +302,7 @@ const Index = () => {
           </p>
           <div className="text-center mt-4">
             <a
-              href="https://g.page/r/[GOOGLE-PLACE-ID]"
+              href="https://www.google.com/search?client=safari&hs=0Ynp&sca_esv=66e1f1ab6540b637&hl=en-ca&authuser=1&biw=1517&bih=712&sxsrf=ANbL-n4Et7CI8iPKtWRpc3zyMshPgT0GmA:1777480384248&si=AL3DRZEsmMGCryMMFSHJ3StBhOdZ2-6yYkXd_doETEE1OR-qOagIWAaVKLyxSk6xF7tOWrf26uayIoFhB6ExVfN5Ssvmbgd1DXikK-oW_Q-UUP9p5IEtj_ltfD37u_tJD4yPXE3abbLJSm2BYM-JXfUtMiKQEzu30g%3D%3D&q=Home+Improvement+Club+Reviews&sa=X&ved=2ahUKEwibype3vpOUAxVpNzQIHVPlEyMQ0bkNegQIHxAF"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-primary text-primary text-sm font-medium hover:bg-primary hover:text-primary-foreground transition-colors"
