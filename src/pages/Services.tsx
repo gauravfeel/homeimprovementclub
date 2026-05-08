@@ -4,6 +4,7 @@ import CTASection from "@/components/CTASection";
 import ServiceCard from "@/components/ServiceCard";
 import SEO from "@/components/SEO";
 import { SERVICES } from "@/data/services";
+import { SERVICE_AREA } from "@/lib/service-area";
 
 const fadeUp = {
   initial: { opacity: 0, y: 30 },
@@ -15,8 +16,8 @@ const fadeUp = {
 const Services = () => (
   <Layout>
     <SEO
-      title="Home Renovation Services in Abbotsford, Chilliwack & Fraser Valley | Home Improvement Club"
-      description="Luxury kitchen, bathroom, lighting, tile, HVAC, and exterior renovations across Abbotsford, Chilliwack, Hope, and Langley. Vetted craftsmen, transparent process, premium materials."
+      title={`Home Renovation Services — ${SERVICE_AREA} | Home Improvement Club`}
+      description={`Luxury kitchen, bathroom, lighting, tile, HVAC, and exterior renovations across the ${SERVICE_AREA}. Vetted craftsmen, transparent process, premium materials.`}
       canonical="/services"
     />
     <section className="section-padding-lg">

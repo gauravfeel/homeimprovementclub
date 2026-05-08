@@ -5,6 +5,7 @@ import Layout from "@/components/Layout";
 import CTASection from "@/components/CTASection";
 import SEO from "@/components/SEO";
 import { TESTIMONIALS } from "@/data/testimonials";
+import { SERVICE_AREA, SERVICE_AREA_BC } from "@/lib/service-area";
 
 const CITIES = ["All", "Abbotsford", "Chilliwack", "Langley", "Hope"] as const;
 
@@ -33,8 +34,8 @@ const Testimonials = () => {
   return (
     <Layout>
       <SEO
-        title="Client Stories | Home Improvement Club — Fraser Valley BC"
-        description="Real testimonials from homeowners in Abbotsford, Chilliwack, Hope, and Langley. Kitchen, bathroom, HVAC, flooring, and exterior renovations by Home Improvement Club."
+        title={`Client Stories | Home Improvement Club — ${SERVICE_AREA_BC}`}
+        description={`Real testimonials from homeowners across the ${SERVICE_AREA}. Kitchen, bathroom, HVAC, flooring, and exterior renovations by Home Improvement Club.`}
         canonical="/testimonials"
         schema={reviewsSchema}
       />
@@ -43,9 +44,9 @@ const Testimonials = () => {
         <div className="max-w-4xl mx-auto text-center mb-10">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
             <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-4">Client Stories</p>
-            <h1 className="heading-xl mb-6">Trusted by Homeowners Across the Fraser Valley</h1>
+            <h1 className="heading-xl mb-6">Trusted by Homeowners Across the {SERVICE_AREA}</h1>
             <p className="body-lg max-w-2xl mx-auto">
-              Real projects. Real results. From Abbotsford to Hope.
+              Real projects. Real results. From Abbotsford and Chilliwack to Metro Vancouver.
             </p>
           </motion.div>
         </div>

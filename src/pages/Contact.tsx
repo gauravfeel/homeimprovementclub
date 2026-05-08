@@ -9,6 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import Layout from "@/components/Layout";
 import SEO from "@/components/SEO";
 import { cn } from "@/lib/utils";
+import { SERVICE_AREA, SERVICE_AREA_BC } from "@/lib/service-area";
 
 /** Formspree form id (dashboard → Integration → form endpoint). Override with VITE_FORMSPREE_ID in .env */
 const FORM_ID = import.meta.env.VITE_FORMSPREE_ID || "xlgaonqb";
@@ -52,8 +53,8 @@ const Contact = () => {
   return (
     <Layout>
       <SEO
-        title="Book a Free Consultation | Home Improvement Club — Fraser Valley BC"
-        description="Book your free home renovation consultation in Abbotsford, Chilliwack, Hope, or Langley. Kitchens, bathrooms, HVAC, flooring, and more — vetted craftsmen, project-managed start to finish."
+        title={`Book a Free Consultation | Home Improvement Club — ${SERVICE_AREA_BC}`}
+        description={`Book your free home renovation consultation anywhere in the ${SERVICE_AREA}. Kitchens, bathrooms, HVAC, flooring, and more — vetted craftsmen, project-managed start to finish.`}
         canonical="/contact"
       />
       <section className="section-padding-lg">
@@ -61,7 +62,7 @@ const Contact = () => {
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
             <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-4">Get Started</p>
             <h1 className="heading-xl mb-3">Get Your Free Home Upgrade Plan</h1>
-            <p className="text-muted-foreground text-sm mb-6">Proudly serving Abbotsford, Chilliwack, Hope, and Langley.</p>
+            <p className="text-muted-foreground text-sm mb-6">Proudly serving the {SERVICE_AREA}.</p>
             <p className="body-lg mb-8">
               Tell us about your home and your goals. We'll create a personalized upgrade plan — with options,
               pricing, and a timeline — completely free.

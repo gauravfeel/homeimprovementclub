@@ -18,6 +18,7 @@ import Layout from "@/components/Layout";
 import CTASection from "@/components/CTASection";
 import SEO from "@/components/SEO";
 import heroImg from "@/assets/lux-hero.jpg";
+import { SERVICE_AREA } from "@/lib/service-area";
 
 const fadeUp = {
   initial: { opacity: 0, y: 30 },
@@ -88,15 +89,15 @@ const programs = [
 const Rebates = () => (
   <Layout>
     <SEO
-      title="BC Rebates & Government Funding | CleanBC Rebates in Abbotsford & Chilliwack | Home Improvement Club"
-      description="Educational guide to potential BC home renovation rebates for Fraser Valley homeowners. CleanBC, BC Hydro, FortisBC programs explained. Eligibility varies — confirm with the official source."
+      title={`BC Rebates & Government Funding | CleanBC Rebates — ${SERVICE_AREA} | Home Improvement Club`}
+      description={`Educational guide to potential BC home renovation rebates for homeowners across the ${SERVICE_AREA}. CleanBC, BC Hydro, FortisBC programs explained. Eligibility varies — confirm with the official source.`}
       canonical="/rebates"
     />
 
     {/* HERO */}
     <section className="relative min-h-[60vh] flex items-center" aria-label="BC funding info hero">
       <div className="absolute inset-0">
-        <img src={heroImg} alt="Energy-efficient Fraser Valley home renovation" className="w-full h-full object-cover" loading="eager" width={1920} height={1280} />
+        <img src={heroImg} alt={`Energy-efficient ${SERVICE_AREA} home renovation`} className="w-full h-full object-cover" loading="eager" width={1920} height={1280} />
         <div className="absolute inset-0 bg-foreground/65" />
       </div>
       <div className="relative z-10 section-padding w-full">
@@ -106,7 +107,7 @@ const Rebates = () => (
             BC Renovation Funding, Explained.
           </h1>
           <p className="text-background/85 text-lg md:text-xl max-w-2xl mb-10 leading-relaxed font-light">
-            We help Abbotsford, Chilliwack, Hope, and Langley homeowners understand potential savings opportunities through provincial, utility, and municipal programs. This page is informational — eligibility, amounts, and program availability vary and change over time.
+            We help homeowners across the {SERVICE_AREA} understand potential savings opportunities through provincial, utility, and municipal programs. This page is informational — eligibility, amounts, and program availability vary and change over time.
           </p>
           <div className="flex flex-wrap gap-4">
             <Button variant="hero" size="xl" asChild>
@@ -140,7 +141,7 @@ const Rebates = () => (
           <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-4">Common BC Programs</p>
           <h2 className="heading-lg mb-4">Potential Funding Opportunities to Be Aware Of</h2>
           <p className="body-lg max-w-2xl mx-auto">
-            A non-exhaustive overview of provincial, utility, and municipal programs that Fraser Valley homeowners commonly explore for energy-efficient renovations.
+            A non-exhaustive overview of provincial, utility, and municipal programs that homeowners across the {SERVICE_AREA} commonly explore for energy-efficient renovations.
           </p>
         </motion.div>
 

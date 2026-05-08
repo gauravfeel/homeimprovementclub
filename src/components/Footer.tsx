@@ -3,6 +3,7 @@ import logo from "@/assets/hic-logo.png";
 import { ContactInfo } from "@/components/ContactInfo";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ENABLE_CONTRACTOR_MEMBERSHIP } from "@/lib/features";
+import { SERVICE_AREA } from "@/lib/service-area";
 
 const Footer = () => (
   <footer className="bg-foreground text-background">
@@ -14,7 +15,7 @@ const Footer = () => (
             <h3 className="font-display text-xl font-semibold">Home Improvement Club</h3>
           </div>
           <p className="text-background/60 max-w-md leading-relaxed">
-            Premium home renovations serving Abbotsford, Chilliwack, Hope, and Langley. Vetted craftsmanship in kitchens, bathrooms, lighting, tile, HVAC, and exterior transformations.
+            Premium home renovations serving the {SERVICE_AREA} — including Abbotsford, Chilliwack, Hope, Langley, and Metro Vancouver. Vetted craftsmanship in kitchens, bathrooms, lighting, tile, HVAC, and exterior transformations.
           </p>
         </div>
         <div>
@@ -61,7 +62,7 @@ const Footer = () => (
       <div className="border-t border-background/10 pt-8 flex flex-col md:flex-row gap-4 items-center justify-between">
         <div className="flex items-center gap-3">
           <img src={logo} alt="Home Improvement Club" className="h-8 w-auto" />
-          <p className="text-background/40 text-sm">© 2026 Home Improvement Club. Serving the Fraser Valley.</p>
+          <p className="text-background/40 text-sm">© 2026 Home Improvement Club. Serving the {SERVICE_AREA}.</p>
         </div>
         <p className="text-background/40 text-xs">Premium renovations · Vetted professionals · Transparent process</p>
       </div>

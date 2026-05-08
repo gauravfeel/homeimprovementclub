@@ -9,6 +9,7 @@ import ServiceCard from "@/components/ServiceCard";
 import SEO from "@/components/SEO";
 import { SERVICES } from "@/data/services";
 import { TESTIMONIALS } from "@/data/testimonials";
+import { SERVICE_AREA, SERVICE_AREA_BC } from "@/lib/service-area";
 import heroImg from "@/assets/lux-hero.jpg";
 import kitchenImg from "@/assets/lux-kitchen.jpg";
 import bathImg from "@/assets/lux-bathroom.jpg";
@@ -32,6 +33,8 @@ const homepageSchema = {
         { "@type": "City", name: "Chilliwack" },
         { "@type": "City", name: "Hope" },
         { "@type": "City", name: "Langley" },
+        { "@type": "City", name: "Vancouver" },
+        { "@type": "City", name: "Burnaby" },
       ],
       address: {
         "@type": "PostalAddress",
@@ -65,8 +68,8 @@ const Index = () => {
   return (
     <Layout>
       <SEO
-        title="Home Improvement Club | Luxury Home Renovations in Abbotsford, Chilliwack, Hope & Langley BC"
-        description="High-end home renovations across Abbotsford, Chilliwack, Hope, and Langley. Kitchens, bathrooms, HVAC, flooring, and more — vetted craftsmen, project-managed start to finish."
+        title={`Home Improvement Club | Luxury Home Renovations — ${SERVICE_AREA_BC}`}
+        description={`High-end home renovations across the ${SERVICE_AREA}. Kitchens, bathrooms, HVAC, flooring, and more — vetted craftsmen, project-managed start to finish.`}
         canonical="/"
         schema={homepageSchema}
       />
@@ -76,7 +79,7 @@ const Index = () => {
         <div className="absolute inset-0">
           <img
             src={heroImg}
-            alt="Luxury Fraser Valley home renovation by Home Improvement Club"
+            alt={`Luxury ${SERVICE_AREA} home renovation by Home Improvement Club`}
             className="w-full h-full object-cover"
             loading="eager"
             width={1920}
@@ -93,13 +96,13 @@ const Index = () => {
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-background/15 backdrop-blur-md border border-background/20 mb-6">
               <MapPin size={14} className="text-background" />
-              <span className="text-background text-xs font-medium tracking-wide uppercase">Premium Renovations · Fraser Valley, BC</span>
+              <span className="text-background text-xs font-medium tracking-wide uppercase">Premium Renovations · {SERVICE_AREA_BC}</span>
             </div>
             <h1 className="heading-xl text-background mb-6">
               High-End Home Renovations.
             </h1>
             <p className="text-background/85 text-lg md:text-xl max-w-2xl mb-10 leading-relaxed font-light">
-              Serving Abbotsford, Chilliwack, Hope, and Langley — designed and built by vetted craftsmen, project-managed start to finish, and finished to a standard you can feel.
+              Serving the {SERVICE_AREA} — Abbotsford to Metro Vancouver — designed and built by vetted craftsmen, project-managed start to finish, and finished to a standard you can feel.
             </p>
             <div className="flex flex-wrap gap-4 mb-10">
               <Button variant="hero" size="xl" asChild>
@@ -110,7 +113,7 @@ const Index = () => {
               </Button>
             </div>
             <div className="flex flex-wrap items-center gap-6 text-background/80 text-sm">
-              <div className="flex items-center gap-2"><Star size={16} className="fill-background text-background" /><span>4.9/5 from Fraser Valley homeowners</span></div>
+              <div className="flex items-center gap-2"><Star size={16} className="fill-background text-background" /><span>4.9/5 from homeowners across the {SERVICE_AREA}</span></div>
               <div className="flex items-center gap-2"><Shield size={16} /><span>Licensed · Insured · Vetted</span></div>
               <div className="flex items-center gap-2"><CheckCircle2 size={16} /><span>Free in-home consultation</span></div>
             </div>
@@ -122,7 +125,7 @@ const Index = () => {
       <section className="border-y border-border bg-card" aria-label="Trust">
         <div className="max-w-7xl mx-auto px-6 py-10 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           {[
-            { stat: "200+", label: "Fraser Valley homes transformed" },
+            { stat: "200+", label: `${SERVICE_AREA} homes transformed` },
             { stat: "40+", label: "Vetted master craftsmen" },
             { stat: "4.9★", label: "Average member rating" },
             { stat: "100%", label: "Licensed & insured" },
@@ -170,8 +173,8 @@ const Index = () => {
           </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
             {[
-              { img: kitchenImg, tag: "Kitchen", title: "White-oak custom kitchen with waterfall marble island", loc: "Abbotsford, BC", alt: "Custom kitchen renovation in Abbotsford BC Fraser Valley" },
-              { img: bathImg, tag: "Bathroom", title: "Spa ensuite — stone tub, brass fixtures, large-format tile", loc: "Langley, BC", alt: "Spa bathroom renovation in Langley BC Fraser Valley" },
+              { img: kitchenImg, tag: "Kitchen", title: "White-oak custom kitchen with waterfall marble island", loc: "Abbotsford, BC", alt: `Custom kitchen renovation in Abbotsford BC — ${SERVICE_AREA}` },
+              { img: bathImg, tag: "Bathroom", title: "Spa ensuite — stone tub, brass fixtures, large-format tile", loc: "Langley, BC", alt: `Spa bathroom renovation in Langley BC — ${SERVICE_AREA}` },
             ].map((p, i) => (
               <motion.div
                 key={p.title}
@@ -251,8 +254,8 @@ const Index = () => {
         <div className="max-w-7xl mx-auto">
           <motion.div {...fadeUp} className="text-center mb-6">
             <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-4">Client Stories</p>
-            <h2 className="heading-lg mb-3">Trusted by Homeowners Across the Fraser Valley</h2>
-            <p className="text-muted-foreground">Real projects. Real results. From Abbotsford to Hope.</p>
+            <h2 className="heading-lg mb-3">Trusted by Homeowners Across the {SERVICE_AREA}</h2>
+            <p className="text-muted-foreground">Real projects. Real results. From Abbotsford and Chilliwack to Metro Vancouver.</p>
           </motion.div>
 
           <div className="flex flex-wrap justify-center gap-2 mb-12 mt-8">

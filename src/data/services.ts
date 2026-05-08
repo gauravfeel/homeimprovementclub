@@ -5,6 +5,7 @@ import lightImg from "@/assets/lux-lighting.jpg";
 import floorImg from "@/assets/lux-flooring.jpg";
 import hvacImg from "@/assets/lux-hvac.jpg";
 import extImg from "@/assets/lux-exterior.jpg";
+import { SERVICE_AREA } from "@/lib/service-area";
 
 export const SERVICES = [
   {
@@ -18,7 +19,7 @@ export const SERVICES = [
       "Your kitchen is the most-used room in your home — and the single biggest driver of resale value. We design and build kitchens that feel timeless on day one and earn back the investment when it matters.",
     benefits: [
       { t: "Daily comfort", d: "Workflow, light, and storage tuned to how you actually move through the space." },
-      { t: "Long-term value", d: "Premium kitchen renovations consistently return 70–80% at resale in Fraser Valley markets." },
+      { t: "Long-term value", d: `Premium kitchen renovations consistently return 70–80% at resale in ${SERVICE_AREA} markets.` },
       { t: "Effortless entertaining", d: "Open layouts, integrated appliances, and durable surfaces designed for real life." },
       { t: "Forever materials", d: "Quartz, natural stone, solid hardwood, soft-close hardware — built to outlast trends." },
     ],
@@ -150,7 +151,7 @@ export const SERVICES = [
       { t: "Instant curb appeal", d: "A premium exterior repaint or re-clad transforms the entire feel of the home." },
       { t: "Protection", d: "Modern siding and trim systems shed Pacific Northwest rain for 30+ years." },
       { t: "Energy efficiency", d: "Re-side projects often pair with insulation upgrades for major heating savings." },
-      { t: "Property value", d: "Curb appeal directly drives appraisal and resale price in Fraser Valley markets." },
+      { t: "Property value", d: `Curb appeal directly drives appraisal and resale price in ${SERVICE_AREA} markets.` },
     ],
     sub: [
       "Premium exterior repaints",

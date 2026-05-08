@@ -6,6 +6,7 @@ import Layout from "@/components/Layout";
 import CTASection from "@/components/CTASection";
 import SEO from "@/components/SEO";
 import { SERVICES } from "@/data/services";
+import { SERVICE_AREA } from "@/lib/service-area";
 
 const ServiceDetail = () => {
   const { slug } = useParams();
@@ -26,13 +27,15 @@ const ServiceDetail = () => {
       { "@type": "City", name: "Chilliwack" },
       { "@type": "City", name: "Hope" },
       { "@type": "City", name: "Langley" },
+      { "@type": "City", name: "Vancouver" },
+      { "@type": "City", name: "Burnaby" },
     ],
   };
 
   return (
     <Layout>
       <SEO
-        title={`${service.title} in Abbotsford, Chilliwack & Fraser Valley | Home Improvement Club`}
+        title={`${service.title} — ${SERVICE_AREA} | Home Improvement Club`}
         description={service.short}
         canonical={`/services/${service.slug}`}
         schema={schema}
