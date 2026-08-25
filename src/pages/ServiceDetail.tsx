@@ -54,8 +54,8 @@ const ServiceDetail = () => {
             transition={{ duration: 0.8 }}
             className="max-w-3xl"
           >
-            <p className="text-background/70 font-semibold text-xs uppercase tracking-widest mb-4">Premium Renovation Service</p>
-            <h1 className="heading-xl text-background mb-6">{service.hero}</h1>
+            <p className="text-background/70 font-semibold text-xs uppercase tracking-widest mb-4">{service.hero}</p>
+            <h1 className="heading-xl text-background mb-6">{service.title} in {SERVICE_AREA}</h1>
             <p className="text-background/85 text-lg md:text-xl max-w-2xl mb-10 leading-relaxed font-light">
               {service.intro}
             </p>

@@ -9,24 +9,6 @@ import { SERVICE_AREA, SERVICE_AREA_BC } from "@/lib/service-area";
 
 const CITIES = ["All", "Abbotsford", "Chilliwack", "Langley", "Hope"] as const;
 
-const reviewsSchema = {
-  "@context": "https://schema.org",
-  "@graph": TESTIMONIALS.map((t) => ({
-    "@type": "Review",
-    author: { "@type": "Person", name: t.name },
-    reviewBody: t.quote,
-    reviewRating: {
-      "@type": "Rating",
-      ratingValue: "5",
-      bestRating: "5",
-    },
-    itemReviewed: {
-      "@type": "LocalBusiness",
-      name: "Home Improvement Club",
-    },
-  })),
-};
-
 const Testimonials = () => {
   const [filter, setFilter] = useState<string>("All");
   const filtered = filter === "All" ? TESTIMONIALS : TESTIMONIALS.filter((t) => t.city === filter);
@@ -37,7 +19,6 @@ const Testimonials = () => {
         title={`Client Stories | Home Improvement Club — ${SERVICE_AREA_BC}`}
         description={`Real testimonials from homeowners across the ${SERVICE_AREA}. Kitchen, bathroom, HVAC, flooring, and exterior renovations by Home Improvement Club.`}
         canonical="/testimonials"
-        schema={reviewsSchema}
       />
 
       <section id="testimonials" className="section-padding-lg">

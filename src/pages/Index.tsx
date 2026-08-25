@@ -21,44 +21,6 @@ const fadeUp = {
   transition: { duration: 0.7 },
 };
 
-const homepageSchema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "LocalBusiness",
-      name: "Home Improvement Club",
-      url: "https://homeimprovementclub.co",
-      areaServed: [
-        { "@type": "City", name: "Abbotsford" },
-        { "@type": "City", name: "Chilliwack" },
-        { "@type": "City", name: "Hope" },
-        { "@type": "City", name: "Langley" },
-        { "@type": "City", name: "Vancouver" },
-        { "@type": "City", name: "Burnaby" },
-      ],
-      address: {
-        "@type": "PostalAddress",
-        addressRegion: "BC",
-        addressCountry: "CA",
-      },
-    },
-    ...TESTIMONIALS.map((t) => ({
-      "@type": "Review",
-      author: { "@type": "Person", name: t.name },
-      reviewBody: t.quote,
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: "5",
-        bestRating: "5",
-      },
-      itemReviewed: {
-        "@type": "LocalBusiness",
-        name: "Home Improvement Club",
-      },
-    })),
-  ],
-};
-
 const CITIES = ["All", "Abbotsford", "Chilliwack", "Langley", "Hope"] as const;
 
 const Index = () => {
@@ -68,10 +30,9 @@ const Index = () => {
   return (
     <Layout>
       <SEO
-        title={`Home Improvement Club | Luxury Home Renovations — ${SERVICE_AREA_BC}`}
-        description={`High-end home renovations across the ${SERVICE_AREA}. Kitchens, bathrooms, HVAC, flooring, and more — vetted craftsmen, project-managed start to finish.`}
+        title="Home Renovations in Greater Vancouver & Fraser Valley | Home Improvement Club"
+        description="Home renovation services across Greater Vancouver and the Fraser Valley. Explore kitchen, bathroom, flooring, lighting, HVAC and exterior renovation services."
         canonical="/"
-        schema={homepageSchema}
       />
 
       {/* HERO */}
@@ -96,10 +57,10 @@ const Index = () => {
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-background/15 backdrop-blur-md border border-background/20 mb-6">
               <MapPin size={14} className="text-background" />
-              <span className="text-background text-xs font-medium tracking-wide uppercase">Premium Renovations · {SERVICE_AREA_BC}</span>
+              <span className="text-background text-xs font-medium tracking-wide uppercase">Greater Vancouver &amp; Fraser Valley Renovations</span>
             </div>
             <h1 className="heading-xl text-background mb-6">
-              High-End Home Renovations.
+              High-End Home Renovations in Greater Vancouver &amp; the Fraser Valley.
             </h1>
             <p className="text-background/85 text-lg md:text-xl max-w-2xl mb-10 leading-relaxed font-light">
               Serving the {SERVICE_AREA} — Abbotsford to Metro Vancouver — designed and built by vetted craftsmen, project-managed start to finish, and finished to a standard you can feel.
@@ -113,7 +74,6 @@ const Index = () => {
               </Button>
             </div>
             <div className="flex flex-wrap items-center gap-6 text-background/80 text-sm">
-              <div className="flex items-center gap-2"><Star size={16} className="fill-background text-background" /><span>4.9/5 from homeowners across the {SERVICE_AREA}</span></div>
               <div className="flex items-center gap-2"><Shield size={16} /><span>Licensed · Insured · Vetted</span></div>
               <div className="flex items-center gap-2"><CheckCircle2 size={16} /><span>Free in-home consultation</span></div>
             </div>
@@ -125,10 +85,10 @@ const Index = () => {
       <section className="border-y border-border bg-card" aria-label="Trust">
         <div className="max-w-7xl mx-auto px-6 py-10 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           {[
-            { stat: "200+", label: `${SERVICE_AREA} homes transformed` },
-            { stat: "40+", label: "Vetted master craftsmen" },
-            { stat: "4.9★", label: "Average member rating" },
-            { stat: "100%", label: "Licensed & insured" },
+            { stat: "01", label: "Consultation and project planning" },
+            { stat: "02", label: "Specialist renovation services" },
+            { stat: "03", label: "Greater Vancouver & Fraser Valley" },
+            { stat: "04", label: "Clear next steps for your project" },
           ].map((s) => (
             <div key={s.label}>
               <p className="font-display text-3xl md:text-4xl font-bold text-primary mb-1">{s.stat}</p>

@@ -24,7 +24,7 @@ const Services = () => (
       <div className="max-w-4xl mx-auto text-center mb-16">
         <motion.div {...fadeUp}>
           <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-4">Our Services</p>
-          <h1 className="heading-xl mb-6">Premium Renovations, Curated.</h1>
+          <h1 className="heading-xl mb-6">Home Renovation Services in {SERVICE_AREA}</h1>
           <p className="body-lg max-w-2xl mx-auto">
             Six specialties. One standard. Each service led by craftsmen who do nothing else — so the result feels effortless and looks effortless to live in.
           </p>
