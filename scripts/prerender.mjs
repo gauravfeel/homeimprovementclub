@@ -2,7 +2,7 @@ import { spawnSync } from "node:child_process";
 import { createReadStream, existsSync, promises as fs, statSync } from "node:fs";
 import { createServer } from "node:http";
 import { createRequire } from "node:module";
-import { extname, join, normalize, resolve, sep } from "node:path";
+import { dirname, extname, join, normalize, resolve, sep } from "node:path";
 import { chromium } from "playwright";
 
 const DIST = resolve("dist");
@@ -64,24 +64,26 @@ async function browserExecutable() {
 }
 
 function installChromium() {
-  const playwrightCli = createRequire(import.meta.url).resolve("playwright/cli.js");
-  console.log("Playwright Chromium not found; installing...");
-  const result = spawnSync(process.execPath, [playwrightCli, "install", "chromium"], {
-    stdio: "inherit",
-    env: { ...process.env, PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "" },
-  });
-  return result.status === 0;
+  try {
+    const playwrightRoot = dirname(createRequire(import.meta.url).resolve("playwright/package.json"));
+    const playwrightCli = join(playwrightRoot, "cli.js");
+    console.log("Playwright Chromium not found; installing...");
+    const result = spawnSync(process.execPath, [playwrightCli, "install", "chromium"], {
+      stdio: "inherit",
+      env: { ...process.env, PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "" },
+    });
+    return result.status === 0;
+  } catch (error) {
+    console.warn(`Could not install Playwright Chromium (${error.message}). Skipping prerender.`);
+    return false;
+  }
 }
 
 async function launchBrowser() {
-  let executablePath = await browserExecutable();
-  if (!executablePath && !installChromium()) {
-    console.warn("Could not install Playwright Chromium. Skipping prerender.");
-    return undefined;
-  }
-  executablePath = await browserExecutable();
-
   try {
+    let executablePath = await browserExecutable();
+    if (!executablePath && !installChromium()) return undefined;
+    executablePath = await browserExecutable();
     return await chromium.launch({ headless: true, ...(executablePath ? { executablePath } : {}) });
   } catch (error) {
     console.warn(`Could not launch Chromium (${error.message}). Skipping prerender.`);
