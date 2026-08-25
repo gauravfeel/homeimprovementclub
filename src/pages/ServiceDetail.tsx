@@ -12,6 +12,21 @@ const ServiceDetail = () => {
   const { slug } = useParams();
   const service = SERVICES.find((s) => s.slug === slug);
   if (!service) return <Navigate to="/services" replace />;
+  const relatedServices = SERVICES.filter((item) => item.slug !== service.slug).slice(0, 3);
+  const faqItems = [
+    {
+      question: `What can a ${service.title.toLowerCase()} project include?`,
+      answer: `Scope is tailored to your home and goals. Common elements include ${service.sub.slice(0, 3).join(", ")}, plus the planning needed to coordinate the work.`,
+    },
+    {
+      question: "When should we make material and layout decisions?",
+      answer: "Make key decisions during planning, before work begins where possible. This gives the project a clearer scope and helps avoid last-minute changes during construction.",
+    },
+    {
+      question: "Are permits required?",
+      answer: "Permit requirements depend on the project scope and municipality. We review permit considerations during planning so the right approvals can be confirmed before work is scheduled.",
+    },
+  ];
 
   const schema = {
     "@context": "https://schema.org",
@@ -135,6 +150,40 @@ const ServiceDetail = () => {
               <p className="text-muted-foreground text-sm">{b.d}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      <section className="section-padding-lg bg-card" aria-label={`${service.title} frequently asked questions`}>
+        <div className="max-w-4xl mx-auto">
+          <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-4">Planning Questions</p>
+          <h2 className="heading-lg mb-10">{service.title} FAQs</h2>
+          <div className="space-y-4">
+            {faqItems.map((faq) => (
+              <article key={faq.question} className="bg-background border border-border rounded-xl p-6">
+                <h3 className="font-display text-lg font-semibold mb-2">{faq.question}</h3>
+                <p className="text-muted-foreground leading-relaxed">{faq.answer}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section-padding" aria-label="Related renovation services">
+        <div className="max-w-6xl mx-auto">
+          <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-4">Related Services</p>
+          <h2 className="heading-lg mb-8">Planning more than one upgrade?</h2>
+          <div className="grid md:grid-cols-3 gap-5">
+            {relatedServices.map((related) => (
+              <Link
+                key={related.slug}
+                to={`/services/${related.slug}`}
+                className="group bg-card border border-border rounded-xl p-6 hover:border-primary/40 transition-colors"
+              >
+                <h3 className="font-display text-lg font-semibold mb-2 group-hover:text-primary transition-colors">{related.title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">{related.short}</p>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
