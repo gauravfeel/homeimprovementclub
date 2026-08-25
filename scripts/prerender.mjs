@@ -1,5 +1,7 @@
+import { spawnSync } from "node:child_process";
 import { createReadStream, existsSync, promises as fs, statSync } from "node:fs";
 import { createServer } from "node:http";
+import { createRequire } from "node:module";
 import { extname, join, normalize, resolve, sep } from "node:path";
 import { chromium } from "playwright";
 
@@ -61,9 +63,39 @@ async function browserExecutable() {
   return undefined;
 }
 
+function installChromium() {
+  const playwrightCli = createRequire(import.meta.url).resolve("playwright/cli.js");
+  console.log("Playwright Chromium not found; installing...");
+  const result = spawnSync(process.execPath, [playwrightCli, "install", "chromium"], {
+    stdio: "inherit",
+    env: { ...process.env, PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: "" },
+  });
+  return result.status === 0;
+}
+
+async function launchBrowser() {
+  let executablePath = await browserExecutable();
+  if (!executablePath && !installChromium()) {
+    console.warn("Could not install Playwright Chromium. Skipping prerender.");
+    return undefined;
+  }
+  executablePath = await browserExecutable();
+
+  try {
+    return await chromium.launch({ headless: true, ...(executablePath ? { executablePath } : {}) });
+  } catch (error) {
+    console.warn(`Could not launch Chromium (${error.message}). Skipping prerender.`);
+    return undefined;
+  }
+}
+
 const { server, origin } = await startServer();
-const executablePath = await browserExecutable();
-const browser = await chromium.launch({ headless: true, ...(executablePath ? { executablePath } : {}) });
+const browser = await launchBrowser();
+
+if (!browser) {
+  await new Promise((resolveServer) => server.close(resolveServer));
+  process.exit(0);
+}
 
 try {
   const page = await browser.newPage();
