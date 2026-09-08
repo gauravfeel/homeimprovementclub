@@ -1,6 +1,7 @@
 import { Phone } from "lucide-react";
 import { CONTACT_PHONE_DISPLAY, CONTACT_PHONE_E164 } from "@/lib/contact";
 import { cn } from "@/lib/utils";
+import { trackEvent } from "@/lib/analytics";
 
 export type ContactInfoProps = {
   className?: string;
@@ -35,6 +36,7 @@ export function ContactInfo({
       )}
       <a
         href={telHref}
+        onClick={() => trackEvent({ event: "phone_click", lead_type: "phone", link_location: "contact_info" })}
         className={cn(
           "tabular-nums tracking-tight font-medium underline-offset-2 hover:underline transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 rounded-sm",
           compact ? "text-xs sm:text-sm" : "text-sm",

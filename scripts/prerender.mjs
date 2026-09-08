@@ -9,6 +9,7 @@ const DIST = resolve("dist");
 const HOST = "127.0.0.1";
 const ROUTES = [
   "/", "/about", "/contact", "/how-it-works", "/services",
+  "/areas-we-serve",
   "/services/kitchen-cabinets", "/services/bathrooms", "/services/lighting",
   "/services/flooring", "/services/hvac-electrical", "/services/exterior",
   "/testimonials", "/rebates",

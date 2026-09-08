@@ -10,6 +10,7 @@ import { ENABLE_CONTRACTOR_MEMBERSHIP } from "@/lib/features";
 const Index = lazy(() => import("./pages/Index"));
 const HowItWorks = lazy(() => import("./pages/HowItWorks"));
 const Services = lazy(() => import("./pages/Services"));
+const AreasWeServe = lazy(() => import("./pages/AreasWeServe"));
 const About = lazy(() => import("./pages/About"));
 const Contractors = lazy(() => import("./pages/Contractors"));
 const Contact = lazy(() => import("./pages/Contact"));
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/how-it-works" element={<HowItWorks />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/areas-we-serve" element={<AreasWeServe />} />
           <Route path="/services/:slug" element={<ServiceDetail />} />
           <Route path="/about" element={<About />} />
           <Route

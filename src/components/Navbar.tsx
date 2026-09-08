@@ -9,6 +9,7 @@ import { ContactInfo } from "@/components/ContactInfo";
 const navLinks = [
   { label: "How It Works", path: "/how-it-works" },
   { label: "Services", path: "/services" },
+  { label: "Areas We Serve", path: "/areas-we-serve" },
   { label: "BC Rebates", path: "/rebates" },
   { label: "About", path: "/about" },
 ];

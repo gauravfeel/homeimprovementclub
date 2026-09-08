@@ -10,6 +10,7 @@ import Layout from "@/components/Layout";
 import SEO from "@/components/SEO";
 import { cn } from "@/lib/utils";
 import { SERVICE_AREA, SERVICE_AREA_BC } from "@/lib/service-area";
+import { trackEvent } from "@/lib/analytics";
 
 /** Formspree form id (dashboard → Integration → form endpoint). Override with VITE_FORMSPREE_ID in .env */
 const FORM_ID = import.meta.env.VITE_FORMSPREE_ID || "xlgaonqb";
@@ -38,8 +39,17 @@ const Contact = () => {
   const { toast } = useToast();
   const [state, handleSubmit, reset] = useForm<FieldValues>(FORM_ID);
   const wasSubmitting = useRef(false);
+  const conversionTracked = useRef(false);
 
   useEffect(() => {
+    if (state.succeeded && !conversionTracked.current) {
+      conversionTracked.current = true;
+      trackEvent({
+        event: "generate_lead",
+        lead_type: "consultation_form",
+        form_location: "contact_page",
+      });
+    }
     if (wasSubmitting.current && !state.submitting && !state.succeeded && state.errors) {
       toast({
         title: "Something went wrong",
@@ -82,7 +92,7 @@ const Contact = () => {
                   <p className="text-muted-foreground">
                     We'll be in touch within 24 hours with your personalized plan.
                   </p>
-                  <Button type="button" variant="outline" onClick={() => reset()}>
+                  <Button type="button" variant="outline" onClick={() => { conversionTracked.current = false; reset(); }}>
                     Send another message
                   </Button>
                 </div>

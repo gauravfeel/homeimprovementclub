@@ -1,5 +1,6 @@
 import { getWhatsAppChatUrl } from "@/lib/contact";
 import { cn } from "@/lib/utils";
+import { trackEvent } from "@/lib/analytics";
 
 function WhatsAppGlyph({ className }: { className?: string }) {
   return (
@@ -27,6 +28,7 @@ export function WhatsAppButton({ variant = "floating", className }: WhatsAppButt
     return (
       <a
         href={href}
+        onClick={() => trackEvent({ event: "whatsapp_click", lead_type: "whatsapp", link_location: "floating_button" })}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat on WhatsApp"
@@ -48,6 +50,7 @@ export function WhatsAppButton({ variant = "floating", className }: WhatsAppButt
   return (
     <a
       href={href}
+      onClick={() => trackEvent({ event: "whatsapp_click", lead_type: "whatsapp", link_location: "footer" })}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import logo from "@/assets/hic-logo.png";
+import { trackEvent } from "@/lib/analytics";
 
 // Sign up at formspree.io, create a form, and replace YOUR_FORM_ID below
 const FORMSPREE_ID = "mgorpzpy";
@@ -75,6 +76,11 @@ const LeadCapturePopup = () => {
         }),
       });
       if (res.ok) {
+        trackEvent({
+          event: "generate_lead",
+          lead_type: "consultation_form",
+          form_location: "lead_popup",
+        });
         setSubmitted(true);
         localStorage.setItem(STORAGE_KEY, "1");
       } else {
