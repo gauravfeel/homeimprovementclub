@@ -10,7 +10,10 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "test:e2e": "node scripts/redesign-qa.mjs",
+    "test:production": "node scripts/production-audit.mjs",
+    "capture:design": "node scripts/design-capture.mjs"
   },
   "dependencies": {
     "@formspree/react": "^3.0.0",

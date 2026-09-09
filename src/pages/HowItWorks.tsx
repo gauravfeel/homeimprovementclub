@@ -1,100 +1,115 @@
-import { motion } from "framer-motion";
-import { ClipboardList, Lightbulb, Hammer, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
-import CTASection from "@/components/CTASection";
 import SEO from "@/components/SEO";
-
-const fadeUp = {
-  initial: { opacity: 0, y: 30 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { duration: 0.7 },
-};
-
-const steps = [
+const stages = [
   {
-    icon: ClipboardList,
-    step: "01",
-    title: "Complimentary Consultation",
-    desc: "We meet at your home, walk the space, and listen. No sales pitch — just a conversation about what you want and what's possible.",
+    title: "Describe the change.",
+    body: "Start with a free consultation. Talk about the existing space, the work you have in mind and the things that matter most to your household.",
+    input:
+      "Your location, priorities and any photos or ideas you already have.",
+    decision: "The areas of the home and the scope to explore.",
   },
   {
-    icon: Lightbulb,
-    step: "02",
-    title: "Design & Transparent Plan",
-    desc: "We deliver a clear renovation plan: scope of work, material selections, defined timeline, and a transparent investment range.",
+    title: "Work through the details.",
+    body: "Consider layout, materials, budget and proposed timing together. Discuss the work needed behind the finishes and the decisions required before it can begin.",
+    input: "Your preferences, budget context and household constraints.",
+    decision:
+      "An agreed scope, selections and a proposed sequence for the work.",
   },
   {
-    icon: Hammer,
-    step: "03",
-    title: "Vetted Craftsmen Build",
-    desc: "Matched to specialists in your exact project. Licensed, insured, accountable to us, and managed by us — not left to figure it out themselves.",
+    title: "Coordinate the renovation.",
+    body: "The agreed plan moves into the home. Confirm access arrangements, responsibilities and how questions or changes will be handled during the work.",
+    input:
+      "Access to the agreed work areas and decisions when they are needed.",
+    decision: "How the work is coordinated and how changes are discussed.",
   },
   {
-    icon: Heart,
-    step: "04",
-    title: "Final Walkthrough & Care",
-    desc: "Weekly updates throughout. A detailed final walkthrough. We stand behind the work — the project is ours until you love it.",
+    title: "Review the finished work.",
+    body: "Walk through the completed work together. Discuss any remaining items and the care information relevant to the installed materials and equipment.",
+    input: "Your questions about the completed space.",
+    decision: "Remaining items and any relevant handover information.",
   },
 ];
-
-const HowItWorks = () => (
-  <Layout>
-    <SEO
-      title="How It Works | Premium Renovation Process — Home Improvement Club"
-      description="Our four-step renovation process: consultation, design, vetted build, and final care. Transparent pricing, defined timelines, no surprises."
-      canonical="/how-it-works"
-    />
-    <section className="section-padding-lg">
-      <div className="max-w-4xl mx-auto text-center mb-20">
-        <motion.div {...fadeUp}>
-          <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-4">The Process</p>
-          <h1 className="heading-xl mb-6">Premium, Without the Pain.</h1>
-          <p className="body-lg max-w-2xl mx-auto">
-            We've taken everything that makes renovations stressful — vague pricing, missed timelines, vanishing crews — and built a process that removes all of it.
-          </p>
-        </motion.div>
-      </div>
-
-      <div className="max-w-3xl mx-auto space-y-16">
-        {steps.map((s, i) => (
-          <motion.div
-            key={s.step}
-            initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="flex gap-6 md:gap-10 items-start"
-          >
-            <div className="flex-shrink-0 w-16 h-16 rounded-2xl bg-sage-light flex items-center justify-center">
-              <s.icon size={28} className="text-primary" />
-            </div>
-            <div>
-              <span className="text-primary font-semibold text-sm uppercase tracking-widest">Step {s.step}</span>
-              <h3 className="font-display text-2xl font-semibold mt-2 mb-3">{s.title}</h3>
-              <p className="body-md">{s.desc}</p>
-            </div>
-          </motion.div>
-        ))}
-      </div>
-    </section>
-
-    <section className="section-padding bg-card text-center">
-      <motion.div {...fadeUp}>
-        <h2 className="heading-md mb-4">Transparent. End to End.</h2>
-        <p className="body-lg max-w-xl mx-auto mb-8">
-          The on-site consultation is complimentary. The plan we deliver is yours to keep — no obligation.
+export default function HowItWorks() {
+  return (
+    <Layout>
+      <SEO
+        title="Planning Your Renovation | HIC Process"
+        description="Understand HIC’s renovation process, the decisions to discuss and what to bring to your free consultation."
+        canonical="/how-it-works"
+      />
+      <section className="editorial-section process-opening">
+        <p className="eyebrow">From enquiry to walkthrough</p>
+        <h1>
+          A renovation involves
+          <br />
+          <em>more than the work.</em>
+        </h1>
+        <p>
+          There are decisions about your home, your time and how you will live
+          around the project. Here is where those conversations fit.
         </p>
-        <Button variant="hero" size="xl" asChild>
-          <Link to="/contact">Book My Consultation</Link>
-        </Button>
-      </motion.div>
-    </section>
-
-    <CTASection />
-  </Layout>
-);
-
-export default HowItWorks;
+      </section>
+      <section
+        className="editorial-section detailed-timeline"
+        aria-label="Renovation stages"
+      >
+        {stages.map((s, i) => (
+          <article key={s.title}>
+            <div className="timeline-number">0{i + 1}</div>
+            <div>
+              <h2>{s.title}</h2>
+              <p>{s.body}</p>
+              <dl>
+                <div>
+                  <dt>Your part</dt>
+                  <dd>{s.input}</dd>
+                </div>
+                <div>
+                  <dt>Discuss together</dt>
+                  <dd>{s.decision}</dd>
+                </div>
+              </dl>
+            </div>
+          </article>
+        ))}
+      </section>
+      <section className="consultation-prep">
+        <div className="editorial-section">
+          <div>
+            <p className="eyebrow">Before we talk</p>
+            <h2>
+              No finished design
+              <br />
+              <em>required.</em>
+            </h2>
+            <p>
+              A few notes are enough to start. Bring what you know, and use the
+              consultation to discuss the rest.
+            </p>
+            <Link className="solid-link" to="/contact">
+              Arrange a free consultation ↗
+            </Link>
+          </div>
+          <ul>
+            <li>
+              <span>01</span>Your city and the rooms involved
+            </li>
+            <li>
+              <span>02</span>What currently gets in the way
+            </li>
+            <li>
+              <span>03</span>What you would like to keep
+            </li>
+            <li>
+              <span>04</span>Budget and timing, if you know them
+            </li>
+            <li>
+              <span>05</span>Photos, measurements or inspiration you have
+            </li>
+          </ul>
+        </div>
+      </section>
+    </Layout>
+  );
+}

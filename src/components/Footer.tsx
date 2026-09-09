@@ -1,74 +1,52 @@
 import { Link } from "react-router-dom";
-import logo from "@/assets/hic-logo.png";
+import logo from "@/assets/hic-logo-small.png";
 import { ContactInfo } from "@/components/ContactInfo";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
-import { ENABLE_CONTRACTOR_MEMBERSHIP } from "@/lib/features";
-import { SERVICE_AREA } from "@/lib/service-area";
-
-const Footer = () => (
-  <footer className="bg-foreground text-background">
-    <div className="max-w-7xl mx-auto section-padding">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
-        <div className="lg:col-span-2">
-          <div className="flex items-center gap-3 mb-5">
-            <img src={logo} alt="Home Improvement Club" className="h-12 w-auto " />
-            <h3 className="font-display text-xl font-semibold">Home Improvement Club</h3>
-          </div>
-          <p className="text-background/60 max-w-md leading-relaxed">
-            Premium home renovations serving the {SERVICE_AREA} — including Abbotsford, Chilliwack, Hope, Langley, and Metro Vancouver. Vetted craftsmanship in kitchens, bathrooms, lighting, tile, HVAC, and exterior transformations.
-          </p>
-        </div>
+import { SERVICES } from "@/data/services";
+export default function Footer() {
+  return (
+    <footer className="site-footer">
+      <div className="footer-main">
         <div>
-          <h4 className="font-sans text-sm font-semibold uppercase tracking-widest mb-4 text-background/40">Services</h4>
-          <div className="flex flex-col gap-3">
-            {[
-              { label: "Kitchen & Cabinets", path: "/services/kitchen-cabinets" },
-              { label: "Bathrooms", path: "/services/bathrooms" },
-              { label: "Lighting", path: "/services/lighting" },
-              { label: "Tile & Flooring", path: "/services/flooring" },
-              { label: "HVAC & Electrical", path: "/services/hvac-electrical" },
-              { label: "Exterior", path: "/services/exterior" },
-            ].map((link) => (
-              <Link key={link.path} to={link.path} className="text-background/60 hover:text-background transition-colors text-sm">
-                {link.label}
-              </Link>
-            ))}
-          </div>
-        </div>
-        <div>
-          <h4 className="font-sans text-sm font-semibold uppercase tracking-widest mb-4 text-background/40">Company</h4>
-          <div className="flex flex-col gap-3">
-            <Link to="/how-it-works" className="text-background/60 hover:text-background transition-colors text-sm">How It Works</Link>
-            <Link to="/about" className="text-background/60 hover:text-background transition-colors text-sm">About</Link>
-            <Link to="/areas-we-serve" className="text-background/60 hover:text-background transition-colors text-sm">Areas We Serve</Link>
-            <Link to="/rebates" className="text-background/60 hover:text-background transition-colors text-sm">BC Rebates</Link>
-            <Link to="/testimonials" className="text-background/60 hover:text-background transition-colors text-sm">Testimonials</Link>
-            <Link to="/contact" className="text-background/60 hover:text-background transition-colors text-sm">Book Consultation</Link>
-            {ENABLE_CONTRACTOR_MEMBERSHIP && (
-              <Link to="/contractors" className="text-background/60 hover:text-background transition-colors text-sm">For Contractors</Link>
-            )}
-          </div>
-        </div>
-        <div>
-          <h4 className="font-sans text-sm font-semibold uppercase tracking-widest mb-4 text-background/40">Contact</h4>
-          <div className="flex flex-col gap-4 items-start">
-            <ContactInfo
-              linkClassName="text-background/90 hover:text-background"
-              iconClassName="text-primary"
+          <Link className="brand" to="/">
+            <img
+              src={logo}
+              alt="Home Improvement Club"
+              width="48"
+              height="48"
             />
-            <WhatsAppButton variant="footer" className="w-full sm:w-auto justify-center" />
-          </div>
+            <span>Home Improvement Club</span>
+          </Link>
+          <p>
+            Thoughtful renovations.
+            <br />
+            Greater Vancouver, British Columbia.
+          </p>
+          <ContactInfo />
+          <WhatsAppButton variant="footer" />
         </div>
+        <nav aria-label="Footer services">
+          <p className="eyebrow">Your home</p>
+          {SERVICES.map((s) => (
+            <Link key={s.slug} to={`/services/${s.slug}`}>
+              {s.label}
+            </Link>
+          ))}
+        </nav>
+        <nav aria-label="Footer company">
+          <p className="eyebrow">The club</p>
+          <Link to="/about">About HIC</Link>
+          <Link to="/how-it-works">Our process</Link>
+          <Link to="/areas-we-serve">Service area</Link>
+          <Link to="/rebates">BC rebate resources</Link>
+          <Link to="/testimonials">Client stories</Link>
+          <Link to="/contact">Contact</Link>
+        </nav>
       </div>
-      <div className="border-t border-background/10 pt-8 flex flex-col md:flex-row gap-4 items-center justify-between">
-        <div className="flex items-center gap-3">
-          <img src={logo} alt="Home Improvement Club" className="h-8 w-auto" />
-          <p className="text-background/40 text-sm">© 2026 Home Improvement Club. Serving the {SERVICE_AREA}.</p>
-        </div>
-        <p className="text-background/40 text-xs">Premium renovations · Vetted professionals · Transparent process</p>
+      <div className="footer-bottom">
+        <span>© {new Date().getFullYear()} Home Improvement Club</span>
+        <span>Spaces for the life you live.</span>
       </div>
-    </div>
-  </footer>
-);
-
-export default Footer;
+    </footer>
+  );
+}

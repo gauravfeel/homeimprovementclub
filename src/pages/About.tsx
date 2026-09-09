@@ -1,89 +1,131 @@
-import { motion } from "framer-motion";
-import { Target, Award, Users } from "lucide-react";
+import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
-import CTASection from "@/components/CTASection";
 import SEO from "@/components/SEO";
-import { SERVICE_AREA, SERVICE_AREA_BC } from "@/lib/service-area";
-
-const NETWORK_DESC = `A curated bench of craftsmen across the ${SERVICE_AREA} — kitchen specialists, tile masters, lighting designers — vetted, insured, and accountable to us.`;
-
-const fadeUp = {
-  initial: { opacity: 0, y: 30 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { duration: 0.7 },
-};
-
-const About = () => (
-  <Layout>
-    <SEO
-      title={`About | Home Improvement Club — Premium Renovations — ${SERVICE_AREA_BC}`}
-      description={`Home Improvement Club delivers high-end home renovations across the ${SERVICE_AREA}. Vetted craftsmen, transparent process, premium materials, and accountable delivery.`}
-      canonical="/about"
-    />
-    <section className="section-padding-lg">
-      <div className="max-w-4xl mx-auto text-center mb-20">
-        <motion.div {...fadeUp}>
-          <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-4">About Us</p>
-          <h1 className="heading-xl mb-6">A Different Standard for Homeowners Across the {SERVICE_AREA}.</h1>
-          <p className="body-lg max-w-2xl mx-auto">
-            Home Improvement Club exists because premium renovations shouldn't feel like a gamble. We curate craftsmen, manage projects end-to-end, and stand behind every result.
+import { ServiceImage } from "@/components/ServicePrimitives";
+import Reveal from "@/components/Reveal";
+import interior from "@/assets/lux-lighting.jpg";
+export default function About() {
+  return (
+    <Layout>
+      <SEO
+        title="About Home Improvement Club | Greater Vancouver Renovations"
+        description="Home Improvement Club brings kitchen, bathroom and home renovation services together for Greater Vancouver homeowners. Learn about HIC’s focus."
+        canonical="/about"
+      />
+      <section className="editorial-section about-opening">
+        <p className="eyebrow">About Home Improvement Club</p>
+        <Reveal variant="heading">
+          <h1>
+            A home is personal.
+            <br />
+            <em>So is the starting point.</em>
+          </h1>
+        </Reveal>
+        <Reveal variant="copy" className="about-lead">
+          <span className="editorial-signature">HIC / Greater Vancouver</span>
+          <p>
+            Home Improvement Club is a home-renovation business serving Greater
+            Vancouver. Our focus is the home you already have: the rooms you use
+            every day, the details that no longer work and the changes worth
+            thinking through.
           </p>
-        </motion.div>
-      </div>
-    </section>
-
-    <section className="section-padding-lg bg-card">
-      <div className="max-w-5xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-          {[
-            { icon: Target, title: "Our Mission", desc: "To deliver high-end home renovations that homeowners can trust on day one and still love a decade later." },
-            { icon: Award, title: "Our Standard", desc: "Hotel-grade materials. Master-level craftsmanship. Transparent communication. No builder-grade shortcuts, ever." },
-            { icon: Users, title: "Our Network", desc: NETWORK_DESC },
-          ].map((item, i) => (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.15 }}
-              className="text-center"
-            >
-              <div className="w-14 h-14 rounded-2xl bg-sage-light flex items-center justify-center mx-auto mb-5">
-                <item.icon size={26} className="text-primary" />
-              </div>
-              <h3 className="font-display text-xl font-semibold mb-3">{item.title}</h3>
-              <p className="body-md">{item.desc}</p>
-            </motion.div>
-          ))}
+        </Reveal>
+      </section>
+      <section className="about-editorial">
+        <Reveal variant="clip">
+          <ServiceImage
+            src={interior}
+            alt="Interior design inspiration with timber, natural stone and considered lighting"
+            caption="A home considered beyond a single room"
+            eager
+          />
+        </Reveal>
+        <div>
+          <p className="eyebrow">The work we focus on</p>
+          <h2>
+            Separate decisions.
+            <br />
+            <em>One home.</em>
+          </h2>
+          <p>
+            A new kitchen affects the lighting around it. A bathroom renovation
+            raises questions about tile, ventilation and storage. Exterior
+            changes can connect to the way you use your outdoor space.
+          </p>
+          <p>
+            HIC brings these renovation services together. The starting point is
+            a conversation about what you need from the space, followed by the
+            scope and decisions involved in making those changes.
+          </p>
+          <Link className="text-link" to="/services">
+            See the work we offer ↗
+          </Link>
         </div>
-      </div>
-    </section>
-
-    <section className="section-padding-lg">
-      <div className="max-w-3xl mx-auto">
-        <motion.div {...fadeUp}>
-          <h2 className="heading-lg text-center mb-10">Our Story</h2>
-          <div className="space-y-6 body-lg">
-            <p>
-              Home Improvement Club was founded on a simple frustration: homeowners across the {SERVICE_AREA} investing in premium renovations were too often handed builder-grade results, vague timelines, and crews that vanished after the first cheque.
-            </p>
-            <p>
-              We saw what was missing — not more contractors, but a higher standard of curation, project management, and accountability. So we built it. We assembled a vetted bench of the region's best kitchen specialists, tile masters, lighting designers, and exterior craftsmen across the {SERVICE_AREA}, and we project-manage every job ourselves.
-            </p>
-            <p>
-              Today we deliver high-end kitchens, bathrooms, lighting, tile, HVAC, and exterior renovations across the {SERVICE_AREA}. Every project is led by craftsmen whose careers are built on this exact work, finished with hotel-grade materials, and stood behind by us — long after the keys are handed back.
-            </p>
-            <p>
-              That's the difference. And once you've seen it, you understand why our clients refuse to renovate any other way.
-            </p>
-          </div>
-        </motion.div>
-      </div>
-    </section>
-
-    <CTASection />
-  </Layout>
-);
-
-export default About;
+      </section>
+      <section className="editorial-section about-perspective">
+        <aside>
+          <p className="eyebrow">A useful conversation</p>
+          <span className="large-editorial-mark" aria-hidden="true">
+            “
+          </span>
+        </aside>
+        <div>
+          <h2>
+            Tell us what is not working.
+            <br />
+            <em>And what you would like to keep.</em>
+          </h2>
+          <p>
+            You do not need to arrive with every finish selected. A clear
+            account of daily life in your home—where it feels cramped, what you
+            cannot store, which rooms you avoid—is a useful brief.
+          </p>
+          <p>
+            From there, discuss your priorities, budget and preferred timing.
+            The right scope starts with understanding the existing home, rather
+            than assuming every part of it needs to change.
+          </p>
+        </div>
+      </section>
+      <section className="editorial-section about-facts">
+        <div>
+          <p className="eyebrow">At a glance</p>
+          <dl>
+            <div>
+              <dt>Our work</dt>
+              <dd>
+                Kitchens, bathrooms, lighting, tile and flooring, HVAC and
+                electrical upgrades, and exteriors.
+              </dd>
+            </div>
+            <div>
+              <dt>Our area</dt>
+              <dd>
+                Greater Vancouver, including the North Shore, Burnaby, New
+                Westminster, Coquitlam, Richmond and Surrey.
+              </dd>
+            </div>
+            <div>
+              <dt>Your starting point</dt>
+              <dd>
+                A free renovation consultation about your home and the work you
+                are considering.
+              </dd>
+            </div>
+          </dl>
+        </div>
+        <div>
+          <h2>
+            Let’s start
+            <br />
+            <em>with your home.</em>
+          </h2>
+          <p>Tell us where you live and what you would like to change.</p>
+          <Link className="solid-link" to="/contact">
+            Talk to HIC ↗
+          </Link>
+        </div>
+      </section>
+    </Layout>
+  );
+}

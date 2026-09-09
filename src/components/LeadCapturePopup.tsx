@@ -3,10 +3,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import logo from "@/assets/hic-logo.png";
+import logo from "@/assets/hic-logo-small.png";
 import { trackEvent } from "@/lib/analytics";
 
-// Sign up at formspree.io, create a form, and replace YOUR_FORM_ID below
 const FORMSPREE_ID = "mgorpzpy";
 
 const STORAGE_KEY = "hic_lead_popup_dismissed";
@@ -44,9 +43,9 @@ const LeadCapturePopup = () => {
   });
 
   useEffect(() => {
-    if (localStorage.getItem(STORAGE_KEY)) return;
-    const timer = setTimeout(() => setOpen(true), 30000);
-    return () => clearTimeout(timer);
+    const show = () => setOpen(true);
+    window.addEventListener("hic:open-enquiry", show);
+    return () => window.removeEventListener("hic:open-enquiry", show);
   }, []);
 
   const handleDismiss = () => {
@@ -62,7 +61,7 @@ const LeadCapturePopup = () => {
     }
     setSubmitting(true);
     try {
-      const res = await fetch(`https://formspree.io/f/mgorpzpy`, {
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
@@ -99,25 +98,26 @@ const LeadCapturePopup = () => {
         {submitted ? (
           <div className="text-center py-6 space-y-4">
             <img src={logo} alt="Home Improvement Club" className="h-10 w-auto mx-auto" />
-            <h2 className="text-xl font-display font-semibold">Thank you!</h2>
-            <p className="text-muted-foreground text-sm">We'll be in touch within 24 hours with your personalized renovation plan.</p>
+            <h2 className="text-xl font-display font-semibold">Your enquiry is on its way.</h2>
+            <p className="text-muted-foreground text-sm" role="status">We’ll be in touch to discuss your renovation.</p>
             <Button variant="hero" onClick={() => setOpen(false)} className="w-full">Close</Button>
           </div>
         ) : (
           <>
             <DialogHeader className="text-center items-center">
               <img src={logo} alt="Home Improvement Club" className="h-9 w-auto mb-2" />
-              <DialogTitle className="text-xl font-display">Get Your Free Renovation Plan</DialogTitle>
+              <DialogTitle className="text-xl font-display">A quick introduction</DialogTitle>
               <DialogDescription className="text-sm">
-                Tell us your vision — we'll design a personalized upgrade plan at no cost.
+                Tell us a little about yourself to start a free renovation consultation.
               </DialogDescription>
             </DialogHeader>
 
             <form onSubmit={handleSubmit} className="space-y-4 mt-2">
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="text-xs font-medium mb-1 block">First Name *</label>
+                  <label htmlFor="popup-first-name" className="text-xs font-medium mb-1 block">First Name *</label>
                   <Input
+                    id="popup-first-name" required autoComplete="given-name"
                     value={form.firstName}
                     onChange={(e) => setForm({ ...form, firstName: e.target.value })}
                     placeholder="John"
@@ -125,8 +125,9 @@ const LeadCapturePopup = () => {
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-medium mb-1 block">Last Name</label>
+                  <label htmlFor="popup-last-name" className="text-xs font-medium mb-1 block">Last Name</label>
                   <Input
+                    id="popup-last-name" autoComplete="family-name"
                     value={form.lastName}
                     onChange={(e) => setForm({ ...form, lastName: e.target.value })}
                     placeholder="Smith"
@@ -135,8 +136,9 @@ const LeadCapturePopup = () => {
                 </div>
               </div>
               <div>
-                <label className="text-xs font-medium mb-1 block">Phone</label>
+                <label htmlFor="popup-phone" className="text-xs font-medium mb-1 block">Phone</label>
                 <Input
+                  id="popup-phone" autoComplete="tel"
                   type="tel"
                   value={form.phone}
                   onChange={(e) => setForm({ ...form, phone: e.target.value })}
@@ -145,8 +147,9 @@ const LeadCapturePopup = () => {
                 />
               </div>
               <div>
-                <label className="text-xs font-medium mb-1 block">Email *</label>
+                <label htmlFor="popup-email" className="text-xs font-medium mb-1 block">Email *</label>
                 <Input
+                  id="popup-email" required autoComplete="email"
                   type="email"
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
@@ -155,8 +158,9 @@ const LeadCapturePopup = () => {
                 />
               </div>
               <div>
-                <label className="text-xs font-medium mb-1 block">Ideal Style of Renovation</label>
+                <label htmlFor="popup-style" className="text-xs font-medium mb-1 block">Ideal Style of Renovation</label>
                 <select
+                  id="popup-style"
                   value={form.renovationStyle}
                   onChange={(e) => setForm({ ...form, renovationStyle: e.target.value })}
                   className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
@@ -168,8 +172,9 @@ const LeadCapturePopup = () => {
                 </select>
               </div>
               <div>
-                <label className="text-xs font-medium mb-1 block">Budget</label>
+                <label htmlFor="popup-budget" className="text-xs font-medium mb-1 block">Budget</label>
                 <select
+                  id="popup-budget"
                   value={form.budget}
                   onChange={(e) => setForm({ ...form, budget: e.target.value })}
                   className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
@@ -181,7 +186,7 @@ const LeadCapturePopup = () => {
                 </select>
               </div>
               <Button variant="hero" size="lg" type="submit" className="w-full" disabled={submitting}>
-                {submitting ? "Sending…" : "Get My Free Plan"}
+                {submitting ? "Sending…" : "Request my consultation"}
               </Button>
               <button
                 type="button"

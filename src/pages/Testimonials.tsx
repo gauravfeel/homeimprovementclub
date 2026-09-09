@@ -1,99 +1,53 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { Star } from "lucide-react";
+import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
-import CTASection from "@/components/CTASection";
 import SEO from "@/components/SEO";
-import { TESTIMONIALS } from "@/data/testimonials";
-import { SERVICE_AREA, SERVICE_AREA_BC } from "@/lib/service-area";
-
-const CITIES = ["All", "Abbotsford", "Chilliwack", "Langley", "Hope"] as const;
-
-const Testimonials = () => {
-  const [filter, setFilter] = useState<string>("All");
-  const filtered = filter === "All" ? TESTIMONIALS : TESTIMONIALS.filter((t) => t.city === filter);
-
+export default function Testimonials() {
   return (
     <Layout>
       <SEO
-        title={`Client Stories | Home Improvement Club — ${SERVICE_AREA_BC}`}
-        description={`Real testimonials from homeowners across the ${SERVICE_AREA}. Kitchen, bathroom, HVAC, flooring, and exterior renovations by Home Improvement Club.`}
+        title="Client Stories | Home Improvement Club"
+        description="Homeowner stories at Home Improvement Club. Explore service details and renovation planning information while this collection is being prepared."
         canonical="/testimonials"
       />
-
-      <section id="testimonials" className="section-padding-lg">
-        <div className="max-w-4xl mx-auto text-center mb-10">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-            <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-4">Client Stories</p>
-            <h1 className="heading-xl mb-6">Trusted by Homeowners Across the {SERVICE_AREA}</h1>
-            <p className="body-lg max-w-2xl mx-auto">
-              Real projects. Real results. From Abbotsford and Chilliwack to Metro Vancouver.
+      <section className="editorial-section stories-opening">
+        <p className="eyebrow">Client stories</p>
+        <h1>
+          The homeowner’s
+          <br />
+          <em>point of view.</em>
+        </h1>
+        <p>
+          We are preparing this space for homeowner stories. There are no
+          published client stories in this collection yet.
+        </p>
+        <div className="stories-next">
+          <article>
+            <span className="eyebrow">Understand the work</span>
+            <h2>Explore your renovation.</h2>
+            <p>
+              Read the planning considerations for the room or project you have
+              in mind.
             </p>
-          </motion.div>
+            <Link className="text-link" to="/services">
+              Browse renovation services ↗
+            </Link>
+          </article>
+          <article>
+            <span className="eyebrow">Understand the steps</span>
+            <h2>Know what to discuss.</h2>
+            <p>
+              See how the conversation develops from the first enquiry to the
+              final walkthrough.
+            </p>
+            <Link className="text-link" to="/how-it-works">
+              Read about the process ↗
+            </Link>
+          </article>
         </div>
-
-        <div className="flex flex-wrap justify-center gap-2 mb-12">
-          {CITIES.map((city) => (
-            <button
-              key={city}
-              onClick={() => setFilter(city)}
-              className={`px-4 py-1.5 rounded-full text-sm font-medium border transition-colors ${
-                filter === city
-                  ? "bg-primary text-primary-foreground border-primary"
-                  : "border-border text-muted-foreground hover:border-primary hover:text-primary"
-              }`}
-            >
-              {city}
-            </button>
-          ))}
-        </div>
-
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filtered.map((t, i) => (
-            <motion.div
-              key={t.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="bg-card rounded-xl p-8 border border-border"
-            >
-              <div className="flex gap-1 mb-4">
-                {[...Array(5)].map((_, j) => <Star key={j} size={16} className="fill-primary text-primary" />)}
-              </div>
-              <p className="text-foreground/80 leading-relaxed mb-6 italic">"{t.quote}"</p>
-              <div className="flex items-end justify-between gap-3">
-                <div>
-                  <p className="font-semibold text-sm">{t.name}</p>
-                  {/* TODO: Update with real client city attribution */}
-                  <p className="text-muted-foreground text-sm">{t.city}, BC</p>
-                </div>
-                <span className="text-xs font-medium text-primary bg-primary/10 px-3 py-1 rounded-full shrink-0">{t.service}</span>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        <div className="max-w-6xl mx-auto mt-12">
-          <p className="text-xs text-muted-foreground text-center max-w-2xl mx-auto leading-relaxed">
-            Testimonials reflect individual customer experiences. Results may vary based on project scope and eligibility for rebate programs.
-          </p>
-          <div className="text-center mt-4">
-            <a
-              href="https://g.page/r/[GOOGLE-PLACE-ID]"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg border border-primary text-primary text-sm font-medium hover:bg-primary hover:text-primary-foreground transition-colors"
-            >
-              See Our Google Reviews →
-            </a>
-          </div>
-        </div>
+        <Link className="text-link" to="/contact">
+          Have a question for HIC? ↗
+        </Link>
       </section>
-
-      <CTASection />
     </Layout>
   );
-};
-
-export default Testimonials;
+}

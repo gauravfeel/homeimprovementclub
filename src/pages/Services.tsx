@@ -1,53 +1,84 @@
-import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
-import CTASection from "@/components/CTASection";
-import ServiceCard from "@/components/ServiceCard";
 import SEO from "@/components/SEO";
 import { SERVICES } from "@/data/services";
-import { SERVICE_AREA } from "@/lib/service-area";
-
-const fadeUp = {
-  initial: { opacity: 0, y: 30 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: { duration: 0.7 },
-};
-
-const Services = () => (
-  <Layout>
-    <SEO
-      title={`Home Renovation Services — ${SERVICE_AREA} | Home Improvement Club`}
-      description={`Luxury kitchen, bathroom, lighting, tile, HVAC, and exterior renovations across the ${SERVICE_AREA}. Vetted craftsmen, transparent process, premium materials.`}
-      canonical="/services"
-    />
-    <section className="section-padding-lg">
-      <div className="max-w-4xl mx-auto text-center mb-16">
-        <motion.div {...fadeUp}>
-          <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-4">Our Services</p>
-          <h1 className="heading-xl mb-6">Home Renovation Services in {SERVICE_AREA}</h1>
-          <p className="body-lg max-w-2xl mx-auto">
-            Six specialties. One standard. Each service led by craftsmen who do nothing else — so the result feels effortless and looks effortless to live in.
+export default function Services() {
+  return (
+    <Layout>
+      <SEO
+        title="Renovation Services in Greater Vancouver | Home Improvement Club"
+        description="Compare HIC kitchen, bathroom, lighting, flooring, HVAC and electrical, and exterior renovation services in Greater Vancouver."
+        canonical="/services"
+      />
+      <section className="editorial-section directory-opening">
+        <p className="eyebrow">Renovation services · Greater Vancouver</p>
+        <div>
+          <h1>
+            Find your
+            <br />
+            <em>starting point.</em>
+          </h1>
+          <p>
+            Choose the part of your home you want to work on. Each service page
+            explains what to consider before deciding on the scope.
           </p>
-        </motion.div>
-      </div>
-
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+        </div>
+        <nav aria-label="Service directory" className="directory-index">
+          {SERVICES.map((s) => (
+            <a key={s.slug} href={`#${s.slug}`}>
+              {s.label}
+            </a>
+          ))}
+        </nav>
+      </section>
+      <div className="editorial-section service-directory">
         {SERVICES.map((s, i) => (
-          <ServiceCard
-            key={s.slug}
-            icon={s.icon}
-            title={s.title}
-            desc={s.short}
-            href={`/services/${s.slug}`}
-            image={s.image}
-            delay={i * 0.05}
-          />
+          <article key={s.slug} id={s.slug}>
+            <Link className="directory-image" to={`/services/${s.slug}`}>
+              <img
+                src={s.image}
+                alt={`${s.label} design inspiration`}
+                loading={i === 0 ? "eager" : "lazy"}
+                width="1920"
+                height="1080"
+              />
+              <span className="image-label">Design inspiration</span>
+            </Link>
+            <div>
+              <span className="index-label">
+                0{i + 1} / {s.title}
+              </span>
+              <h2>{s.label}</h2>
+              <p>{s.short}</p>
+              <ul>
+                {s.sub.slice(0, 3).map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+              <Link className="text-link" to={`/services/${s.slug}`}>
+                Explore {s.label.toLowerCase()} ↗
+              </Link>
+            </div>
+          </article>
         ))}
       </div>
-    </section>
-
-    <CTASection />
-  </Layout>
-);
-
-export default Services;
+      <section className="editorial-section directory-help">
+        <h2>
+          More than one
+          <br />
+          <em>part of the home?</em>
+        </h2>
+        <div>
+          <p>
+            Tell us about the work together. Connected decisions—flooring,
+            lighting, cabinetry and systems—are easier to discuss as part of the
+            same renovation brief.
+          </p>
+          <Link className="solid-link" to="/contact">
+            Discuss the whole scope ↗
+          </Link>
+        </div>
+      </section>
+    </Layout>
+  );
+}

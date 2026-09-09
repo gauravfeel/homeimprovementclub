@@ -1,0 +1,201 @@
+/* Shared type roles. Page files retain their distinct grids, spacing and narratives. */
+:root {
+  --font-display: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-body: "Source Sans 3", Arial, Helvetica, sans-serif;
+  --type-display: clamp(2.625rem, 1.9rem + 2.5vw, 4.5rem);
+  --type-h1: clamp(2.5rem, 1.85rem + 2.1vw, 4rem);
+  --type-h2: clamp(2rem, 1.55rem + 1.5vw, 3.125rem);
+  --type-h3: clamp(1.5rem, 1.2rem + 0.8vw, 2rem);
+  --type-large: clamp(1.125rem, 1.05rem + 0.25vw, 1.25rem);
+  --type-body: clamp(1rem, 0.97rem + 0.15vw, 1.0625rem);
+  --type-ui: 0.9375rem;
+  --type-small: 0.875rem;
+  --type-meta: 0.8125rem;
+  --type-caption: 0.75rem;
+}
+body {
+  font-family: var(--font-body);
+  font-size: var(--type-body);
+  line-height: 1.6;
+}
+h1,
+h2,
+h3,
+h4,
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-synthesis: none;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+h1 {
+  font-size: var(--type-h1);
+  line-height: 1.12;
+  max-width: 23ch;
+}
+h2 {
+  font-size: var(--type-h2);
+  line-height: 1.16;
+  max-width: 28ch;
+}
+h3 {
+  font-size: var(--type-h3);
+  line-height: 1.23;
+  letter-spacing: -0.012em;
+}
+h1 em,
+h2 em {
+  font-weight: 400;
+}
+.hero-copy h1,
+.about-opening h1,
+.lighting-opening h1 {
+  font-size: var(--type-display);
+}
+.directory-opening h1,
+.process-opening h1,
+.geography-opening h1,
+.stories-opening h1 {
+  max-width: 24ch;
+}
+.detailed-timeline h2,
+.service-directory h2,
+.layer-copy h2,
+.resource-list h2,
+.stories-next h2 {
+  font-size: clamp(1.75rem, 1.35rem + 1.2vw, 2.5rem);
+}
+.other-services h3 {
+  font-size: clamp(1.375rem, 1.1rem + 0.6vw, 1.75rem);
+}
+main p:not(.eyebrow):not(.small-note),
+main dd {
+  max-width: 65ch;
+}
+main
+  p:not(.eyebrow):not(.small-note):not(.hero-note):not(
+    .editorial-signature
+  ):not(.text-xs) {
+  font-size: var(--type-body);
+  line-height: 1.65;
+}
+main .hero-description,
+main .about-lead p,
+main .body-lg {
+  font-size: var(--type-large) !important;
+  line-height: 1.6 !important;
+  max-width: 52ch;
+}
+.eyebrow,
+.hero-copy .eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--type-meta);
+  font-weight: 600;
+  line-height: 1.45;
+  letter-spacing: 0.045em;
+  text-transform: none;
+}
+.detailed-timeline dt,
+.editorial-signature,
+.region-stamp span {
+  font-family: var(--font-body);
+  font-size: var(--type-meta);
+  font-weight: 600;
+  line-height: 1.45;
+  letter-spacing: 0.035em;
+  text-transform: none;
+}
+.solid-link,
+.text-link,
+.hero-actions .text-link,
+.desktop-nav a,
+.directory-index a,
+.layer-buttons button,
+.quick-enquiry,
+button[type="submit"] {
+  font-family: var(--font-body);
+  font-size: var(--type-ui);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: 0;
+}
+.desktop-nav a {
+  font-weight: 500;
+}
+.footer-main nav a {
+  font-size: var(--type-ui);
+}
+.faq-list summary,
+.plain-checklist li,
+.service-directory ul,
+.detailed-timeline dd,
+.consultation-prep li,
+.household-prompts,
+.detail-definitions > div,
+.about-facts dl > div {
+  font-size: var(--type-body);
+  line-height: 1.55;
+}
+.small-note {
+  font-size: var(--type-small) !important;
+}
+.index-label,
+.timeline-number,
+.step-number {
+  font-variant-numeric: lining-nums tabular-nums;
+}
+input,
+select,
+textarea {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+form label {
+  font-family: var(--font-body);
+  font-size: var(--type-ui);
+  font-weight: 600;
+  line-height: 1.4;
+}
+form .text-xs {
+  font-size: var(--type-small);
+  line-height: 1.5;
+}
+.hero-copy,
+.service-hero-copy,
+.flooring-title,
+.editorial-section > div {
+  min-width: 0;
+}
+@media (max-width: 760px) {
+  .about-opening h1 br { display: none; }
+  .about-opening h1 em { display: block; text-wrap: balance; }
+  .hero-copy h1 br {
+    display: none;
+  }
+  .hero-copy h1 em {
+    display: block;
+  }
+  .hero-actions {
+    flex-wrap: wrap;
+  }
+  .hero-image figcaption {
+    flex-wrap: wrap;
+  }
+  .brand {
+    font-size: 0.75rem;
+  }
+  .brand strong {
+    font-size: 0.6875rem;
+    letter-spacing: 0.04em;
+  }
+  .header-contact a[href^="tel:"] {
+    font-size: 0.6875rem;
+  }
+}
+@media (max-width: 360px) {
+  .header-contact a[href^="tel:"] {
+    font-size: 0;
+  }
+}

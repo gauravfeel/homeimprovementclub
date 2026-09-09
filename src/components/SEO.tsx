@@ -19,8 +19,10 @@ const SEO = ({ title, description, canonical, schema }: SEOProps) => {
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:url" content={url} />
+      <meta property="og:image" content={`${SITE}/hic-social.jpg`} />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={`${SITE}/hic-social.jpg`} />
       {schema && (
         <script type="application/ld+json">{JSON.stringify(schema)}</script>
       )}

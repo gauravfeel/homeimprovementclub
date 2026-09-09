@@ -1,24 +1,33 @@
-import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
-
-const NotFound = () => {
-  const location = useLocation();
-
-  useEffect(() => {
-    console.error("404 Error: User attempted to access non-existent route:", location.pathname);
-  }, [location.pathname]);
-
+import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
+import Layout from "@/components/Layout";
+export default function NotFound() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-muted">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">404</h1>
-        <p className="mb-4 text-xl text-muted-foreground">Oops! Page not found</p>
-        <a href="/" className="text-primary underline hover:text-primary/90">
-          Return to Home
-        </a>
-      </div>
-    </div>
+    <Layout>
+      <Helmet>
+        <title>Page Not Found | Home Improvement Club</title>
+        <meta name="robots" content="noindex" />
+      </Helmet>
+      <section className="editorial-section page-intro">
+        <p className="eyebrow">404 · Page not found</p>
+        <h1>
+          Let’s get you
+          <br />
+          <em>back home.</em>
+        </h1>
+        <p>
+          This page is not available. Explore our renovation services or start a
+          conversation about your home.
+        </p>
+        <div className="hero-actions">
+          <Link className="solid-link" to="/">
+            Return home ↗
+          </Link>
+          <Link className="text-link" to="/services">
+            Explore services ↗
+          </Link>
+        </div>
+      </section>
+    </Layout>
   );
-};
-
-export default NotFound;
+}

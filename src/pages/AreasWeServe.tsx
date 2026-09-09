@@ -1,93 +1,91 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, MapPin } from "lucide-react";
-import { motion } from "framer-motion";
 import Layout from "@/components/Layout";
-import CTASection from "@/components/CTASection";
 import SEO from "@/components/SEO";
-import { Button } from "@/components/ui/button";
-import { SERVICES } from "@/data/services";
-import { SERVICE_AREA } from "@/lib/service-area";
-
-const greaterVancouver = ["Vancouver", "Burnaby", "Richmond", "Surrey", "Coquitlam", "Maple Ridge"];
-const fraserValley = ["Langley", "Abbotsford", "Chilliwack"];
-
-const AreasWeServe = () => (
-  <Layout>
-    <SEO
-      title="Home Renovations in Greater Vancouver & Fraser Valley | Areas We Serve"
-      description="Home Improvement Club serves homeowners across Greater Vancouver and the Fraser Valley, including Vancouver, Burnaby, Richmond, Surrey, Coquitlam, Langley, Abbotsford, Chilliwack, and Maple Ridge."
-      canonical="/areas-we-serve"
-    />
-
-    <section className="section-padding-lg">
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.65 }}
-        className="max-w-4xl mx-auto text-center"
-      >
-        <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-4">Areas We Serve</p>
-        <h1 className="heading-xl mb-6">Home Renovations Across {SERVICE_AREA}</h1>
-        <p className="body-lg max-w-3xl mx-auto">
-          Home Improvement Club serves homeowners throughout Greater Vancouver and Fraser Valley. Share your project scope and location with us to confirm availability and plan next steps.
-        </p>
-      </motion.div>
-    </section>
-
-    <section className="pb-20 md:pb-28">
-      <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-7">
-        {[
-          { region: "Greater Vancouver", cities: greaterVancouver },
-          { region: "Fraser Valley", cities: fraserValley },
-        ].map(({ region, cities }) => (
-          <article key={region} className="rounded-2xl border border-border bg-card p-8 md:p-10">
-            <div className="flex items-center gap-3 mb-6">
-              <MapPin className="text-primary" size={22} aria-hidden="true" />
-              <h2 className="font-display text-2xl font-semibold">{region}</h2>
-            </div>
-            <ul className="grid grid-cols-2 gap-x-4 gap-y-3 text-foreground/80">
-              {cities.map((city) => <li key={city}>{city}</li>)}
-            </ul>
-          </article>
-        ))}
-      </div>
-    </section>
-
-    <section className="section-padding bg-muted/40">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="max-w-3xl mb-12">
-          <p className="text-primary font-semibold text-sm uppercase tracking-widest mb-4">Six Specialties</p>
-          <h2 className="heading-lg mb-5">Services Available Across Our Service Area</h2>
-          <p className="body-lg">Explore renovation services, then book a consultation to discuss your home, timing, and project requirements.</p>
+import { SERVICE_CITIES } from "@/lib/service-area";
+import { ContactInfo } from "@/components/ContactInfo";
+export default function AreasWeServe() {
+  return (
+    <Layout>
+      <SEO
+        title="Greater Vancouver Renovation Service Area | Home Improvement Club"
+        description="HIC serves Vancouver, North Vancouver, West Vancouver, Burnaby, New Westminster, Coquitlam, Richmond and Surrey."
+        canonical="/areas-we-serve"
+      />
+      <section className="editorial-section geography-opening">
+        <div>
+          <p className="eyebrow">Our service area</p>
+          <h1>
+            Greater Vancouver.
+            <br />
+            <em>Your neighbourhood.</em>
+          </h1>
+          <p>
+            Home renovation services across these eight cities. Include your
+            location and the work you are considering when you enquire, so we
+            can discuss availability.
+          </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {SERVICES.map((service) => (
-            <Link
-              key={service.slug}
-              to={`/services/${service.slug}`}
-              className="group rounded-xl border border-border bg-background p-6 transition-colors hover:border-primary/50"
-            >
-              <service.icon className="text-primary mb-5" size={28} aria-hidden="true" />
-              <h3 className="font-display text-xl font-semibold mb-3">{service.title}</h3>
-              <span className="inline-flex items-center gap-2 text-sm font-semibold text-primary">
-                Explore service <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-              </span>
-            </Link>
+        <span className="region-stamp">
+          HIC
+          <br />
+          <span>British Columbia</span>
+        </span>
+      </section>
+      <section className="editorial-section geographic-directory">
+        <div>
+          <p className="eyebrow">Where we work</p>
+          <h2>
+            Close to
+            <br />
+            <em>your next chapter.</em>
+          </h2>
+          <p>
+            Kitchen, bathroom, lighting, flooring, systems and exterior
+            renovation enquiries.
+          </p>
+          <Link className="text-link" to="/services">
+            Explore the services ↗
+          </Link>
+        </div>
+        <ol>
+          {SERVICE_CITIES.map((city, i) => (
+            <li key={city}>
+              <span className="index-label">0{i + 1}</span>
+              <span>{city}</span>
+              <Link
+                to={`/contact?city=${encodeURIComponent(city)}`}
+                aria-label={`Discuss a renovation in ${city}`}
+              >
+                Enquire ↗
+              </Link>
+            </li>
           ))}
+        </ol>
+      </section>
+      <section className="editorial-section location-enquiry">
+        <h2>
+          Tell us about
+          <br />
+          <em>the property.</em>
+        </h2>
+        <div>
+          <p>
+            Your city is the starting point. The type of home, the rooms
+            involved and any access constraints help make the first conversation
+            more useful.
+          </p>
+          <p>
+            If your location is outside the listed cities, contact HIC to ask
+            about availability for your project.
+          </p>
+          <div className="contact-methods">
+            <Link className="solid-link" to="/contact">
+              Enquire about my location ↗
+            </Link>
+            <ContactInfo />
+          </div>
         </div>
-        <div className="mt-10">
-          <Button variant="outline" asChild>
-            <Link to="/services">View all services <ArrowRight size={16} /></Link>
-          </Button>
-        </div>
-      </div>
-    </section>
-
-    <CTASection
-      title="Planning a Renovation in Greater Vancouver or Fraser Valley?"
-      description="Tell us about your home, service needs, and preferred timing. We’ll help you determine next steps for your project."
-    />
-  </Layout>
-);
-
-export default AreasWeServe;
+      </section>
+    </Layout>
+  );
+}

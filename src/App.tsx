@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import PageLoader from "@/components/PageLoader";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ENABLE_CONTRACTOR_MEMBERSHIP } from "@/lib/features";
+import RouteScroll from "@/components/RouteScroll";
 
 const Index = lazy(() => import("./pages/Index"));
 const HowItWorks = lazy(() => import("./pages/HowItWorks"));
@@ -24,6 +25,7 @@ const App = () => (
     <Toaster />
     <Sonner />
     <BrowserRouter>
+      <RouteScroll />
       <WhatsAppButton variant="floating" />
       <Suspense fallback={<PageLoader />}>
         <Routes>
