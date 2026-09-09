@@ -970,6 +970,9 @@ div[id] {
 }
 
 @media (max-width: 900px) {
+  .site-header .brand span {
+    display: none;
+  }
   .desktop-nav {
     display: none;
   }

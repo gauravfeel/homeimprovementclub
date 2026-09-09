@@ -1,16 +1,11 @@
 /** Shown while lazy route chunks load — keep DOM minimal for fast first paint. */
 const PageLoader = () => (
-  <div
-    className="min-h-[50vh] flex flex-col items-center justify-center gap-4 px-6"
-    role="status"
-    aria-live="polite"
-    aria-label="Loading page"
-  >
-    <div
-      className="h-10 w-10 rounded-full border-2 border-primary/30 border-t-primary animate-spin"
-      aria-hidden
-    />
-    <p className="text-sm text-muted-foreground">Loading…</p>
+  <div className="page-loader" role="status" aria-live="polite" aria-label="Loading page">
+    <p className="page-loader-mark">Home Improvement Club</p>
+    <span className="page-loader-rule" aria-hidden>
+      <span className="page-loader-sweep" />
+    </span>
+    <p className="page-loader-copy">Preparing the page</p>
   </div>
 );
 
