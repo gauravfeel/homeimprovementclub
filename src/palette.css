@@ -1,0 +1,70 @@
+/* HIC color system. Hex roles only — layout/type live elsewhere. */
+:root {
+  --ivory: #f4f1e9;
+  --ivory-bright: #f6f3ed;
+  --on-forest: #faf8f1;
+  --stone: #e8e5dc;
+  --stone-deep: #dcdccf;
+  --sand: #ece3d8;
+  --sage-wash: #e5e7dc;
+
+  --forest: #314d3e;
+  --forest-dark: #203c2d;
+  --forest-hover: #263b2e;
+  --sage: #53654e;
+  --sage-muted: #5c6758;
+
+  --ink: #263d30;
+  --ink-muted: #545b52;
+  --ink-warm: #6b5646;
+
+  --line: #c4cabc;
+  --line-strong: #9aab98;
+  --on-forest-muted: #d5ddd0;
+
+  --whatsapp: #25d366;
+  --focus-ring: #56735a;
+}
+
+body {
+  background: var(--ivory);
+  color: var(--ink);
+}
+html {
+  overflow-x: clip;
+}
+
+.whatsapp-fab {
+  background: var(--forest);
+  color: var(--whatsapp);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--forest-dark) 28%, transparent);
+}
+.whatsapp-fab:hover {
+  background: var(--forest-dark);
+}
+.whatsapp-fab:focus-visible {
+  outline: 2px solid var(--whatsapp);
+  outline-offset: 3px;
+}
+.whatsapp-footer {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 999px;
+  padding: 10px 16px;
+  font-size: var(--type-small);
+  font-weight: 600;
+  background: var(--forest);
+  color: var(--on-forest);
+}
+.whatsapp-footer svg {
+  color: var(--forest);
+}
+.whatsapp-footer:hover {
+  background: var(--forest-dark);
+}
+.whatsapp-footer:focus-visible {
+  outline: 2px solid var(--whatsapp);
+  outline-offset: 3px;
+}

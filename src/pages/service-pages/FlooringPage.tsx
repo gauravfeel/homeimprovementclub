@@ -13,7 +13,7 @@ export default function FlooringPage({ service }: { service: Service }) {
         <div className="flooring-title">
           <ServiceBreadcrumb label="Tile & flooring" />
           <p className="eyebrow">
-            Tile & flooring replacement · Greater Vancouver
+            Tile & flooring replacement · Greater Vancouver · Fraser Valley
           </p>
           <h1>
             The surface that

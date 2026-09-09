@@ -11,7 +11,7 @@ export default function SystemsPage({ service }: { service: Service }) {
       <section className="editorial-section systems-opening">
         <ServiceBreadcrumb label="HVAC & electrical" />
         <div>
-          <p className="eyebrow">Planned home upgrades · Greater Vancouver</p>
+          <p className="eyebrow">Planned home upgrades · Greater Vancouver · Fraser Valley</p>
           <h1>
             Plan the systems.
             <br />

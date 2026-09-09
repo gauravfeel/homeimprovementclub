@@ -1,26 +1,26 @@
 import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import SEO from "@/components/SEO";
-import { SERVICE_CITIES } from "@/lib/service-area";
+import { SERVICE_AREA, SERVICE_CITIES, SERVICE_CITIES_PROSE } from "@/lib/service-area";
 import { ContactInfo } from "@/components/ContactInfo";
 export default function AreasWeServe() {
   return (
     <Layout>
       <SEO
-        title="Greater Vancouver Renovation Service Area | Home Improvement Club"
-        description="HIC serves Vancouver, North Vancouver, West Vancouver, Burnaby, New Westminster, Coquitlam, Richmond and Surrey."
+        title={`${SERVICE_AREA} Renovation Service Area | Home Improvement Club`}
+        description={`HIC serves ${SERVICE_CITIES_PROSE}.`}
         canonical="/areas-we-serve"
       />
       <section className="editorial-section geography-opening">
         <div>
           <p className="eyebrow">Our service area</p>
           <h1>
-            Greater Vancouver.
+            Greater Vancouver and the Fraser Valley.
             <br />
             <em>Your neighbourhood.</em>
           </h1>
           <p>
-            Home renovation services across these eight cities. Include your
+            Home renovation services across these cities. Include your
             location and the work you are considering when you enquire, so we
             can discuss availability.
           </p>
@@ -50,7 +50,7 @@ export default function AreasWeServe() {
         <ol>
           {SERVICE_CITIES.map((city, i) => (
             <li key={city}>
-              <span className="index-label">0{i + 1}</span>
+              <span className="index-label">{String(i + 1).padStart(2, "0")}</span>
               <span>{city}</span>
               <Link
                 to={`/contact?city=${encodeURIComponent(city)}`}

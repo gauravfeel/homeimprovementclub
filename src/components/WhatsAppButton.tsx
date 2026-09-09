@@ -34,11 +34,9 @@ export function WhatsAppButton({ variant = "floating", className }: WhatsAppButt
         aria-label="Chat on WhatsApp"
         title="Chat on WhatsApp"
         className={cn(
+          "whatsapp-fab",
           "fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-[100]",
           "flex h-14 w-14 items-center justify-center rounded-full",
-          "bg-[#25D366] text-white shadow-lg shadow-black/20",
-          "transition-transform duration-200 hover:scale-105 hover:bg-[#20BD5A] active:scale-95",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2 focus-visible:ring-offset-background",
           className
         )}
       >
@@ -54,13 +52,7 @@ export function WhatsAppButton({ variant = "floating", className }: WhatsAppButt
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"
-      className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold",
-        "bg-[#25D366] text-white shadow-md shadow-black/15",
-        "transition-all duration-200 hover:scale-[1.02] hover:bg-[#20BD5A]",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2 focus-visible:ring-offset-foreground",
-        className
-      )}
+      className={cn("whatsapp-footer", className)}
     >
       <WhatsAppGlyph className="h-5 w-5 shrink-0" />
       <span>WhatsApp</span>

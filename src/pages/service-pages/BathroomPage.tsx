@@ -29,7 +29,7 @@ export default function BathroomPage({ service }: { service: Service }) {
               considered from the beginning.
             </p>
             <EnquiryLink service={service}>Plan my bathroom</EnquiryLink>
-            <p className="small-note">Free consultation · Greater Vancouver</p>
+            <p className="small-note">Free consultation · Greater Vancouver · Fraser Valley</p>
           </div>
         </div>
       </section>

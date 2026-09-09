@@ -13,7 +13,7 @@ export default function ExteriorPage({ service }: { service: Service }) {
       <section className="editorial-section exterior-opening">
         <ServiceBreadcrumb label="Exteriors" />
         <div>
-          <p className="eyebrow">Exterior renovations · Greater Vancouver</p>
+          <p className="eyebrow">Exterior renovations · Greater Vancouver · Fraser Valley</p>
           <h1>
             Consider your home
             <br />
@@ -118,7 +118,7 @@ export default function ExteriorPage({ service }: { service: Service }) {
             <em>and timing.</em>
           </h2>
           <p>
-            Greater Vancouver homes sit in different settings. Share the parts
+            Greater Vancouver and Fraser Valley homes sit in different settings. Share the parts
             of your exterior that concern you and any access constraints, so the
             project conversation starts with the actual site.
           </p>

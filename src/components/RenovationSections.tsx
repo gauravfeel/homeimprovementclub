@@ -40,10 +40,10 @@ export function AreaSection() {
         <h2>
           Renovating across
           <br />
-          <em>Greater Vancouver.</em>
+          <em>Greater Vancouver and the Fraser Valley.</em>
         </h2>
         <p className="section-copy">
-          From a kitchen in the city to an exterior on the North Shore. Tell us
+          From a kitchen in Vancouver to an exterior in Chilliwack. Tell us
           where you live and what you have in mind.
         </p>
         <Link className="text-link" to="/areas-we-serve">

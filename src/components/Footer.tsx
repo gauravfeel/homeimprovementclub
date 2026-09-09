@@ -20,7 +20,7 @@ export default function Footer() {
           <p>
             Thoughtful renovations.
             <br />
-            Greater Vancouver, British Columbia.
+            Greater Vancouver and the Fraser Valley, British Columbia.
           </p>
           <ContactInfo />
           <WhatsAppButton variant="footer" />

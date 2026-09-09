@@ -9,7 +9,7 @@ export default function About() {
     <Layout>
       <SEO
         title="About Home Improvement Club | Greater Vancouver Renovations"
-        description="Home Improvement Club brings kitchen, bathroom and home renovation services together for Greater Vancouver homeowners. Learn about HIC’s focus."
+        description="Home Improvement Club brings kitchen, bathroom and home renovation services together for Greater Vancouver and Fraser Valley homeowners. Learn about HIC’s focus."
         canonical="/about"
       />
       <section className="editorial-section about-opening">
@@ -22,10 +22,10 @@ export default function About() {
           </h1>
         </Reveal>
         <Reveal variant="copy" className="about-lead">
-          <span className="editorial-signature">HIC / Greater Vancouver</span>
+          <span className="editorial-signature">HIC / Greater Vancouver · Fraser Valley</span>
           <p>
             Home Improvement Club is a home-renovation business serving Greater
-            Vancouver. Our focus is the home you already have: the rooms you use
+            Vancouver and the Fraser Valley. Our focus is the home you already have: the rooms you use
             every day, the details that no longer work and the changes worth
             thinking through.
           </p>
@@ -101,8 +101,9 @@ export default function About() {
             <div>
               <dt>Our area</dt>
               <dd>
-                Greater Vancouver, including the North Shore, Burnaby, New
-                Westminster, Coquitlam, Richmond and Surrey.
+                Greater Vancouver and the Fraser Valley, including Vancouver,
+                the North Shore, Burnaby, New Westminster, Coquitlam,
+                Richmond, Surrey, Maple Ridge, Abbotsford and Chilliwack.
               </dd>
             </div>
             <div>

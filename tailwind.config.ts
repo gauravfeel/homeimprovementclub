@@ -58,12 +58,12 @@ export default {
           foreground: "hsl(var(--card-foreground))",
         },
         sage: {
-          DEFAULT: "hsl(var(--sage))",
-          light: "hsl(var(--sage-light))",
+          DEFAULT: "var(--sage)",
+          light: "var(--sage-wash)",
         },
-        charcoal: "hsl(var(--charcoal))",
-        "warm-gray": "hsl(var(--warm-gray))",
-        "warm-white": "hsl(var(--warm-white))",
+        charcoal: "var(--ink)",
+        "warm-gray": "var(--ink-muted)",
+        "warm-white": "var(--ivory-bright)",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",

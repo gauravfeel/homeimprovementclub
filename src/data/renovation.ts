@@ -38,4 +38,9 @@ export const GENERAL_FAQS = [
     answer:
       "This depends on which rooms are affected and whether essential facilities remain available. Raise access, dust, working hours and temporary kitchen or bathroom arrangements during planning.",
   },
+  {
+    question: "Which cities does HIC serve?",
+    answer:
+      "HIC serves Greater Vancouver and the Fraser Valley, including Vancouver, North Vancouver, West Vancouver, Burnaby, New Westminster, Coquitlam, Richmond, Surrey, Maple Ridge, Abbotsford and Chilliwack. If you are nearby, ask about availability for your project.",
+  },
 ];

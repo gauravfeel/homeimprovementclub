@@ -4,35 +4,35 @@
 
 @layer base {
   :root {
-    --background: 40 20% 98%;
-    --foreground: 220 20% 12%;
+    --background: 42 24% 94%;
+    --foreground: 152 20% 16%;
 
-    --card: 40 15% 96%;
-    --card-foreground: 220 20% 12%;
+    --card: 40 16% 90%;
+    --card-foreground: 152 20% 16%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 20% 12%;
+    --popover: 42 24% 97%;
+    --popover-foreground: 152 20% 16%;
 
-    --primary: 152 35% 38%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 153 23% 25%;
+    --primary-foreground: 42 33% 97%;
 
-    --secondary: 36 25% 93%;
-    --secondary-foreground: 220 20% 12%;
+    --secondary: 40 16% 88%;
+    --secondary-foreground: 152 20% 16%;
 
-    --muted: 40 15% 94%;
-    --muted-foreground: 220 10% 46%;
+    --muted: 40 16% 90%;
+    --muted-foreground: 145 8% 33%;
 
-    --accent: 36 40% 88%;
-    --accent-foreground: 220 20% 12%;
+    --accent: 40 16% 88%;
+    --accent-foreground: 152 20% 16%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 62% 42%;
+    --destructive-foreground: 42 33% 97%;
 
-    --border: 36 15% 88%;
-    --input: 36 15% 88%;
-    --ring: 152 35% 38%;
+    --border: 70 10% 76%;
+    --input: 70 10% 70%;
+    --ring: 153 23% 25%;
 
-    --radius: 0.75rem;
+    --radius: 0.2rem;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -44,12 +44,12 @@
     --sidebar-ring: 217.2 91.2% 59.8%;
 
     /* Custom tokens */
-    --hero-overlay: 220 20% 12%;
-    --warm-white: 40 30% 99%;
-    --sage: 152 25% 65%;
-    --sage-light: 152 20% 92%;
-    --charcoal: 220 20% 18%;
-    --warm-gray: 30 8% 55%;
+    --hero-overlay: 152 20% 16%;
+    --warm-white: 42 33% 97%;
+    --sage: 70 12% 88%;
+    --sage-light: 70 12% 88%;
+    --charcoal: 152 20% 16%;
+    --warm-gray: 145 8% 33%;
   }
 
   .dark {

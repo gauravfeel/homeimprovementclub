@@ -33,7 +33,7 @@ export default function LightingPage({ service }: { service: Service }) {
       <section className="editorial-section lighting-opening">
         <ServiceBreadcrumb label="Lighting" />
         <p className="eyebrow">
-          Interior & exterior lighting · Greater Vancouver
+          Interior & exterior lighting · Greater Vancouver · Fraser Valley
         </p>
         <h1>
           Light changes
@@ -128,7 +128,7 @@ export default function LightingPage({ service }: { service: Service }) {
           </p>
           <EnquiryLink service={service}>Start my lighting brief</EnquiryLink>
           <span className="small-note">
-            Free renovation consultation across Greater Vancouver.
+            Free renovation consultation across Greater Vancouver and the Fraser Valley.
           </span>
         </div>
       </section>

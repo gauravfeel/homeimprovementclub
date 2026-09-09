@@ -30,7 +30,7 @@ export default function KitchenPage({ service }: { service: Service }) {
           </p>
           <EnquiryLink service={service}>Plan my kitchen</EnquiryLink>
           <div className="service-hero-contact">
-            <span>Free consultation · Greater Vancouver</span>
+            <span>Free consultation · Greater Vancouver · Fraser Valley</span>
             <ContactInfo />
           </div>
         </div>
@@ -167,7 +167,8 @@ export default function KitchenPage({ service }: { service: Service }) {
       <div className="editorial-section compact-connections">
         <p>
           Kitchen renovations across Vancouver, the North Shore, Burnaby, New
-          Westminster, Coquitlam, Richmond and Surrey.
+          Westminster, Coquitlam, Richmond, Surrey, Maple Ridge, Abbotsford and
+          Chilliwack.
         </p>
         <RelatedLinks slugs={["lighting", "flooring", "hvac-electrical"]} />
       </div>

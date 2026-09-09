@@ -3,6 +3,7 @@ import { HelmetProvider } from "react-helmet-async";
 import App from "./App.tsx";
 import "./index.css";
 import "./fonts.css";
+import "./palette.css";
 import "./redesign.css";
 import "./page-compositions.css";
 import "./typography.css";
