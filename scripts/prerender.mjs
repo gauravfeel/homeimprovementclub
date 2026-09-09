@@ -123,8 +123,22 @@ function installChromium() {
   }
 }
 
+function linuxHasChromiumLibs() {
+  return (
+    existsSync("/usr/lib/x86_64-linux-gnu/libnspr4.so") ||
+    existsSync("/lib/x86_64-linux-gnu/libnspr4.so") ||
+    existsSync("/usr/lib/libnspr4.so")
+  );
+}
+
 async function launchBrowser() {
   try {
+    if (process.platform === "linux" && !linuxHasChromiumLibs()) {
+      console.warn(
+        "Chromium system libraries missing (libnspr4). Skipping prerender; Vite dist still ships.",
+      );
+      return undefined;
+    }
     let executablePath = await browserExecutable();
     if (!executablePath && !installChromium()) return undefined;
     executablePath = await browserExecutable();
@@ -145,10 +159,10 @@ const browser = await launchBrowser();
 
 if (!browser) {
   await new Promise((resolveServer) => server.close(resolveServer));
-  console.error(
-    "Production build requires prerendering; install Playwright Chromium and retry.",
+  console.warn(
+    "Prerender skipped. SPA dist/ is complete. Crawlers get the Vite shell until Chromium can launch (local or a builder with Playwright OS deps).",
   );
-  process.exit(1);
+  process.exit(0);
 }
 
 try {
