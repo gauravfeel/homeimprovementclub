@@ -38,7 +38,7 @@ export default function Navbar() {
           <span>Home Improvement Club</span>
         </Link>
         <nav className="desktop-nav" aria-label="Main navigation">
-          <NavLink to="/services">Our services</NavLink>
+          <NavLink to="/services">Build & renovate</NavLink>
           <NavLink to="/how-it-works">Our process</NavLink>
           <NavLink to="/about">About HIC</NavLink>
           <NavLink to="/areas-we-serve">Service area</NavLink>

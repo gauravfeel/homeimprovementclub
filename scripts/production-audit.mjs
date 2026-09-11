@@ -3,7 +3,7 @@ import { execFileSync } from 'node:child_process';
 import { JSDOM } from 'jsdom';
 import { chromium } from 'playwright';
 import assert from 'node:assert/strict';
-const paths=['/','/about','/contact','/how-it-works','/services','/areas-we-serve','/services/kitchen-cabinets','/services/bathrooms','/services/lighting','/services/flooring','/services/hvac-electrical','/services/exterior','/testimonials','/rebates'];
+const paths=['/','/about','/contact','/how-it-works','/services','/areas-we-serve','/services/custom-homes-multiplex','/services/kitchen-cabinets','/services/bathrooms','/services/lighting','/services/flooring','/services/hvac-electrical','/services/exterior','/testimonials','/rebates'];
 const before=execFileSync('git',['show','HEAD:index.html'],{encoding:'utf8'});
 const trackerScripts=html=>[...new JSDOM(html).window.document.querySelectorAll('script:not([type])')].map(s=>s.outerHTML);
 const expected=trackerScripts(before);
@@ -26,13 +26,13 @@ try{
  await page.route('**/*',route=>new URL(route.request().url()).origin==='http://127.0.0.1:4173'?route.continue():route.abort());
  for(const width of [320,768,1024]){
   await page.setViewportSize({width,height:900});
-  for(const route of ['/','/services/kitchen-cabinets','/services/bathrooms','/contact']){
+  for(const route of ['/','/services/custom-homes-multiplex','/services/kitchen-cabinets','/services/bathrooms','/contact']){
    await page.goto('http://127.0.0.1:4173'+route,{waitUntil:'domcontentloaded'});await page.locator('main h1').waitFor();
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false,`${route} overflow at ${width}`);
   }
  }
  const nojs=await browser.newContext({javaScriptEnabled:false});const staticPage=await nojs.newPage();
  for(const route of paths){await staticPage.goto('http://127.0.0.1:4173'+route);assert.equal(await staticPage.locator('main h1').count(),1,route+' no-JS H1');}
- await writeFile('artifacts/redesign/production-audit.json',JSON.stringify({routes:paths,staticSEO:'passed',trackingBootstrap:'identical to original source; no serialized injected tags',additionalWidths:[320,768,1024],noJavaScriptContent:'all 14 routes have H1'},null,2));
- console.log('PASS: 14 prerendered pages, unique SEO, original tracking bootstrap, 12 extra viewport checks, no-JS content.');
+ await writeFile('artifacts/redesign/production-audit.json',JSON.stringify({routes:paths,staticSEO:'passed',trackingBootstrap:'identical to original source; no serialized injected tags',additionalWidths:[320,768,1024],noJavaScriptContent:'all 15 routes have H1'},null,2));
+ console.log('PASS: 15 prerendered pages, unique SEO, original tracking bootstrap, 15 extra viewport checks, no-JS content.');
 }finally{await browser.close()}

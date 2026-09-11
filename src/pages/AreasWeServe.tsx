@@ -7,8 +7,8 @@ export default function AreasWeServe() {
   return (
     <Layout>
       <SEO
-        title={`${SERVICE_AREA} Renovation Service Area | Home Improvement Club`}
-        description={`HIC serves ${SERVICE_CITIES_PROSE}.`}
+        title={`${SERVICE_AREA} Building & Renovation Area | HIC`}
+        description={`HIC custom home, multiplex and renovation enquiries serve ${SERVICE_CITIES_PROSE}.`}
         canonical="/areas-we-serve"
       />
       <section className="editorial-section geography-opening">
@@ -20,9 +20,9 @@ export default function AreasWeServe() {
             <em>Your neighbourhood.</em>
           </h1>
           <p>
-            Home renovation services across these cities. Include your
-            location and the work you are considering when you enquire, so we
-            can discuss availability.
+            Custom home, multiplex and renovation enquiries across these cities.
+            Include the property location and intended work so HIC can discuss
+            availability.
           </p>
         </div>
         <span className="region-stamp">
@@ -40,7 +40,7 @@ export default function AreasWeServe() {
             <em>your next chapter.</em>
           </h2>
           <p>
-            Kitchen, bathroom, lighting, flooring, systems and exterior
+            Custom homes, multiplex projects and focused or whole-home
             renovation enquiries.
           </p>
           <Link className="text-link" to="/services">
@@ -54,7 +54,7 @@ export default function AreasWeServe() {
               <span>{city}</span>
               <Link
                 to={`/contact?city=${encodeURIComponent(city)}`}
-                aria-label={`Discuss a renovation in ${city}`}
+                aria-label={`Discuss a building or renovation project in ${city}`}
               >
                 Enquire ↗
               </Link>

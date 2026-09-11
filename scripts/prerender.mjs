@@ -19,6 +19,7 @@ const ROUTES = [
   "/contact",
   "/how-it-works",
   "/services",
+  "/services/custom-homes-multiplex",
   "/areas-we-serve",
   "/services/kitchen-cabinets",
   "/services/bathrooms",

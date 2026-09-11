@@ -9,7 +9,9 @@ import LightingPage from "./service-pages/LightingPage";
 import FlooringPage from "./service-pages/FlooringPage";
 import SystemsPage from "./service-pages/SystemsPage";
 import ExteriorPage from "./service-pages/ExteriorPage";
+import CustomHomesMultiplexPage from "./service-pages/CustomHomesMultiplexPage";
 const pages = {
+  "custom-homes-multiplex": CustomHomesMultiplexPage,
   "kitchen-cabinets": KitchenPage,
   bathrooms: BathroomPage,
   lighting: LightingPage,
@@ -38,8 +40,12 @@ export default function ServiceDetail() {
   return (
     <Layout>
       <SEO
-        title={`${service.searchTitle} in Vancouver | Home Improvement Club`}
-        description={`${service.title} across Greater Vancouver. ${service.short} Book a free consultation with HIC.`}
+        title={service.slug === "custom-homes-multiplex"
+          ? "Custom Home Builder & Multiplex Expert in BC | HIC"
+          : `${service.searchTitle} in Vancouver | Home Improvement Club`}
+        description={service.slug === "custom-homes-multiplex"
+          ? "Home Improvement Club builds custom homes and brings multiplex expertise to projects across its approved Greater Vancouver and Fraser Valley service area."
+          : `${service.title} across Greater Vancouver. ${service.short} Book a free consultation with HIC.`}
         canonical={`/services/${service.slug}`}
         schema={schema}
       />

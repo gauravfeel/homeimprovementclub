@@ -9,7 +9,7 @@ import {
   ProcessSection,
   ServiceCollection,
 } from "@/components/RenovationSections";
-import kitchen from "@/assets/lux-kitchen.jpg";
+import residentialExterior from "@/assets/lux-exterior.jpg";
 import lighting from "@/assets/lux-lighting.jpg";
 import ProjectGallery from "@/components/ProjectGallery";
 import Reveal from "@/components/Reveal";
@@ -17,45 +17,45 @@ export default function Index() {
   return (
     <Layout>
       <SEO
-        title="Home Renovations in Greater Vancouver | Home Improvement Club"
-        description="Kitchen, bathroom and home renovations across Greater Vancouver. Explore your options with Home Improvement Club. Book a free renovation consultation."
+        title="Custom Home Builder & Multiplex Expert | Home Improvement Club"
+        description="HIC builds custom homes, brings multiplex expertise to residential projects, and delivers renovations across Greater Vancouver and the Fraser Valley."
         canonical="/"
       />
       <section className="home-hero">
         <div className="hero-copy">
-          <p className="eyebrow">Home renovations · Greater Vancouver, BC</p>
+          <p className="eyebrow">Custom homes · Multiplex · Renovations</p>
           <h1>
-            A home that feels
+            Build what comes
             <br />
-            <em>more like you.</em>
+            <em>next.</em>
           </h1>
           <p className="hero-description">
-            Thoughtful renovations for the way you live.
-            <br className="desktop-break" /> Kitchens, bathrooms and the spaces
-            in between.
+            Custom home builder and multiplex expert.
+            <br className="desktop-break" /> Renovations for the home you
+            already have.
           </p>
           <div className="hero-actions">
             <Link className="solid-link" to="/contact">
-              Book a free consultation <ArrowUpRight size={18} />
+              Discuss your project <ArrowUpRight size={18} />
             </Link>
             <a className="text-link" href="#services">
               Explore services <ArrowDown size={16} />
             </a>
           </div>
           <div className="hero-note">
-            <span aria-hidden="true" /> Your home. Your next chapter.
+            <span aria-hidden="true" /> Build new. Add homes. Renovate well.
           </div>
         </div>
         <figure className="hero-image">
           <img
-            src={kitchen}
-            alt="Kitchen design inspiration with pale wood cabinetry, stone island and brass pendants"
+            src={residentialExterior}
+            alt="Contemporary residential exterior used as custom-home design inspiration"
             width="1920"
             height="1080"
             fetchPriority="high"
           />
           <figcaption>
-            <span>Spaces to gather. Details to live with.</span>
+            <span>Built around the property and the people within it.</span>
             <span>Design inspiration</span>
           </figcaption>
         </figure>
@@ -65,16 +65,16 @@ export default function Index() {
         <div>
           <Reveal variant="heading">
             <h2>
-              Keep what you love.
+              One builder.
               <br />
-              <em>Rethink what could be.</em>
+              <em>More ways to move forward.</em>
             </h2>
           </Reveal>
           <div className="intro-bottom">
             <p>
-              A home evolves with the people in it. HIC brings kitchen, bathroom
-              and home renovation services together, helping you think through
-              the work as a whole—from the layout to the finishing details.
+              HIC builds custom homes, brings multiplex expertise to residential
+              projects and continues to deliver renovations. Start with the
+              property, the home you want, or the rooms ready to change.
             </p>
             <Link className="text-link" to="/about">
               Meet HIC <ArrowUpRight size={18} />
@@ -85,17 +85,17 @@ export default function Index() {
       <section className="editorial-section services-section" id="services">
         <div className="section-heading-row">
           <div>
-            <p className="eyebrow">Room for something better</p>
+            <p className="eyebrow">Build new · Add homes · Renovate</p>
             <h2>
-              The spaces that
+              Start with the
               <br />
-              <em>make a home.</em>
+              <em>right project path.</em>
             </h2>
           </div>
           <p className="section-copy">
-            Start with one room. Think about the whole home.
+            Plan a custom home or multiplex. Improve one room or the whole home.
             <br />
-            Explore the work we can help you plan.
+            Explore the work HIC can help you move forward.
           </p>
         </div>
         <ServiceCollection />

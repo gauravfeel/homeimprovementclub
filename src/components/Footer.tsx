@@ -18,7 +18,7 @@ export default function Footer() {
             <span>Home Improvement Club</span>
           </Link>
           <p>
-            Thoughtful renovations.
+            Custom homes. Multiplex expertise. Renovations.
             <br />
             Greater Vancouver and the Fraser Valley, British Columbia.
           </p>
@@ -26,7 +26,7 @@ export default function Footer() {
           <WhatsAppButton variant="footer" />
         </div>
         <nav aria-label="Footer services">
-          <p className="eyebrow">Your home</p>
+          <p className="eyebrow">Build & renovate</p>
           {SERVICES.map((s) => (
             <Link key={s.slug} to={`/services/${s.slug}`}>
               {s.label}

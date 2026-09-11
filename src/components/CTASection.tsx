@@ -9,7 +9,7 @@ interface CTASectionProps {
 }
 export default function CTASection({
   title = "Your next chapter starts at home.",
-  description = "Tell us what you have in mind. Let’s talk through the possibilities with a free renovation consultation.",
+  description = "Tell us what you have in mind. Let’s talk through the property, scope and next useful step.",
   cta = "Book a free consultation",
   to = "/contact",
 }: CTASectionProps) {

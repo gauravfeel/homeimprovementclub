@@ -10,13 +10,12 @@ const FORMSPREE_ID = "mgorpzpy";
 
 const STORAGE_KEY = "hic_lead_popup_dismissed";
 
-const renovationStyles = [
-  "Modern / Minimalist",
-  "Traditional / Classic",
-  "Farmhouse / Rustic",
-  "Contemporary",
-  "Industrial",
-  "Transitional",
+const projectTypes = [
+  "Custom Home",
+  "Multiplex",
+  "Whole-home Renovation",
+  "Kitchen Renovation",
+  "Bathroom Renovation",
   "Other",
 ];
 
@@ -38,7 +37,7 @@ const LeadCapturePopup = () => {
     lastName: "",
     phone: "",
     email: "",
-    renovationStyle: "",
+    projectType: "",
     budget: "",
   });
 
@@ -70,7 +69,7 @@ const LeadCapturePopup = () => {
           "last name": form.lastName,
           phone: form.phone,
           email: form.email,
-          "renovation style": form.renovationStyle,
+          "project type": form.projectType,
           budget: form.budget,
         }),
       });
@@ -99,7 +98,7 @@ const LeadCapturePopup = () => {
           <div className="text-center py-6 space-y-4">
             <img src={logo} alt="Home Improvement Club" className="h-10 w-auto mx-auto" />
             <h2 className="text-xl font-display font-semibold">Your enquiry is on its way.</h2>
-            <p className="text-muted-foreground text-sm" role="status">We’ll be in touch to discuss your renovation.</p>
+            <p className="text-muted-foreground text-sm" role="status">We’ll be in touch to discuss your project.</p>
             <Button variant="hero" onClick={() => setOpen(false)} className="w-full">Close</Button>
           </div>
         ) : (
@@ -108,7 +107,7 @@ const LeadCapturePopup = () => {
               <img src={logo} alt="Home Improvement Club" className="h-9 w-auto mb-2" />
               <DialogTitle className="text-xl font-display">A quick introduction</DialogTitle>
               <DialogDescription className="text-sm">
-                Tell us a little about yourself to start a free renovation consultation.
+                Tell us a little about yourself and the project you are considering.
               </DialogDescription>
             </DialogHeader>
 
@@ -158,15 +157,15 @@ const LeadCapturePopup = () => {
                 />
               </div>
               <div>
-                <label htmlFor="popup-style" className="text-xs font-medium mb-1 block">Ideal Style of Renovation</label>
+                <label htmlFor="popup-project" className="text-xs font-medium mb-1 block">What are you planning?</label>
                 <select
-                  id="popup-style"
-                  value={form.renovationStyle}
-                  onChange={(e) => setForm({ ...form, renovationStyle: e.target.value })}
+                  id="popup-project"
+                  value={form.projectType}
+                  onChange={(e) => setForm({ ...form, projectType: e.target.value })}
                   className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
                 >
-                  <option value="">Select a style</option>
-                  {renovationStyles.map((s) => (
+                  <option value="">Select a project type</option>
+                  {projectTypes.map((s) => (
                     <option key={s} value={s}>{s}</option>
                   ))}
                 </select>

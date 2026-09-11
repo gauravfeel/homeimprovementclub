@@ -6,12 +6,12 @@ export default function Services() {
   return (
     <Layout>
       <SEO
-        title="Renovation Services in Greater Vancouver | Home Improvement Club"
-        description="Compare HIC kitchen, bathroom, lighting, flooring, HVAC and electrical, and exterior renovation services in Greater Vancouver."
+        title="Custom Homes, Multiplex & Renovations | HIC"
+        description="Explore HIC custom home construction, multiplex expertise and renovation services across Greater Vancouver and the Fraser Valley."
         canonical="/services"
       />
       <section className="editorial-section directory-opening">
-        <p className="eyebrow">Renovation services · Greater Vancouver</p>
+        <p className="eyebrow">Custom homes · Multiplex · Renovations</p>
         <div>
           <h1>
             Find your
@@ -19,8 +19,8 @@ export default function Services() {
             <em>starting point.</em>
           </h1>
           <p>
-            Choose the part of your home you want to work on. Each service page
-            explains what to consider before deciding on the scope.
+            Build new, explore a multiplex project or improve the home you have.
+            Each service page explains what to consider before setting scope.
           </p>
         </div>
         <nav aria-label="Service directory" className="directory-index">
@@ -70,9 +70,8 @@ export default function Services() {
         </h2>
         <div>
           <p>
-            Tell us about the work together. Connected decisions—flooring,
-            lighting, cabinetry and systems—are easier to discuss as part of the
-            same renovation brief.
+            Tell us about the whole project. Property, layout, flooring,
+            lighting, cabinetry and systems are easier to discuss as one brief.
           </p>
           <Link className="solid-link" to="/contact">
             Discuss the whole scope ↗

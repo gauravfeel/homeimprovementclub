@@ -77,7 +77,7 @@ const Contact = () => {
     <Layout>
       <SEO
         title={`Book a Free Consultation | Home Improvement Club — ${SERVICE_AREA_BC}`}
-        description={`Book your free home renovation consultation in ${SERVICE_AREA}. Discuss kitchens, bathrooms, lighting, flooring, HVAC, electrical and exteriors.`}
+        description={`Discuss a custom home, multiplex or renovation project with Home Improvement Club in ${SERVICE_AREA}.`}
         canonical="/contact"
       />
       <section className="section-padding-lg contact-section">
@@ -94,16 +94,17 @@ const Contact = () => {
                   ? "your bathroom."
                   : selectedService?.slug === "kitchen-cabinets"
                     ? "your kitchen."
-                    : "your home."}
+                    : selectedService?.slug === "custom-homes-multiplex"
+                      ? "your build."
+                      : "your home."}
               </em>
             </h1>
             <p className="text-muted-foreground text-sm mb-6">
-              Free renovation consultation · {SERVICE_AREA}
+              Project consultation · {SERVICE_AREA}
             </p>
             <p className="body-lg mb-8">
-              Tell us which rooms are involved and what you want to change.
-              We’ll use your enquiry to start a conversation about the scope and
-              next steps.
+              Tell us about the property and whether you are planning a custom
+              home, multiplex or renovation. We’ll start with scope and next steps.
             </p>
             <div className="space-y-4 text-muted-foreground">
               <p className="flex items-center gap-3">

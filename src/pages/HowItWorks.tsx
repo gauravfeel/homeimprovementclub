@@ -3,22 +3,22 @@ import Layout from "@/components/Layout";
 import SEO from "@/components/SEO";
 const stages = [
   {
-    title: "Describe the change.",
-    body: "Start with a free consultation. Talk about the existing space, the work you have in mind and the things that matter most to your household.",
+    title: "Describe the project.",
+    body: "Start with a conversation about the property, what you want to build or change and what matters most to the people who will use it.",
     input:
-      "Your location, priorities and any photos or ideas you already have.",
-    decision: "The areas of the home and the scope to explore.",
+      "Your property location, priorities and any photos, surveys, plans or ideas you already have.",
+    decision: "The project path, feasibility questions and scope to explore.",
   },
   {
     title: "Work through the details.",
-    body: "Consider layout, materials, budget and proposed timing together. Discuss the work needed behind the finishes and the decisions required before it can begin.",
+    body: "Consider feasibility, layout, materials, budget and timing together. Discuss design, consultant or approval requirements before construction.",
     input: "Your preferences, budget context and household constraints.",
     decision:
       "An agreed scope, selections and a proposed sequence for the work.",
   },
   {
-    title: "Coordinate the renovation.",
-    body: "The agreed plan moves into the home. Confirm access arrangements, responsibilities and how questions or changes will be handled during the work.",
+    title: "Coordinate the build.",
+    body: "The agreed plan moves into construction. Confirm access, responsibilities, sequencing and how questions or changes will be handled.",
     input:
       "Access to the agreed work areas and decisions when they are needed.",
     decision: "How the work is coordinated and how changes are discussed.",
@@ -34,25 +34,25 @@ export default function HowItWorks() {
   return (
     <Layout>
       <SEO
-        title="Planning Your Renovation | HIC Process"
-        description="Understand HIC’s renovation process, the decisions to discuss and what to bring to your free consultation."
+        title="Custom Home, Multiplex & Renovation Process | HIC"
+        description="Understand how HIC moves custom home, multiplex and renovation conversations from early scope through construction and handover."
         canonical="/how-it-works"
       />
       <section className="editorial-section process-opening">
         <p className="eyebrow">From enquiry to walkthrough</p>
         <h1>
-          A renovation involves
+          A residential project involves
           <br />
           <em>more than the work.</em>
         </h1>
         <p>
-          There are decisions about your home, your time and how you will live
-          around the project. Here is where those conversations fit.
+          Custom homes, multiplex projects and renovations begin differently,
+          but each needs a clear brief, coordinated decisions and a buildable plan.
         </p>
       </section>
       <section
         className="editorial-section detailed-timeline"
-        aria-label="Renovation stages"
+        aria-label="Residential project stages"
       >
         {stages.map((s, i) => (
           <article key={s.title}>
@@ -93,13 +93,13 @@ export default function HowItWorks() {
           </div>
           <ul>
             <li>
-              <span>01</span>Your city and the rooms involved
+              <span>01</span>The property address and intended project
             </li>
             <li>
               <span>02</span>What currently gets in the way
             </li>
             <li>
-              <span>03</span>What you would like to keep
+              <span>03</span>What you hope to build or keep
             </li>
             <li>
               <span>04</span>Budget and timing, if you know them

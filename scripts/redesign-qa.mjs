@@ -10,6 +10,7 @@ const reports = [];
 const routes = [
   "/",
   "/services",
+  "/services/custom-homes-multiplex",
   "/services/kitchen-cabinets",
   "/services/bathrooms",
   "/services/lighting",
@@ -120,7 +121,7 @@ try {
   assert.equal(await page.getByRole("button", { name: "Task", exact: true }).getAttribute("aria-pressed"), "true");
   await page.getByRole("heading", { name: "Light where life happens." }).waitFor();
   await page.goto(origin + "/areas-we-serve");
-  await page.getByRole("link", { name: "Discuss a renovation in Richmond", exact: true }).click();
+  await page.getByRole("link", { name: "Discuss a building or renovation project in Richmond", exact: true }).click();
   assert.equal(await page.locator("#contact-city").inputValue(), "Richmond");
   await page.goto(origin + "/contact?service=kitchen-cabinets");
   await page.locator("#contact-project").waitFor();
@@ -213,7 +214,7 @@ try {
     .getByRole("button", { name: "Request my consultation", exact: true })
     .click();
   await page
-    .getByText("Please try again or email homeimprovementclub.co@gmail.com")
+    .getByText("Please try again or email homeimprovementclub.co@gmail.com", { exact: true })
     .waitFor();
   assert.equal(
     await page.evaluate(
@@ -234,7 +235,7 @@ try {
     .getByRole("button", { name: "Request my consultation", exact: true })
     .click();
   await page
-    .getByText("We’ll be in touch to discuss your renovation.")
+    .getByText("We’ll be in touch to discuss your project.", { exact: true })
     .waitFor();
   assert.equal(
     await page.evaluate(

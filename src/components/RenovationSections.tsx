@@ -38,13 +38,13 @@ export function AreaSection() {
       <div>
         <p className="eyebrow">Close to home</p>
         <h2>
-          Renovating across
+          Building and renovating across
           <br />
           <em>Greater Vancouver and the Fraser Valley.</em>
         </h2>
         <p className="section-copy">
-          From a kitchen in Vancouver to an exterior in Chilliwack. Tell us
-          where you live and what you have in mind.
+          From custom homes and multiplex projects to kitchens and bathrooms.
+          Tell us where the property is and what you have in mind.
         </p>
         <Link className="text-link" to="/areas-we-serve">
           Our service area <ArrowUpRight size={18} />

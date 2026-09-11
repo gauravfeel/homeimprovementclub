@@ -16,6 +16,7 @@ const targets = process.argv.includes("--before")
     ]
   : [
       ["home", "http://127.0.0.1:5173/"],
+      ["custom-homes-multiplex", "http://127.0.0.1:5173/services/custom-homes-multiplex"],
       ["kitchen", "http://127.0.0.1:5173/services/kitchen-cabinets"],
       ["bathroom", "http://127.0.0.1:5173/services/bathrooms"],
       ["contact", "http://127.0.0.1:5173/contact"],

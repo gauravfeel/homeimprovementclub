@@ -1,4 +1,5 @@
-import { ChefHat, Bath, Lightbulb, Layers, Wind, Home } from "lucide-react";
+import { ChefHat, Bath, Lightbulb, Layers, Wind, Home, Building2 } from "lucide-react";
+import customHomeImg from "@/assets/hero-home.jpg";
 import kitchenImg from "@/assets/lux-kitchen.jpg";
 import bathImg from "@/assets/lux-bathroom.jpg";
 import lightImg from "@/assets/lux-lighting.jpg";
@@ -6,6 +7,45 @@ import floorImg from "@/assets/lux-flooring.jpg";
 import hvacImg from "@/assets/lux-hvac.jpg";
 import extImg from "@/assets/lux-exterior.jpg";
 export const SERVICES = [
+  {
+    slug: "custom-homes-multiplex",
+    icon: Building2,
+    image: customHomeImg,
+    title: "Custom Homes & Multiplex Construction",
+    label: "Custom homes & multiplex",
+    searchTitle: "Custom home builder and multiplex construction",
+    hero: "Built around what comes next.",
+    short:
+      "Custom homes and multiplex projects shaped around the property, the people and the plan.",
+    intro:
+      "Plan a custom home or multiplex project with Home Improvement Club, from early property questions and project scope through construction and handover.",
+    scopeTitle: "Start with the property. Build the right brief.",
+    sub: [
+      "Custom home construction",
+      "Multiplex project planning",
+      "Site and feasibility conversations",
+      "Design and consultant coordination",
+      "Permit and construction planning",
+      "Build coordination and handover",
+    ],
+    benefits: [
+      {
+        t: "One clear brief",
+        d: "Bring the property, intended use, priorities and budget context into the same early conversation.",
+      },
+      {
+        t: "Decisions in sequence",
+        d: "Identify design, consultant, approval and construction decisions before work begins.",
+      },
+      {
+        t: "Built for the outcome",
+        d: "Keep the finished home, its residents and long-term use visible throughout planning.",
+      },
+    ],
+    question: "What should I bring to a custom home or multiplex consultation?",
+    answer:
+      "Start with the property address, what you hope to build, who the project is for, your budget context and any surveys, drawings or early ideas you already have. Feasibility and approval requirements depend on the property and municipality.",
+  },
   {
     slug: "kitchen-cabinets",
     icon: ChefHat,

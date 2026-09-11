@@ -8,8 +8,8 @@ export default function About() {
   return (
     <Layout>
       <SEO
-        title="About Home Improvement Club | Greater Vancouver Renovations"
-        description="Home Improvement Club brings kitchen, bathroom and home renovation services together for Greater Vancouver and Fraser Valley homeowners. Learn about HIC’s focus."
+        title="About HIC | Custom Homes, Multiplex & Renovations"
+        description="Home Improvement Club is a custom home builder and multiplex expert that also delivers renovations across Greater Vancouver and the Fraser Valley."
         canonical="/about"
       />
       <section className="editorial-section about-opening">
@@ -24,10 +24,9 @@ export default function About() {
         <Reveal variant="copy" className="about-lead">
           <span className="editorial-signature">HIC / Greater Vancouver · Fraser Valley</span>
           <p>
-            Home Improvement Club is a home-renovation business serving Greater
-            Vancouver and the Fraser Valley. Our focus is the home you already have: the rooms you use
-            every day, the details that no longer work and the changes worth
-            thinking through.
+            Home Improvement Club is a custom home builder and multiplex expert
+            serving Greater Vancouver and the Fraser Valley. HIC also renovates
+            existing homes, from focused rooms to connected whole-home work.
           </p>
         </Reveal>
       </section>
@@ -48,14 +47,14 @@ export default function About() {
             <em>One home.</em>
           </h2>
           <p>
-            A new kitchen affects the lighting around it. A bathroom renovation
-            raises questions about tile, ventilation and storage. Exterior
-            changes can connect to the way you use your outdoor space.
+            A custom home begins with the property and the way people want to
+            live. A multiplex adds questions about multiple homes, approvals and
+            coordination. A renovation begins with what works and what must change.
           </p>
           <p>
-            HIC brings these renovation services together. The starting point is
-            a conversation about what you need from the space, followed by the
-            scope and decisions involved in making those changes.
+            HIC brings those paths together under one residential construction
+            focus. The starting point is a conversation about the property,
+            intended outcome, scope and decisions needed to move forward.
           </p>
           <Link className="text-link" to="/services">
             See the work we offer ↗
@@ -71,19 +70,19 @@ export default function About() {
         </aside>
         <div>
           <h2>
-            Tell us what is not working.
+            Tell us what you want to build.
             <br />
-            <em>And what you would like to keep.</em>
+            <em>Or what needs to change.</em>
           </h2>
           <p>
-            You do not need to arrive with every finish selected. A clear
-            account of daily life in your home—where it feels cramped, what you
-            cannot store, which rooms you avoid—is a useful brief.
+            You do not need to arrive with every finish selected. For a new
+            build, bring the property and intended use. For a renovation, bring
+            what is not working and what you want to keep.
           </p>
           <p>
             From there, discuss your priorities, budget and preferred timing.
-            The right scope starts with understanding the existing home, rather
-            than assuming every part of it needs to change.
+            The right scope starts with understanding the property, desired
+            outcome and decisions already made.
           </p>
         </div>
       </section>
@@ -94,8 +93,8 @@ export default function About() {
             <div>
               <dt>Our work</dt>
               <dd>
-                Kitchens, bathrooms, lighting, tile and flooring, HVAC and
-                electrical upgrades, and exteriors.
+                Custom homes, multiplex projects, kitchens, bathrooms, lighting,
+                flooring, HVAC and electrical upgrades, and exteriors.
               </dd>
             </div>
             <div>
@@ -109,7 +108,7 @@ export default function About() {
             <div>
               <dt>Your starting point</dt>
               <dd>
-                A free renovation consultation about your home and the work you
+                A project conversation about the property, home and work you
                 are considering.
               </dd>
             </div>
