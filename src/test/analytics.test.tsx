@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { cleanup, fireEvent, render } from "@testing-library/react";
 import { trackEvent } from "@/lib/analytics";
 import { ContactInfo } from "@/components/ContactInfo";
@@ -6,17 +6,32 @@ import { WhatsAppButton } from "@/components/WhatsAppButton";
 afterEach(() => {
   cleanup();
   delete window.dataLayer;
+  delete window.gtag;
 });
 describe("conversion event contract", () => {
-  it("preserves existing Google queue entries", () => {
+  it("queues a GA4 event before gtag is ready", () => {
     window.dataLayer = [{ event: "gtm.js" }];
     const queue = window.dataLayer;
     trackEvent({ event: "generate_lead", form_location: "contact_page" });
     expect(window.dataLayer).toBe(queue);
     expect(queue).toEqual([
       { event: "gtm.js" },
-      { event: "generate_lead", form_location: "contact_page" },
+      ["event", "generate_lead", { form_location: "contact_page" }],
     ]);
+  });
+
+  it("sends generate_lead directly through the configured Google tag", () => {
+    const gtag = vi.fn();
+    window.gtag = gtag;
+    trackEvent({
+      event: "generate_lead",
+      lead_type: "consultation_form",
+      form_location: "contact_page",
+    });
+    expect(gtag).toHaveBeenCalledWith("event", "generate_lead", {
+      lead_type: "consultation_form",
+      form_location: "contact_page",
+    });
   });
   it("tracks a phone click with the existing payload", () => {
     const { getByRole } = render(<ContactInfo />);
@@ -25,11 +40,10 @@ describe("conversion event contract", () => {
     expect(phone).toHaveAttribute("href", "tel:+12363804423");
     fireEvent.click(phone);
     expect(window.dataLayer).toEqual([
-      {
-        event: "phone_click",
+      ["event", "phone_click", {
         lead_type: "phone",
         link_location: "contact_info",
-      },
+      }],
     ]);
   });
   it.each([
@@ -44,11 +58,10 @@ describe("conversion event contract", () => {
     );
     fireEvent.click(link);
     expect(window.dataLayer).toEqual([
-      {
-        event: "whatsapp_click",
+      ["event", "whatsapp_click", {
         lead_type: "whatsapp",
         link_location: location,
-      },
+      }],
     ]);
   });
 });
