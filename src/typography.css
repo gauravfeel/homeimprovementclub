@@ -147,7 +147,8 @@ button[type="submit"] {
 }
 input,
 select,
-textarea {
+textarea,
+button[role="combobox"] {
   font-family: var(--font-body);
   font-size: 1rem;
   line-height: 1.5;

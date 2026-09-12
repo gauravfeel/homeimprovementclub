@@ -1,41 +1,48 @@
-import { useEffect, useRef } from "react";
-import type { FieldValues } from "@formspree/core";
-import { useForm, ValidationError } from "@formspree/react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 import Layout from "@/components/Layout";
 import SEO from "@/components/SEO";
-import { cn } from "@/lib/utils";
 import {
   SERVICE_AREA,
   SERVICE_AREA_BC,
   SERVICE_CITIES,
 } from "@/lib/service-area";
 import { trackEvent } from "@/lib/analytics";
+import { submitLead } from "@/lib/submit-lead";
+import {
+  BEST_CONTACT_TIMES,
+  contactLeadSchema,
+  type ContactLeadValues,
+} from "@/lib/lead-schema";
 import { useSearchParams } from "react-router-dom";
 import { SERVICES } from "@/data/services";
 import { ContactInfo } from "@/components/ContactInfo";
-
-/** Formspree form id (dashboard → Integration → form endpoint). Override with VITE_FORMSPREE_ID in .env */
-const FORM_ID = import.meta.env.VITE_FORMSPREE_ID || "xlgaonqb";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const projectTypes = [
   ...SERVICES.map((service) => service.title),
   "More than one room",
   "Other",
 ];
-
-const budgetRanges = [
-  "Under $10,000",
-  "$10,000 – $25,000",
-  "$25,000 – $50,000",
-  "$50,000 – $100,000",
-  "$100,000+",
-];
-
-const errorClass = "text-sm text-destructive mt-1.5";
 
 const Contact = () => {
   const [searchParams] = useSearchParams();
@@ -45,33 +52,55 @@ const Contact = () => {
   const selectedCity =
     SERVICE_CITIES.find((city) => city === searchParams.get("city")) || "";
   const { toast } = useToast();
-  const [state, handleSubmit, reset] = useForm<FieldValues>(FORM_ID);
-  const wasSubmitting = useRef(false);
-  const conversionTracked = useRef(false);
+  const [succeeded, setSucceeded] = useState(false);
+  const form = useForm<ContactLeadValues>({
+    resolver: zodResolver(contactLeadSchema),
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      propertyAddress: "",
+      city: selectedCity,
+      bestContactTime: "" as ContactLeadValues["bestContactTime"] | "",
+      projectType: selectedService?.title || "",
+      budget: undefined,
+      message: "",
+      company: "",
+    },
+  });
 
-  useEffect(() => {
-    if (state.succeeded && !conversionTracked.current) {
-      conversionTracked.current = true;
+  const onSubmit = async (values: ContactLeadValues) => {
+    try {
+      await submitLead({
+        source: "contact_page",
+        firstName: values.firstName,
+        lastName: values.lastName,
+        email: values.email,
+        phone: values.phone,
+        propertyAddress: values.propertyAddress,
+        city: values.city,
+        bestContactTime: values.bestContactTime,
+        projectType: values.projectType,
+        budget: String(values.budget),
+        message: values.message,
+        company: values.company,
+      });
       trackEvent({
         event: "generate_lead",
         lead_type: "consultation_form",
         form_location: "contact_page",
       });
-    }
-    if (
-      wasSubmitting.current &&
-      !state.submitting &&
-      !state.succeeded &&
-      state.errors
-    ) {
+      setSucceeded(true);
+      form.reset();
+    } catch {
       toast({
         title: "Something went wrong",
         description: "Please email us at homeimprovementclub.co@gmail.com",
         variant: "destructive",
       });
     }
-    wasSubmitting.current = state.submitting;
-  }, [state.submitting, state.succeeded, state.errors, toast]);
+  };
 
   return (
     <Layout>
@@ -136,7 +165,7 @@ const Contact = () => {
 
           <div>
             <div className="bg-card rounded-2xl p-8 border border-border space-y-5">
-              {state.succeeded ? (
+              {succeeded ? (
                 <div role="status" className="text-center py-6 space-y-4">
                   <p className="text-xl font-semibold text-foreground">
                     Your enquiry is on its way.
@@ -148,219 +177,259 @@ const Contact = () => {
                   <Button
                     type="button"
                     variant="outline"
-                    onClick={() => {
-                      conversionTracked.current = false;
-                      reset();
-                    }}
+                    onClick={() => setSucceeded(false)}
                   >
                     Send another message
                   </Button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  <input
-                    type="hidden"
-                    name="_subject"
-                    value="New Consultation Request — Home Improvement Club"
-                  />
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label
-                        htmlFor="contact-firstName"
-                        className="text-sm font-medium mb-1.5 block"
-                      >
-                        First Name *
-                      </label>
-                      <Input
-                        id="contact-firstName"
-                        name="firstName"
-                        autoComplete="given-name"
-                        required
-                        placeholder="John"
-                        maxLength={100}
-                      />
-                      <ValidationError
-                        prefix="First name"
-                        field="firstName"
-                        errors={state.errors}
-                        className={cn(errorClass)}
-                      />
-                    </div>
-                    <div>
-                      <label
-                        htmlFor="contact-lastName"
-                        className="text-sm font-medium mb-1.5 block"
-                      >
-                        Last Name
-                      </label>
-                      <Input
-                        id="contact-lastName"
-                        name="lastName"
-                        autoComplete="family-name"
-                        placeholder="Last name"
-                        maxLength={100}
-                      />
-                      <ValidationError
-                        prefix="Last name"
-                        field="lastName"
-                        errors={state.errors}
-                        className={cn(errorClass)}
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="contact-email"
-                      className="text-sm font-medium mb-1.5 block"
-                    >
-                      Email *
-                    </label>
-                    <Input
-                      id="contact-email"
-                      name="email"
-                      autoComplete="email"
-                      type="email"
-                      required
-                      placeholder="john@example.com"
-                      maxLength={255}
-                    />
-                    <ValidationError
-                      prefix="Email"
-                      field="email"
-                      errors={state.errors}
-                      className={cn(errorClass)}
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="contact-phone"
-                      className="text-sm font-medium mb-1.5 block"
-                    >
-                      Phone
-                    </label>
-                    <Input
-                      id="contact-phone"
-                      name="phone"
-                      autoComplete="tel"
-                      type="tel"
-                      placeholder="(555) 123-4567"
-                      maxLength={20}
-                    />
-                    <ValidationError
-                      prefix="Phone"
-                      field="phone"
-                      errors={state.errors}
-                      className={cn(errorClass)}
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="contact-city"
-                      className="text-sm font-medium mb-1.5 block"
-                    >
-                      City or neighbourhood
-                    </label>
-                    <Input
-                      id="contact-city"
-                      defaultValue={selectedCity}
-                      name="city"
-                      autoComplete="address-level2"
-                      placeholder="Where is your home?"
-                      maxLength={100}
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="contact-project"
-                      className="text-sm font-medium mb-1.5 block"
-                    >
-                      What are you planning?
-                    </label>
-                    <select
-                      id="contact-project"
-                      name="project type"
-                      defaultValue={selectedService?.title || ""}
-                      className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-                    >
-                      <option value="">Select a project type</option>
-                      {projectTypes.map((p) => (
-                        <option key={p} value={p}>
-                          {p}
-                        </option>
-                      ))}
-                    </select>
-                    <ValidationError
-                      prefix="Project"
-                      field="project type"
-                      errors={state.errors}
-                      className={cn(errorClass)}
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="contact-budget"
-                      className="text-sm font-medium mb-1.5 block"
-                    >
-                      Budget
-                    </label>
-                    <select
-                      id="contact-budget"
-                      name="budget"
-                      defaultValue=""
-                      className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-                    >
-                      <option value="">Select a budget range</option>
-                      <option value="Not sure yet">Not sure yet</option>
-                      {budgetRanges.map((b) => (
-                        <option key={b} value={b}>
-                          {b}
-                        </option>
-                      ))}
-                    </select>
-                    <ValidationError
-                      prefix="Budget"
-                      field="budget"
-                      errors={state.errors}
-                      className={cn(errorClass)}
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="contact-message"
-                      className="text-sm font-medium mb-1.5 block"
-                    >
-                      Tell Us More
-                    </label>
-                    <Textarea
-                      id="contact-message"
-                      name="message"
-                      placeholder="Describe your project vision..."
-                      rows={4}
-                      maxLength={1000}
-                    />
-                    <ValidationError
-                      prefix="Message"
-                      field="message"
-                      errors={state.errors}
-                      className={cn(errorClass)}
-                    />
-                  </div>
-                  <Button
-                    variant="hero"
-                    size="xl"
-                    type="submit"
-                    className="w-full"
-                    disabled={state.submitting}
+                <Form {...form}>
+                  <form
+                    onSubmit={form.handleSubmit(onSubmit)}
+                    className="space-y-5 relative"
+                    noValidate
                   >
-                    {state.submitting
-                      ? "Sending…"
-                      : "Request my free consultation"}
-                  </Button>
-                  <p className="text-xs text-muted-foreground text-center">
-                    Your details are sent to HIC through Formspree so we can
-                    respond to your enquiry.
-                  </p>
-                </form>
+                    <div className="absolute -left-[9999px]" aria-hidden="true">
+                      <FormField
+                        control={form.control}
+                        name="company"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Company</FormLabel>
+                            <FormControl>
+                              <input {...field} tabIndex={-1} autoComplete="off" />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <FormField
+                        control={form.control}
+                        name="firstName"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>First Name *</FormLabel>
+                            <FormControl>
+                              <Input
+                                autoComplete="given-name"
+                                placeholder="John"
+                                maxLength={100}
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="lastName"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Last Name</FormLabel>
+                            <FormControl>
+                              <Input
+                                autoComplete="family-name"
+                                placeholder="Last name"
+                                maxLength={100}
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Email *</FormLabel>
+                          <FormControl>
+                            <Input
+                              autoComplete="email"
+                              type="email"
+                              placeholder="john@example.com"
+                              maxLength={255}
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="phone"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Phone *</FormLabel>
+                          <FormControl>
+                            <Input
+                              autoComplete="tel"
+                              type="tel"
+                              placeholder="(555) 123-4567"
+                              maxLength={20}
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="propertyAddress"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Property Address *</FormLabel>
+                          <FormControl>
+                            <Input
+                              autoComplete="street-address"
+                              placeholder="123 Main Street"
+                              maxLength={200}
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="city"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>City or neighbourhood</FormLabel>
+                          <FormControl>
+                            <Input
+                              autoComplete="address-level2"
+                              placeholder="Where is your home?"
+                              maxLength={100}
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="bestContactTime"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Best time to contact you *</FormLabel>
+                          <Select
+                            onValueChange={field.onChange}
+                            value={field.value || undefined}
+                          >
+                            <FormControl>
+                              <SelectTrigger aria-label="Best time to contact you">
+                                <SelectValue placeholder="Select a time" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {BEST_CONTACT_TIMES.map((time) => (
+                                <SelectItem key={time} value={time}>
+                                  {time}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="projectType"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>What are you planning?</FormLabel>
+                          <Select
+                            onValueChange={field.onChange}
+                            value={field.value || undefined}
+                          >
+                            <FormControl>
+                              <SelectTrigger aria-label="What are you planning?">
+                                <SelectValue placeholder="Select a project type" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              {projectTypes.map((p) => (
+                                <SelectItem key={p} value={p}>
+                                  {p}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="budget"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Estimated project budget *</FormLabel>
+                          <FormControl>
+                            <Input
+                              type="number"
+                              inputMode="numeric"
+                              min={10001}
+                              step={1}
+                              placeholder="Enter amount in CAD (greater than $10,000)"
+                              name={field.name}
+                              onBlur={field.onBlur}
+                              ref={field.ref}
+                              value={field.value ?? ""}
+                              onChange={(event) =>
+                                field.onChange(
+                                  event.target.value === ""
+                                    ? undefined
+                                    : event.target.valueAsNumber,
+                                )
+                              }
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="message"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Tell Us More</FormLabel>
+                          <FormControl>
+                            <Textarea
+                              placeholder="Describe your project vision..."
+                              rows={4}
+                              maxLength={1000}
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <Button
+                      variant="hero"
+                      size="xl"
+                      type="submit"
+                      className="w-full"
+                      disabled={form.formState.isSubmitting}
+                    >
+                      {form.formState.isSubmitting
+                        ? "Sending…"
+                        : "Request my free consultation"}
+                    </Button>
+                  </form>
+                </Form>
               )}
             </div>
           </div>

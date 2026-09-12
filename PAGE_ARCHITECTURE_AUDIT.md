@@ -21,6 +21,6 @@ Approved visual language stays: warm stone, forest green, editorial serif, restr
 | `/contractors` | Legacy membership route | Disabled in existing app | Preserve disabled feature flag and existing route behavior |
 | `*` | Recover from an invalid URL | None | Keep branded recovery page and noindex |
 
-Only navigation, footer, typography, image treatment, controls and small content primitives should be shared across inner pages. Full homepage sections stay on the homepage. Existing route URLs, Formspree endpoints, GTM/GA4 bootstrap and conversion-event payloads remain unchanged.
+Only navigation, footer, typography, image treatment, controls and small content primitives should be shared across inner pages. Full homepage sections stay on the homepage. Route URLs, `/api/lead`, GTM/GA4 bootstrap and conversion-event payloads remain unchanged.
 
 Missing evidence: HIC-approved company narrative, founder/team details, operating responsibilities, project attribution/image rights/client consent, reviews, licences, insurance and warranty terms. No content is invented to fill these gaps.

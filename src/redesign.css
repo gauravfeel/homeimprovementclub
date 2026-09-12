@@ -883,6 +883,7 @@ div[id] {
 }
 .contact-section form input,
 .contact-section form select,
+.contact-section form button[role="combobox"],
 .contact-section textarea {
   min-height: 48px;
   font-size: var(--type-body);
@@ -893,6 +894,7 @@ div[id] {
 }
 .contact-section form input:focus-visible,
 .contact-section form select:focus-visible,
+.contact-section form button[role="combobox"]:focus-visible,
 .contact-section textarea:focus-visible {
   outline: 2px solid var(--focus-ring);
   outline-offset: 2px;

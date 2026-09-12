@@ -119,7 +119,7 @@ Gaps:
 - Tracking architecture is fragmented.
 - Current contact taxonomy says `Kitchen & Bath`, preventing service-level attribution.
 - Several claims need owner evidence: licensed/insured/vetted, testimonial authenticity, portfolio provenance, response within 24 hours.
-- No dedicated thank-you URL; conversion must fire only after confirmed Formspree success.
+- No dedicated thank-you URL; conversion must fire only after confirmed `/api/lead` success.
 
 Code change completed locally: added `dataLayer` events for successful contact form (`generate_lead`), successful popup form (`generate_lead`), phone clicks (`phone_click`), and WhatsApp clicks (`whatsapp_click`). TypeScript check passes. These changes are not deployed by this audit.
 
@@ -127,7 +127,7 @@ Code change completed locally: added `dataLayer` events for successful contact f
 
 Primary:
 
-- `generate_lead` — confirmed successful Formspree submission only.
+- `generate_lead` — confirmed successful `/api/lead` submission only.
 - Qualified call — Google forwarding/call conversion with meaningful duration threshold (recommend 60 seconds; owner confirm).
 
 Secondary:

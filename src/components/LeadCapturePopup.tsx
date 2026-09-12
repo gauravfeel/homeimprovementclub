@@ -1,14 +1,65 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useLocation } from "react-router-dom";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 import logo from "@/assets/hic-logo-small.png";
 import { trackEvent } from "@/lib/analytics";
-
-const FORMSPREE_ID = "mgorpzpy";
+import { submitLead } from "@/lib/submit-lead";
+import { popupLeadSchema, type PopupLeadValues } from "@/lib/lead-schema";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const STORAGE_KEY = "hic_lead_popup_dismissed";
+const TIMER_KEY = "hic_lead_popup_timer_started";
+const SHOWN_KEY = "hic_lead_popup_shown";
+const AUTO_DELAY_MS = 8000;
+const DISMISS_MS = 5 * 60 * 1000;
+
+function clearLeadStorage() {
+  localStorage.removeItem(STORAGE_KEY);
+  sessionStorage.removeItem(SHOWN_KEY);
+  sessionStorage.removeItem(TIMER_KEY);
+}
+
+function isLeadSuppressed() {
+  const at = Number(localStorage.getItem(STORAGE_KEY));
+  if (!at) return false;
+  if (Date.now() - at >= DISMISS_MS) {
+    clearLeadStorage();
+    return false;
+  }
+  return true;
+}
+
+function markLeadDismissed() {
+  localStorage.setItem(STORAGE_KEY, String(Date.now()));
+}
+
+function isRadixSelectLayer(target: EventTarget | null) {
+  const el = target as HTMLElement | null;
+  return Boolean(
+    el?.closest?.(
+      "[data-radix-select-content], [data-radix-select-viewport], [data-radix-popper-content-wrapper]",
+    ),
+  );
+}
 
 const projectTypes = [
   "Custom Home",
@@ -20,80 +71,147 @@ const projectTypes = [
 ];
 
 const budgetRanges = [
-  "Under $10,000",
   "$10,000 – $25,000",
   "$25,000 – $50,000",
   "$50,000 – $100,000",
   "$100,000+",
 ];
 
+const popupDefaults: PopupLeadValues = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  phone: "",
+  projectType: "",
+  budget: "",
+  company: "",
+};
+
 const LeadCapturePopup = () => {
+  const { pathname } = useLocation();
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
-    phone: "",
-    email: "",
-    projectType: "",
-    budget: "",
+  const form = useForm<PopupLeadValues>({
+    resolver: zodResolver(popupLeadSchema),
+    defaultValues: popupDefaults,
   });
+  const dismissArmed = useRef(false);
 
   useEffect(() => {
-    const show = () => setOpen(true);
-    window.addEventListener("hic:open-enquiry", show);
-    return () => window.removeEventListener("hic:open-enquiry", show);
-  }, []);
+    document.body.classList.toggle("lead-dialog-open", open);
+    if (!open) return;
+    dismissArmed.current = false;
+    const arm = window.setTimeout(() => {
+      dismissArmed.current = true;
+    }, 800);
+    return () => {
+      window.clearTimeout(arm);
+      document.body.classList.remove("lead-dialog-open");
+    };
+  }, [open]);
+
+  useEffect(() => {
+    const showManual = () => setOpen(true);
+    window.addEventListener("hic:open-enquiry", showManual);
+
+    const tryShow = () => {
+      if (isLeadSuppressed()) return;
+      if (sessionStorage.getItem(SHOWN_KEY)) return;
+      if (window.location.pathname === "/contact") return;
+      if (document.documentElement.classList.contains("menu-open")) return;
+      sessionStorage.setItem(SHOWN_KEY, "1");
+      setOpen(true);
+    };
+
+    let timer = 0;
+    let expiry = 0;
+    const dismissedAt = Number(localStorage.getItem(STORAGE_KEY));
+    if (dismissedAt && Date.now() - dismissedAt < DISMISS_MS) {
+      expiry = window.setTimeout(() => {
+        clearLeadStorage();
+        tryShow();
+      }, DISMISS_MS - (Date.now() - dismissedAt));
+    } else if (!isLeadSuppressed() && !sessionStorage.getItem(SHOWN_KEY) && pathname !== "/contact") {
+      if (!sessionStorage.getItem(TIMER_KEY)) {
+        sessionStorage.setItem(TIMER_KEY, String(Date.now()));
+      }
+      const elapsed = Date.now() - Number(sessionStorage.getItem(TIMER_KEY));
+      timer = window.setTimeout(tryShow, Math.max(0, AUTO_DELAY_MS - elapsed));
+    }
+
+    const onScroll = () => {
+      if (window.scrollY > 840) tryShow();
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("hic:open-enquiry", showManual);
+      window.removeEventListener("scroll", onScroll);
+      if (timer) window.clearTimeout(timer);
+      if (expiry) window.clearTimeout(expiry);
+    };
+  }, [pathname]);
 
   const handleDismiss = () => {
-    localStorage.setItem(STORAGE_KEY, "1");
+    markLeadDismissed();
     setOpen(false);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!form.firstName.trim() || !form.email.trim()) {
-      toast({ title: "Please enter your first name and email", variant: "destructive" });
-      return;
-    }
-    setSubmitting(true);
+  const onSubmit = async (values: PopupLeadValues) => {
     try {
-      const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          _subject: "New Lead — Home Improvement Club Pop-up",
-          "first name": form.firstName,
-          "last name": form.lastName,
-          phone: form.phone,
-          email: form.email,
-          "project type": form.projectType,
-          budget: form.budget,
-        }),
+      await submitLead({
+        source: "lead_popup",
+        firstName: values.firstName,
+        lastName: values.lastName,
+        email: values.email,
+        phone: values.phone,
+        projectType: values.projectType,
+        budget: values.budget,
+        company: values.company,
       });
-      if (res.ok) {
-        trackEvent({
-          event: "generate_lead",
-          lead_type: "consultation_form",
-          form_location: "lead_popup",
-        });
-        setSubmitted(true);
-        localStorage.setItem(STORAGE_KEY, "1");
-      } else {
-        throw new Error();
-      }
+      trackEvent({
+        event: "generate_lead",
+        lead_type: "consultation_form",
+        form_location: "lead_popup",
+      });
+      setSubmitted(true);
+      form.reset(popupDefaults);
+      markLeadDismissed();
     } catch {
       toast({ title: "Something went wrong", description: "Please try again or email homeimprovementclub.co@gmail.com", variant: "destructive" });
-    } finally {
-      setSubmitting(false);
     }
   };
 
   return (
-    <Dialog open={open} onOpenChange={(v) => { if (!v) handleDismiss(); }}>
-      <DialogContent className="max-w-md w-full max-h-[90vh] overflow-y-auto">
+    <Dialog
+      open={open}
+      onOpenChange={(next) => {
+        if (next) {
+          setOpen(true);
+          return;
+        }
+        if (!dismissArmed.current && !submitted) {
+          setOpen(true);
+          return;
+        }
+        if (submitted) setOpen(false);
+        else handleDismiss();
+      }}
+    >
+      <DialogContent
+        className="max-w-md w-full max-h-[90vh] overflow-y-auto"
+        onPointerDownOutside={(event) => {
+          if (!dismissArmed.current || isRadixSelectLayer(event.target)) {
+            event.preventDefault();
+          }
+        }}
+        onInteractOutside={(event) => {
+          if (!dismissArmed.current || isRadixSelectLayer(event.target)) {
+            event.preventDefault();
+          }
+        }}
+      >
         {submitted ? (
           <div className="text-center py-6 space-y-4">
             <img src={logo} alt="Home Improvement Club" className="h-10 w-auto mx-auto" />
@@ -111,90 +229,142 @@ const LeadCapturePopup = () => {
               </DialogDescription>
             </DialogHeader>
 
-            <form onSubmit={handleSubmit} className="space-y-4 mt-2">
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label htmlFor="popup-first-name" className="text-xs font-medium mb-1 block">First Name *</label>
-                  <Input
-                    id="popup-first-name" required autoComplete="given-name"
-                    value={form.firstName}
-                    onChange={(e) => setForm({ ...form, firstName: e.target.value })}
-                    placeholder="John"
-                    maxLength={100}
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-2 relative" noValidate>
+                <div className="absolute -left-[9999px]" aria-hidden="true">
+                  <FormField
+                    control={form.control}
+                    name="company"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Company</FormLabel>
+                        <FormControl>
+                          <input {...field} tabIndex={-1} autoComplete="off" />
+                        </FormControl>
+                      </FormItem>
+                    )}
                   />
                 </div>
-                <div>
-                  <label htmlFor="popup-last-name" className="text-xs font-medium mb-1 block">Last Name</label>
-                  <Input
-                    id="popup-last-name" autoComplete="family-name"
-                    value={form.lastName}
-                    onChange={(e) => setForm({ ...form, lastName: e.target.value })}
-                    placeholder="Smith"
-                    maxLength={100}
+                <div className="grid grid-cols-2 gap-3">
+                  <FormField
+                    control={form.control}
+                    name="firstName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-xs">First Name *</FormLabel>
+                        <FormControl>
+                          <Input autoComplete="given-name" placeholder="John" maxLength={100} {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="lastName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="text-xs">Last Name</FormLabel>
+                        <FormControl>
+                          <Input autoComplete="family-name" placeholder="Smith" maxLength={100} {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
                 </div>
-              </div>
-              <div>
-                <label htmlFor="popup-phone" className="text-xs font-medium mb-1 block">Phone</label>
-                <Input
-                  id="popup-phone" autoComplete="tel"
-                  type="tel"
-                  value={form.phone}
-                  onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                  placeholder="(555) 123-4567"
-                  maxLength={20}
+                <FormField
+                  control={form.control}
+                  name="phone"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-xs">Phone</FormLabel>
+                      <FormControl>
+                        <Input autoComplete="tel" type="tel" placeholder="(555) 123-4567" maxLength={20} {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
-              </div>
-              <div>
-                <label htmlFor="popup-email" className="text-xs font-medium mb-1 block">Email *</label>
-                <Input
-                  id="popup-email" required autoComplete="email"
-                  type="email"
-                  value={form.email}
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  placeholder="john@example.com"
-                  maxLength={255}
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-xs">Email *</FormLabel>
+                      <FormControl>
+                        <Input autoComplete="email" type="email" placeholder="john@example.com" maxLength={255} {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
-              </div>
-              <div>
-                <label htmlFor="popup-project" className="text-xs font-medium mb-1 block">What are you planning?</label>
-                <select
-                  id="popup-project"
-                  value={form.projectType}
-                  onChange={(e) => setForm({ ...form, projectType: e.target.value })}
-                  className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                <FormField
+                  control={form.control}
+                  name="projectType"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-xs">What are you planning?</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value || undefined}
+                      >
+                        <FormControl>
+                          <SelectTrigger aria-label="What are you planning?">
+                            <SelectValue placeholder="Select a project type" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {projectTypes.map((s) => (
+                            <SelectItem key={s} value={s}>
+                              {s}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="budget"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-xs">Budget</FormLabel>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value || undefined}
+                      >
+                        <FormControl>
+                          <SelectTrigger aria-label="Budget">
+                            <SelectValue placeholder="Select a budget range" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {budgetRanges.map((b) => (
+                            <SelectItem key={b} value={b}>
+                              {b}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button variant="hero" size="lg" type="submit" className="w-full" disabled={form.formState.isSubmitting}>
+                  {form.formState.isSubmitting ? "Sending…" : "Request my consultation"}
+                </Button>
+                <button
+                  type="button"
+                  onClick={handleDismiss}
+                  className="w-full text-xs text-muted-foreground hover:text-foreground transition-colors text-center"
                 >
-                  <option value="">Select a project type</option>
-                  {projectTypes.map((s) => (
-                    <option key={s} value={s}>{s}</option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label htmlFor="popup-budget" className="text-xs font-medium mb-1 block">Budget</label>
-                <select
-                  id="popup-budget"
-                  value={form.budget}
-                  onChange={(e) => setForm({ ...form, budget: e.target.value })}
-                  className="w-full h-10 rounded-md border border-input bg-background px-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
-                >
-                  <option value="">Select a budget range</option>
-                  {budgetRanges.map((b) => (
-                    <option key={b} value={b}>{b}</option>
-                  ))}
-                </select>
-              </div>
-              <Button variant="hero" size="lg" type="submit" className="w-full" disabled={submitting}>
-                {submitting ? "Sending…" : "Request my consultation"}
-              </Button>
-              <button
-                type="button"
-                onClick={handleDismiss}
-                className="w-full text-xs text-muted-foreground hover:text-foreground transition-colors text-center"
-              >
-                No thanks
-              </button>
-            </form>
+                  No thanks
+                </button>
+              </form>
+            </Form>
           </>
         )}
       </DialogContent>

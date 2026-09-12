@@ -39,6 +39,10 @@ html {
   color: var(--whatsapp);
   box-shadow: 0 8px 24px color-mix(in srgb, var(--forest-dark) 28%, transparent);
 }
+body.lead-dialog-open .whatsapp-fab {
+  visibility: hidden;
+  pointer-events: none;
+}
 .whatsapp-fab:hover {
   background: var(--forest-dark);
 }

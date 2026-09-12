@@ -182,7 +182,8 @@
 
 .contact-section input,
 .contact-section textarea,
-.contact-section select {
+.contact-section select,
+.contact-section button[role="combobox"] {
   transition:
     border-color var(--dur-fast) var(--ease-in-out),
     box-shadow var(--dur-fast) var(--ease-in-out);

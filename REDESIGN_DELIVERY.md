@@ -35,7 +35,7 @@ The design system uses warm stone (#f6f3ed), forest green (#314d3e), generous sp
 
 `src/redesign.css` owns the approved visual language; `src/page-compositions.css` owns inner-page compositions. Six separate service-page components replace a universal service template. `ServiceDetail.tsx` handles routing and SEO. Small shared primitives cover breadcrumbs, image captions, enquiry links and questions. Full homepage sections are only imported by the homepage.
 
-All existing public URL paths and the contractor feature flag are preserved. Navigation, phone links, WhatsApp and both Formspree flows remain. Route changes reset scroll while anchor links remain supported. Mobile navigation includes expanded state, Escape handling and focus return. Reduced-motion preferences are supported.
+All existing public URL paths and the contractor feature flag are preserved. Navigation, phone links, WhatsApp and both `/api/lead` form flows remain. Route changes reset scroll while anchor links remain supported. Mobile navigation includes expanded state, Escape handling and focus return. Reduced-motion preferences are supported.
 
 Existing HIC image assets are reused and captioned as design inspiration rather than claimed completed projects. The original logo is retained; a smaller derivative reduces the navigation logo from roughly 998 KB to 24 KB. No fabricated projects are shown. An empty verified-project data structure and hidden-until-populated gallery are ready for approved content. Historical testimonial data remains unused in the repository.
 
@@ -47,7 +47,7 @@ The previous timed popup now opens deliberately from the contact page. This is a
 - Existing direct GA4 configuration: `G-H7T1HDT2KC`.
 - Existing Meta bootstrap: `1965202054201900`.
 - Phone and WhatsApp destination: `+1 236-380-4423`.
-- Contact Formspree endpoint: existing `VITE_FORMSPREE_ID` override, fallback `xlgaonqb`.
+- Contact and popup lead endpoint: `POST /api/lead` (Google Sheets + Resend).
 - Short enquiry endpoint: `mgorpzpy`.
 - Contact success: `generate_lead`, `lead_type: consultation_form`, `form_location: contact_page`.
 - Popup success: `generate_lead`, `lead_type: consultation_form`, `form_location: lead_popup`.
@@ -84,7 +84,7 @@ Local preview: http://127.0.0.1:5173/ . Production preview: http://127.0.0.1:417
 1. Confirm rights/provenance for existing imagery. Supply approved completed-project photos, attribution, scope and client consent before publishing portfolio claims.
 2. Supply verified company/team history, credentials, insurance, warranties and testimonials if these are to be published. None were invented.
 3. Confirm operational service scope, availability in the eight listed cities, consultation arrangements, budgeting choices and responsibilities described in planning copy.
-4. Confirm actual Formspree inbox delivery, backend validation and handling. Local success/failure tests were mocked.
+4. Confirm Google Sheet row + Resend inbox delivery.
 5. Use GTM Preview, GA4 DebugView and Google Ads diagnostics to confirm the intended property and conversion destinations, deduplication and attribution before paid campaigns rely on them.
 6. Provide approved privacy/terms content and any required consent implementation. No business legal policy was invented.
 

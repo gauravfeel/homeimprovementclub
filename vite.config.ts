@@ -10,6 +10,12 @@ export default defineConfig({
     hmr: {
       overlay: false,
     },
+    proxy: {
+      "/api": {
+        target: "http://127.0.0.1:8787",
+        changeOrigin: true,
+      },
+    },
   },
   plugins: [react()],
   resolve: {
@@ -28,7 +34,6 @@ export default defineConfig({
           }
           if (id.includes("react-router")) return "router";
           if (id.includes("@radix-ui")) return "radix-ui";
-          if (id.includes("@formspree")) return "formspree";
         },
       },
     },
