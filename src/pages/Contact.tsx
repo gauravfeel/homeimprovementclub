@@ -20,7 +20,7 @@ import {
   SERVICE_AREA_BC,
   SERVICE_CITIES,
 } from "@/lib/service-area";
-import { trackEvent } from "@/lib/analytics";
+import { trackEvent, trackGoogleAdsLead } from "@/lib/analytics";
 import { submitLead } from "@/lib/submit-lead";
 import {
   BEST_CONTACT_TIMES,
@@ -91,6 +91,7 @@ const Contact = () => {
         lead_type: "consultation_form",
         form_location: "contact_page",
       });
+      trackGoogleAdsLead();
       setSucceeded(true);
       form.reset();
     } catch {

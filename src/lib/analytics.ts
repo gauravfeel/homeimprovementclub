@@ -29,3 +29,12 @@ export function trackEvent(event: DataLayerEvent) {
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push(["event", eventName, parameters]);
 }
+
+export function trackGoogleAdsLead() {
+  trackEvent({
+    event: "conversion",
+    send_to: "AW-18102151992/OKm5CL_S8qgcELjW47dD",
+    value: 1,
+    currency: "CAD",
+  });
+}

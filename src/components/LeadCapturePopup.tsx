@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 import logo from "@/assets/hic-logo-small.png";
-import { trackEvent } from "@/lib/analytics";
+import { trackEvent, trackGoogleAdsLead } from "@/lib/analytics";
 import { submitLead } from "@/lib/submit-lead";
 import { popupLeadSchema, type PopupLeadValues } from "@/lib/lead-schema";
 import {
@@ -175,6 +175,7 @@ const LeadCapturePopup = () => {
         lead_type: "consultation_form",
         form_location: "lead_popup",
       });
+      trackGoogleAdsLead();
       setSubmitted(true);
       form.reset(popupDefaults);
       markLeadDismissed();

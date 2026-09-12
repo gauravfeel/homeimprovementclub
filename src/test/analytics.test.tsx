@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { cleanup, fireEvent, render } from "@testing-library/react";
-import { trackEvent } from "@/lib/analytics";
+import { trackEvent, trackGoogleAdsLead } from "@/lib/analytics";
 import { ContactInfo } from "@/components/ContactInfo";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 afterEach(() => {
@@ -31,6 +31,19 @@ describe("conversion event contract", () => {
     expect(gtag).toHaveBeenCalledWith("event", "generate_lead", {
       lead_type: "consultation_form",
       form_location: "contact_page",
+    });
+  });
+
+  it("sends successful leads to the native Google Ads conversion", () => {
+    const gtag = vi.fn();
+    window.gtag = gtag;
+
+    trackGoogleAdsLead();
+
+    expect(gtag).toHaveBeenCalledWith("event", "conversion", {
+      send_to: "AW-18102151992/OKm5CL_S8qgcELjW47dD",
+      value: 1,
+      currency: "CAD",
     });
   });
   it("tracks a phone click with the existing payload", () => {
