@@ -17,6 +17,8 @@ const Contractors = lazy(() => import("./pages/Contractors"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Testimonials = lazy(() => import("./pages/Testimonials"));
 const Rebates = lazy(() => import("./pages/Rebates"));
+const InvestmentPartnerships = lazy(() => import("./pages/InvestmentPartnerships"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
 const ServiceDetail = lazy(() => import("./pages/ServiceDetail"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
@@ -42,6 +44,8 @@ const App = () => (
           <Route path="/contact" element={<Contact />} />
           <Route path="/testimonials" element={<Testimonials />} />
           <Route path="/rebates" element={<Rebates />} />
+          <Route path="/investment-partnerships" element={<InvestmentPartnerships />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>

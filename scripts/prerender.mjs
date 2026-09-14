@@ -29,6 +29,8 @@ const ROUTES = [
   "/services/exterior",
   "/testimonials",
   "/rebates",
+  "/investment-partnerships",
+  "/privacy",
 ];
 
 const MIME_TYPES = {

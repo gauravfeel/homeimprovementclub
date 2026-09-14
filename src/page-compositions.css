@@ -786,6 +786,261 @@
   color: var(--ink-muted);
   margin: 25px 0;
 }
+.investment-opening {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 100px;
+  align-items: end;
+}
+.investment-opening > div:last-child p,
+.investment-feature p:not(.eyebrow),
+.investment-contact > p:not(.eyebrow) {
+  color: var(--ink-muted);
+  font-size: var(--type-body);
+  line-height: 1.8;
+}
+.investment-feature {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  background: var(--stone);
+}
+.investment-feature .editorial-photo {
+  min-height: 640px;
+}
+.investment-feature > div {
+  align-self: center;
+  padding: 72px 65px;
+}
+.investment-feature p:not(.eyebrow) {
+  margin-top: 25px;
+  max-width: 500px;
+}
+.partnership-pathways {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 100px;
+}
+.partnership-list article {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 24px;
+  padding: 28px 0;
+  border-top: 1px solid var(--line);
+}
+.partnership-list article:last-child {
+  border-bottom: 1px solid var(--line);
+}
+.partnership-list h3 {
+  margin-bottom: 10px;
+}
+.partnership-list p {
+  color: var(--ink-muted);
+  font-size: var(--type-small);
+  line-height: 1.75;
+  max-width: 590px;
+}
+.investment-brief {
+  background: var(--forest);
+  color: var(--on-forest);
+}
+.investment-brief > div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+}
+.investment-brief .eyebrow {
+  color: var(--sage-muted);
+}
+.investment-brief ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.investment-brief li {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 18px 0;
+  font-size: var(--type-ui);
+}
+.investment-brief li:last-child {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+.investment-contact {
+  background: var(--sage-wash);
+  border-block: 1px solid var(--line);
+}
+.investment-contact-inner {
+  width: min(100% - 112px, 1296px);
+  margin-inline: auto;
+  padding: 88px 0 54px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  column-gap: clamp(60px, 8vw, 130px);
+  row-gap: 64px;
+  align-items: end;
+}
+.investment-contact-heading {
+  position: relative;
+}
+.investment-contact-heading .eyebrow {
+  margin-bottom: 50px;
+}
+.investment-contact-index {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: var(--type-meta);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.investment-contact h2 {
+  max-width: 760px;
+  text-wrap: balance;
+}
+.investment-contact-action {
+  padding-bottom: 8px;
+}
+.investment-contact-action p {
+  max-width: 510px;
+  color: var(--ink-muted);
+  font-size: var(--type-body);
+  line-height: 1.8;
+}
+.investment-contact-action .solid-link {
+  min-width: 230px;
+  margin-top: 30px;
+}
+.investment-disclaimer {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(150px, 0.45fr) 1.55fr;
+  gap: 36px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+.investment-disclaimer span {
+  font-size: var(--type-meta);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--sage);
+}
+.investment-disclaimer p {
+  max-width: 770px;
+  color: var(--ink-muted);
+  font-size: var(--type-meta);
+  line-height: 1.65;
+}
+.privacy-opening {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 100px;
+  align-items: end;
+  border-bottom: 1px solid var(--line);
+}
+.privacy-summary > p {
+  color: var(--ink-muted);
+  font-size: var(--type-body);
+  line-height: 1.8;
+  max-width: 560px;
+}
+.privacy-summary dl {
+  margin-top: 32px;
+}
+.privacy-summary dl > div {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 20px;
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+  font-size: var(--type-meta);
+}
+.privacy-summary dt {
+  font-weight: 600;
+}
+.privacy-summary dd {
+  color: var(--ink-muted);
+}
+.privacy-content {
+  display: grid;
+  grid-template-columns: 0.38fr 1fr;
+  gap: clamp(60px, 8vw, 130px);
+  align-items: start;
+}
+.privacy-content > aside {
+  position: sticky;
+  top: 120px;
+}
+.privacy-content > aside > p:not(.eyebrow) {
+  color: var(--ink-muted);
+  font-size: var(--type-small);
+  line-height: 1.75;
+}
+.privacy-content > aside > a {
+  display: inline-block;
+  margin-top: 24px;
+  font-size: var(--type-small);
+  border-bottom: 1px solid currentColor;
+}
+.privacy-sections article {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 24px;
+  padding: 34px 0 40px;
+  border-top: 1px solid var(--line);
+}
+.privacy-sections article:last-child {
+  border-bottom: 1px solid var(--line);
+}
+.privacy-sections article > span {
+  color: var(--sage);
+  font-size: var(--type-meta);
+  letter-spacing: 0.1em;
+}
+.privacy-sections h2 {
+  font-size: clamp(25px, 2.5vw, 38px);
+  margin-bottom: 18px;
+}
+.privacy-sections p,
+.privacy-sections li {
+  color: var(--ink-muted);
+  font-size: var(--type-small);
+  line-height: 1.78;
+  max-width: 760px;
+}
+.privacy-sections p + p,
+.privacy-sections ul + p {
+  margin-top: 15px;
+}
+.privacy-sections ul {
+  margin: 14px 0 0;
+  padding-left: 20px;
+}
+.privacy-contact {
+  background: var(--sage-wash);
+}
+.privacy-contact .editorial-section {
+  display: grid;
+  grid-template-columns: 0.4fr 0.8fr 1fr;
+  gap: 45px;
+  align-items: baseline;
+  padding-block: 65px;
+}
+.privacy-contact .eyebrow {
+  margin: 0;
+}
+.privacy-contact h2 {
+  font-size: clamp(25px, 2.5vw, 38px);
+}
+.privacy-contact p {
+  color: var(--ink-muted);
+  font-size: var(--type-small);
+  line-height: 1.75;
+}
+.privacy-contact a {
+  color: var(--ink);
+  border-bottom: 1px solid currentColor;
+}
 .directory-opening {
   padding-bottom: 35px;
 }
@@ -1047,6 +1302,21 @@
   margin: 20px 0;
 }
 @media (max-width: 1100px) {
+  .privacy-opening,
+  .privacy-content {
+    gap: 45px;
+  }
+  .privacy-contact .editorial-section {
+    grid-template-columns: 0.45fr 1fr;
+  }
+  .privacy-contact p {
+    grid-column: 2;
+  }
+  .investment-opening,
+  .partnership-pathways,
+  .investment-brief > div {
+    gap: 45px;
+  }
   .kitchen-planning,
   .kitchen-questions,
   .bathroom-title-row,
@@ -1102,6 +1372,55 @@
   }
 }
 @media (max-width: 760px) {
+  .privacy-opening,
+  .privacy-content,
+  .privacy-contact .editorial-section {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+  .privacy-content > aside {
+    position: static;
+    padding-bottom: 20px;
+  }
+  .privacy-sections article {
+    grid-template-columns: 34px 1fr;
+    gap: 14px;
+  }
+  .privacy-contact p {
+    grid-column: auto;
+  }
+  .investment-opening,
+  .investment-feature,
+  .partnership-pathways,
+  .investment-brief > div {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+  .investment-feature .editorial-photo {
+    min-height: 0;
+    height: 420px;
+  }
+  .investment-feature > div {
+    padding: 50px 32px;
+  }
+  .investment-contact-inner {
+    width: calc(100% - 48px);
+    padding: 64px 0 38px;
+    grid-template-columns: 1fr;
+    row-gap: 38px;
+  }
+  .investment-contact-heading .eyebrow {
+    margin-bottom: 38px;
+  }
+  .investment-contact-index {
+    font-size: 9px;
+  }
+  .investment-disclaimer {
+    grid-column: auto;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-top: 8px;
+  }
   .kitchen-planning,
   .kitchen-detail-band,
   .kitchen-questions,

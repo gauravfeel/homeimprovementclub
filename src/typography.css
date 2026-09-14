@@ -109,7 +109,8 @@ main .body-lg {
 .solid-link,
 .text-link,
 .hero-actions .text-link,
-.desktop-nav a,
+.desktop-nav > a,
+.nav-dropdown-trigger,
 .directory-index a,
 .layer-buttons button,
 .quick-enquiry,
@@ -120,7 +121,8 @@ button[type="submit"] {
   line-height: 1.35;
   letter-spacing: 0;
 }
-.desktop-nav a {
+.desktop-nav > a,
+.nav-dropdown-trigger {
   font-weight: 500;
 }
 .footer-main nav a {

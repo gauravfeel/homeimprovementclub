@@ -3,6 +3,9 @@ import logo from "@/assets/hic-logo-small.png";
 import { ContactInfo } from "@/components/ContactInfo";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { SERVICES } from "@/data/services";
+import bcHousingLogo from "@/assets/partners/bc-housing.png";
+import warrantyLogo from "@/assets/partners/2-5-10-warranty.png";
+import wbiLogo from "@/assets/partners/wbi-home-warranty.png";
 export default function Footer() {
   return (
     <footer className="site-footer">
@@ -38,14 +41,26 @@ export default function Footer() {
           <Link to="/about">About HIC</Link>
           <Link to="/how-it-works">Our process</Link>
           <Link to="/areas-we-serve">Service area</Link>
+          <Link to="/investment-partnerships">Investment & partnerships</Link>
           <Link to="/rebates">BC rebate resources</Link>
           <Link to="/testimonials">Client stories</Link>
           <Link to="/contact">Contact</Link>
         </nav>
       </div>
+      <div className="footer-credentials" aria-label="Builder credentials and warranty">
+        <p className="eyebrow">Builder credentials & warranty</p>
+        <div className="footer-credential-logos">
+          <img src={wbiLogo} alt="WBI Home Warranty" />
+          <img src={bcHousingLogo} alt="BC Housing" />
+          <img src={warrantyLogo} alt="2-5-10 Year Warranty" />
+        </div>
+      </div>
       <div className="footer-bottom">
         <span>© {new Date().getFullYear()} Home Improvement Club</span>
-        <span>Spaces for the life you live.</span>
+        <div className="footer-legal">
+          <Link to="/privacy">Privacy policy</Link>
+          <span>Spaces for the life you live.</span>
+        </div>
       </div>
     </footer>
   );
