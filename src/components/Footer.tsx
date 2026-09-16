@@ -45,7 +45,7 @@ export default function Footer() {
           <Link to="/investment-partnerships">Investment & partnerships</Link>
           <Link to="/rebates">BC rebate resources</Link>
           <Link to="/testimonials">Client stories</Link>
-          <Link to="/gallery">Gallery</Link>
+          <Link to="/gallery">Portfolio</Link>
           <Link to="/blog">Blog</Link>
           <Link to="/contact">Contact</Link>
         </nav>

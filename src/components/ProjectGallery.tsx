@@ -8,7 +8,7 @@ export default function ProjectGallery() {
 
   return (
     <section className="editorial-section">
-      <p className="eyebrow">Selected work</p>
+      <p className="eyebrow">Portfolio</p>
       <h2>Homes, reconsidered.</h2>
       <div className="gallery-home-teaser">
         {featured.map((project) => (
@@ -30,7 +30,7 @@ export default function ProjectGallery() {
         ))}
       </div>
       <Link className="text-link gallery-home-all" to="/gallery">
-        View full gallery <ArrowUpRight size={18} />
+        View full portfolio <ArrowUpRight size={18} />
       </Link>
     </section>
   );

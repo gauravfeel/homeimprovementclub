@@ -17,13 +17,13 @@ export default function Gallery() {
   return (
     <Layout>
       <SEO
-        title="Project Gallery | Home Improvement Club"
+        title="Portfolio | Home Improvement Club"
         description="Custom homes, multiplex work and renovations across the Fraser Valley and Greater Vancouver. Explore HIC portfolio projects."
         canonical="/gallery"
       />
       <section className="editorial-section gallery-opening">
         <Reveal>
-          <p className="eyebrow">Selected work</p>
+          <p className="eyebrow">Portfolio</p>
           <h1>
             Built work,
             <br />
@@ -34,7 +34,7 @@ export default function Gallery() {
             Vancouver. Open a project for the cover, overview, and scope.
           </p>
           {sections.length > 1 ? (
-            <nav className="gallery-jump" aria-label="Gallery sections">
+            <nav className="gallery-jump" aria-label="Portfolio sections">
               {sections.map((section) => (
                 <a key={section.id} href={`#gallery-${section.id}`}>
                   {section.label}

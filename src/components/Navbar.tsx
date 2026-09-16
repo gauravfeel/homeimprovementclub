@@ -93,7 +93,7 @@ export default function Navbar() {
           <NavLink to="/about">About HIC</NavLink>
           <NavLink to="/investment-partnerships">Investment</NavLink>
           <NavLink to="/areas-we-serve">Service area</NavLink>
-          <NavLink to="/gallery">Gallery</NavLink>
+          <NavLink to="/gallery">Portfolio</NavLink>
           <NavLink to="/blog">Blog</NavLink>
         </nav>
         <div className="header-contact">
@@ -168,7 +168,7 @@ export default function Navbar() {
             Service area
           </Link>
           <Link to="/gallery" tabIndex={open ? 0 : -1}>
-            Gallery
+            Portfolio
           </Link>
           <Link to="/blog" tabIndex={open ? 0 : -1}>
             Blog

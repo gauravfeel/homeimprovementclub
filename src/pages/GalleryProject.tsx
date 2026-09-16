@@ -34,7 +34,7 @@ export default function GalleryProject() {
   return (
     <Layout>
       <SEO
-        title={`${project.title} | Project Gallery | Home Improvement Club`}
+        title={`${project.title} | Portfolio | Home Improvement Club`}
         description={project.teaser}
         canonical={`/gallery/${project.slug}`}
         ogImage={project.placeholderImage ? undefined : project.image}
@@ -54,7 +54,7 @@ export default function GalleryProject() {
         </figure>
         <div className="gallery-project-stage-copy">
           <Link className="gallery-back" to="/gallery">
-            Gallery
+            Portfolio
           </Link>
           <p className="eyebrow">{project.category}</p>
           <h1>{project.title}</h1>
