@@ -23,7 +23,7 @@ export default function Footer() {
           <p>
             Custom homes. Multiplex expertise. Renovations.
             <br />
-            Greater Vancouver and the Fraser Valley, British Columbia.
+            Fraser Valley and Greater Vancouver, British Columbia.
           </p>
           <ContactInfo />
           <WhatsAppButton variant="footer" />
@@ -40,10 +40,13 @@ export default function Footer() {
           <p className="eyebrow">The club</p>
           <Link to="/about">About HIC</Link>
           <Link to="/how-it-works">Our process</Link>
+          <Link to="/estimator">Project estimator</Link>
           <Link to="/areas-we-serve">Service area</Link>
           <Link to="/investment-partnerships">Investment & partnerships</Link>
           <Link to="/rebates">BC rebate resources</Link>
           <Link to="/testimonials">Client stories</Link>
+          <Link to="/gallery">Gallery</Link>
+          <Link to="/blog">Blog</Link>
           <Link to="/contact">Contact</Link>
         </nav>
       </div>

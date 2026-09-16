@@ -41,6 +41,6 @@ export const GENERAL_FAQS = [
   {
     question: "Which cities does HIC serve?",
     answer:
-      "HIC serves Greater Vancouver and the Fraser Valley, including Vancouver, North Vancouver, West Vancouver, Burnaby, New Westminster, Coquitlam, Richmond, Surrey, Maple Ridge, Abbotsford and Chilliwack. If you are nearby, ask about availability for your project.",
+      "HIC serves the Fraser Valley and Greater Vancouver, including Vancouver, North Vancouver, West Vancouver, Burnaby, New Westminster, Coquitlam, Richmond, Surrey, Maple Ridge, Abbotsford and Chilliwack. If you are nearby, ask about availability for your project.",
   },
 ];

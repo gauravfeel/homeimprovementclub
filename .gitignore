@@ -24,4 +24,5 @@ artifacts/
 *.sln
 *.sw?
 *.env
+.sanity/
 data/leads.jsonl

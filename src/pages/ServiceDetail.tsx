@@ -41,11 +41,11 @@ export default function ServiceDetail() {
     <Layout>
       <SEO
         title={service.slug === "custom-homes-multiplex"
-          ? "Custom Home Builder & Multiplex Expert in BC | HIC"
-          : `${service.searchTitle} in Vancouver | Home Improvement Club`}
+          ? "Fraser Valley's Premier Custom Home Builder & Multiplex Expert | HIC"
+          : `${service.searchTitle} in the Fraser Valley and Greater Vancouver | HIC`}
         description={service.slug === "custom-homes-multiplex"
-          ? "Home Improvement Club builds custom homes and brings multiplex expertise to projects across its approved Greater Vancouver and Fraser Valley service area."
-          : `${service.title} across Greater Vancouver. ${service.short} Book a free consultation with HIC.`}
+          ? "Fraser Valley's Premier Custom Home Builder. HIC builds custom homes and multiplex projects across the Fraser Valley and Greater Vancouver."
+          : `${service.title} across the Fraser Valley and Greater Vancouver. ${service.short} Book a free consultation with HIC.`}
         canonical={`/services/${service.slug}`}
         schema={schema}
       />

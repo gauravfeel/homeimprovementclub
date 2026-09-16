@@ -40,7 +40,7 @@ export function AreaSection() {
         <h2>
           Building and renovating across
           <br />
-          <em>Greater Vancouver and the Fraser Valley.</em>
+          <em>the Fraser Valley and Greater Vancouver.</em>
         </h2>
         <p className="section-copy">
           From custom homes and multiplex projects to kitchens and bathrooms.

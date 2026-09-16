@@ -15,7 +15,7 @@ export default function AreasWeServe() {
         <div>
           <p className="eyebrow">Our service area</p>
           <h1>
-            Greater Vancouver and the Fraser Valley.
+            Fraser Valley and Greater Vancouver.
             <br />
             <em>Your neighbourhood.</em>
           </h1>

@@ -14,18 +14,19 @@ export const SERVICE_CITIES = [
 
 export const SERVICE_CITIES_PROSE = `${SERVICE_CITIES.slice(0, -1).join(", ")} and ${SERVICE_CITIES[SERVICE_CITIES.length - 1]}`;
 
-export const SERVICE_AREA = "Greater Vancouver and the Fraser Valley";
+export const SERVICE_AREA = "the Fraser Valley and Greater Vancouver";
 export const SERVICE_AREA_BC = `${SERVICE_AREA}, BC`;
-export const SERVICE_AREA_LABEL = "Greater Vancouver · Fraser Valley";
+export const SERVICE_AREA_LABEL = "Fraser Valley · Greater Vancouver";
+export const SITE_POSITIONING = "Fraser Valley's Premier Custom Home Builder";
 
 export const AREA_SERVED_SCHEMA = [
   {
     "@type": "AdministrativeArea",
-    name: "Greater Vancouver, British Columbia, Canada",
+    name: "Fraser Valley, British Columbia, Canada",
   },
   {
     "@type": "AdministrativeArea",
-    name: "Fraser Valley, British Columbia, Canada",
+    name: "Greater Vancouver, British Columbia, Canada",
   },
   ...SERVICE_CITIES.map((name) => ({ "@type": "City" as const, name })),
 ];

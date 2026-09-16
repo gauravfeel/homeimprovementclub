@@ -9,6 +9,8 @@ import {
   ServiceImage,
 } from "@/components/ServicePrimitives";
 import detailImage from "@/assets/lux-exterior.jpg";
+import customHomeImage from "@/assets/custom-home.jpg";
+import multiplexImage from "@/assets/multiplex-homes.jpg";
 
 const questions = [
   {
@@ -28,12 +30,16 @@ const questions = [
   },
 ];
 
-export default function CustomHomesMultiplexPage({ service }: { service: Service }) {
+export default function CustomHomesMultiplexPage({
+  service,
+}: {
+  service: Service;
+}) {
   return (
     <>
       <section className="build-hero editorial-section">
         <div>
-          <ServiceBreadcrumb label="Custom homes & multiplex" />
+          {/* <ServiceBreadcrumb label="Custom homes & multiplex" /> */}
           <p className="eyebrow">Custom home builder · Multiplex expert</p>
           <h1>
             Build for the life,
@@ -42,17 +48,22 @@ export default function CustomHomesMultiplexPage({ service }: { service: Service
           </h1>
           <p className="build-lead">
             HIC plans and builds custom homes and multiplex projects across its
-            approved Greater Vancouver and Fraser Valley service area.
+            approved Fraser Valley and Greater Vancouver service area.
           </p>
           <EnquiryLink service={service}>Discuss the property</EnquiryLink>
         </div>
         <Reveal variant="clip">
-          <ServiceImage
-            src={service.image}
-            alt="Contemporary living space used as custom-home design inspiration"
-            caption="Custom-home interior, light and material inspiration"
-            eager
-          />
+          <figure className="editorial-photo build-hero-video">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/CuLh6_YciqM?rel=0"
+              title="Home Improvement Club custom homes and multiplex project video"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              loading="eager"
+              referrerPolicy="strict-origin-when-cross-origin"
+            />
+            {/* <figcaption>Project video · Custom homes and multiplex</figcaption> */}
+          </figure>
         </Reveal>
       </section>
 
@@ -67,6 +78,14 @@ export default function CustomHomesMultiplexPage({ service }: { service: Service
         </div>
         <div className="build-path-list">
           <article>
+            <figure className="editorial-photo build-path-photo">
+              <img
+                src={customHomeImage}
+                alt="Custom home design inspiration"
+                width="1920"
+                height="1080"
+              />
+            </figure>
             <span className="index-label">01 / Custom homes</span>
             <h3>A home shaped around its people.</h3>
             <p>
@@ -75,6 +94,14 @@ export default function CustomHomesMultiplexPage({ service }: { service: Service
             </p>
           </article>
           <article>
+            <figure className="editorial-photo build-path-photo">
+              <img
+                src={multiplexImage}
+                alt="Multiplex residential design inspiration"
+                width="1920"
+                height="1080"
+              />
+            </figure>
             <span className="index-label">02 / Multiplex</span>
             <h3>More homes, carefully coordinated.</h3>
             <p>
@@ -101,12 +128,25 @@ export default function CustomHomesMultiplexPage({ service }: { service: Service
             <em>Then a buildable plan.</em>
           </h2>
           <ol>
-            <li><span>01</span>Property and project goals</li>
-            <li><span>02</span>Feasibility and approval requirements</li>
-            <li><span>03</span>Design and consultant coordination</li>
-            <li><span>04</span>Construction scope and sequencing</li>
-            <li><span>05</span>Build coordination and handover</li>
+            <li>
+              <span>01</span>Property and project goals
+            </li>
+            <li>
+              <span>02</span>Feasibility and approval requirements
+            </li>
+            <li>
+              <span>03</span>Design and consultant coordination
+            </li>
+            <li>
+              <span>04</span>Construction scope and sequencing
+            </li>
+            <li>
+              <span>05</span>Build coordination and handover
+            </li>
           </ol>
+          <Link className="text-link" to="/estimator">
+            Open the project estimator ↗
+          </Link>
           <Link className="text-link" to="/how-it-works">
             See how projects move forward ↗
           </Link>

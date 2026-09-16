@@ -50,19 +50,22 @@ h2 em {
 }
 .hero-copy h1,
 .about-opening h1,
-.lighting-opening h1 {
+.lighting-opening h1,
+.blog-masthead h1 {
   font-size: var(--type-display);
 }
 .directory-opening h1,
 .process-opening h1,
 .geography-opening h1,
-.stories-opening h1 {
+.stories-opening h1,
+.blog-masthead h1 {
   max-width: 24ch;
 }
 .detailed-timeline h2,
 .service-directory h2,
 .layer-copy h2,
 .resource-list h2,
+.blog-body h2,
 .stories-next h2 {
   font-size: clamp(1.75rem, 1.35rem + 1.2vw, 2.5rem);
 }

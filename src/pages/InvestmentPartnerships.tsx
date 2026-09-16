@@ -29,7 +29,7 @@ export default function InvestmentPartnerships() {
     <Layout>
       <SEO
         title="Investment & Development Partnerships | HIC BC"
-        description="Explore property-owner and residential development partnership opportunities with Home Improvement Club across Greater Vancouver and the Fraser Valley."
+        description="Explore property-owner and residential development partnership opportunities with Home Improvement Club across the Fraser Valley and Greater Vancouver."
         canonical="/investment-partnerships"
       />
 
@@ -48,7 +48,7 @@ export default function InvestmentPartnerships() {
           <p>
             HIC welcomes conversations with property owners and development
             partners exploring custom homes, multiplex projects and residential
-            opportunities across Greater Vancouver and the Fraser Valley.
+            opportunities across the Fraser Valley and Greater Vancouver.
           </p>
           <Link className="solid-link" to="/contact?service=investment-partnerships">
             Start a conversation <ArrowUpRight size={17} />

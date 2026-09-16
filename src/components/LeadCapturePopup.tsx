@@ -112,7 +112,10 @@ const LeadCapturePopup = () => {
   }, [open]);
 
   useEffect(() => {
-    const showManual = () => setOpen(true);
+    const showManual = () => {
+      setSubmitted(false);
+      setOpen(true);
+    };
     window.addEventListener("hic:open-enquiry", showManual);
 
     const tryShow = () => {

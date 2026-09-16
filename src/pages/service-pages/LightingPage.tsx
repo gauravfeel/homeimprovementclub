@@ -128,7 +128,7 @@ export default function LightingPage({ service }: { service: Service }) {
           </p>
           <EnquiryLink service={service}>Start my lighting brief</EnquiryLink>
           <span className="small-note">
-            Free renovation consultation across Greater Vancouver and the Fraser Valley.
+            Free renovation consultation across the Fraser Valley and Greater Vancouver.
           </span>
         </div>
       </section>

@@ -13,26 +13,26 @@ import residentialExterior from "@/assets/lux-exterior.jpg";
 import lighting from "@/assets/lux-lighting.jpg";
 import ProjectGallery from "@/components/ProjectGallery";
 import Reveal from "@/components/Reveal";
+import { SITE_POSITIONING, SERVICE_AREA } from "@/lib/service-area";
 export default function Index() {
   return (
     <Layout>
       <SEO
-        title="Custom Home Builder & Multiplex Expert | Home Improvement Club"
-        description="HIC builds custom homes, brings multiplex expertise to residential projects, and delivers renovations across Greater Vancouver and the Fraser Valley."
+        title={`${SITE_POSITIONING} | Home Improvement Club`}
+        description={`${SITE_POSITIONING}. Custom homes, multiplex, and renovations across ${SERVICE_AREA}.`}
         canonical="/"
       />
       <section className="home-hero">
         <div className="hero-copy">
-          <p className="eyebrow">Custom homes · Multiplex · Renovations</p>
+          <p className="eyebrow">Fraser Valley · Greater Vancouver</p>
           <h1>
-            Build what comes
+            Fraser Valley's Premier
             <br />
-            <em>next.</em>
+            <em>Custom Home Builder.</em>
           </h1>
           <p className="hero-description">
-            Custom home builder and multiplex expert.
-            <br className="desktop-break" /> Renovations for the home you
-            already have.
+            Custom homes, multiplex, and renovations
+            <br className="desktop-break" /> across the Fraser Valley and Greater Vancouver.
           </p>
           <div className="hero-actions">
             <Link className="solid-link" to="/contact">

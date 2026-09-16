@@ -30,6 +30,21 @@ const ROUTES = [
   "/testimonials",
   "/rebates",
   "/investment-partnerships",
+  "/estimator",
+  "/gallery",
+  "/gallery/broadway-alma",
+  "/gallery/joyce-2",
+  "/gallery/m4-building",
+  "/gallery/the-grand",
+  "/gallery/the-grand-lion",
+  "/gallery/the-butterfly",
+  "/gallery/custom-home-burnaby",
+  "/gallery/custom-home-project-stevenson",
+  "/gallery/custom-home-delta",
+  "/gallery/project-cloverdale",
+  "/gallery/skyview",
+  "/gallery/satori",
+  "/gallery/photon-control",
   "/privacy",
 ];
 
@@ -56,13 +71,19 @@ function fileForRequest(pathname) {
     statSync(requested).isFile()
   )
     return requested;
-  return join(DIST, "index.html");
+  return null;
 }
 
 async function startServer() {
+  const spaShell = Buffer.from(baseHtml);
   const server = createServer((request, response) => {
     const pathname = new URL(request.url, `http://${HOST}`).pathname;
     const file = fileForRequest(pathname);
+    if (!file) {
+      response.writeHead(200, { "Content-Type": "text/html" });
+      response.end(spaShell);
+      return;
+    }
     response.writeHead(200, {
       "Content-Type": MIME_TYPES[extname(file)] ?? "application/octet-stream",
     });
@@ -174,19 +195,23 @@ try {
   await page.route("**/*", (route) =>
     new URL(route.request().url()).origin === origin
       ? route.continue()
-      : route.abort(),
+      : route.fulfill({ status: 204, body: "" }),
   );
   await page.emulateMedia({ reducedMotion: "reduce" });
   for (const route of ROUTES) {
-    await page.goto(`${origin}${route}`, { waitUntil: "domcontentloaded" });
+    await page.goto(`${origin}${route}`, {
+      waitUntil: "domcontentloaded",
+      timeout: 60_000,
+    });
     await page.waitForFunction(
       (path) =>
         document
           .querySelector('link[rel="canonical"][data-rh="true"]')
           ?.getAttribute("href") === `https://homeimprovementclub.co${path}`,
       route,
+      { timeout: 60_000 },
     );
-    await page.locator("main h1").waitFor();
+    await page.locator("main h1").waitFor({ timeout: 60_000 });
     const rendered = await page.evaluate(() => ({
       root: document.getElementById("root").innerHTML,
       title: document.querySelector("title").outerHTML,

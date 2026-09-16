@@ -7,7 +7,7 @@ export default function Services() {
     <Layout>
       <SEO
         title="Custom Homes, Multiplex & Renovations | HIC"
-        description="Explore HIC custom home construction, multiplex expertise and renovation services across Greater Vancouver and the Fraser Valley."
+        description="Explore HIC custom home construction, multiplex expertise and renovation services across the Fraser Valley and Greater Vancouver."
         canonical="/services"
       />
       <section className="editorial-section directory-opening">

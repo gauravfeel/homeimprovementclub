@@ -12,7 +12,7 @@ const DIST = join(ROOT, "dist");
 const PORT = Number(process.env.PORT) || 8787;
 
 function loadEnv({ override = false } = {}) {
-  for (const name of [".env.local", ".env"]) {
+  for (const name of [".env"]) {
     const path = join(ROOT, name);
     if (!existsSync(path)) continue;
     for (const line of readFileSync(path, "utf8").split("\n")) {

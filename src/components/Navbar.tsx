@@ -91,8 +91,10 @@ export default function Navbar() {
           </div>
           <NavLink to="/how-it-works">Our process</NavLink>
           <NavLink to="/about">About HIC</NavLink>
-          <NavLink to="/investment-partnerships">Investment & partnerships</NavLink>
+          <NavLink to="/investment-partnerships">Investment</NavLink>
           <NavLink to="/areas-we-serve">Service area</NavLink>
+          <NavLink to="/gallery">Gallery</NavLink>
+          <NavLink to="/blog">Blog</NavLink>
         </nav>
         <div className="header-contact">
           <ContactInfo />
@@ -160,10 +162,16 @@ export default function Navbar() {
             About HIC
           </Link>
           <Link to="/investment-partnerships" tabIndex={open ? 0 : -1}>
-            Investment & partnerships
+            Investment
           </Link>
           <Link to="/areas-we-serve" tabIndex={open ? 0 : -1}>
             Service area
+          </Link>
+          <Link to="/gallery" tabIndex={open ? 0 : -1}>
+            Gallery
+          </Link>
+          <Link to="/blog" tabIndex={open ? 0 : -1}>
+            Blog
           </Link>
           <Link className="solid-link" to="/contact" tabIndex={open ? 0 : -1}>
             Book a free consultation <ArrowUpRight size={18} />

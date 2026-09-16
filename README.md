@@ -26,7 +26,7 @@ npm install
 
 ### Environment Variables
 
-Copy `.env.example` to `.env` (or `.env.local`). Do not commit secrets.
+Put secrets in `.env`. Do not commit that file.
 
 Leads POST to `/api/lead`. The Node server appends a Google Sheet row, then emails via Resend.
 

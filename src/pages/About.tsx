@@ -9,7 +9,7 @@ export default function About() {
     <Layout>
       <SEO
         title="About HIC | Custom Homes, Multiplex & Renovations"
-        description="Home Improvement Club is a custom home builder and multiplex expert that also delivers renovations across Greater Vancouver and the Fraser Valley."
+        description="Home Improvement Club is Fraser Valley's Premier Custom Home Builder, with multiplex work and renovations across the Fraser Valley and Greater Vancouver."
         canonical="/about"
       />
       <section className="editorial-section about-opening">
@@ -22,10 +22,10 @@ export default function About() {
           </h1>
         </Reveal>
         <Reveal variant="copy" className="about-lead">
-          <span className="editorial-signature">HIC / Greater Vancouver · Fraser Valley</span>
+          <span className="editorial-signature">HIC / Fraser Valley · Greater Vancouver</span>
           <p>
-            Home Improvement Club is a custom home builder and multiplex expert
-            serving Greater Vancouver and the Fraser Valley. HIC also renovates
+            Home Improvement Club is Fraser Valley's Premier Custom Home Builder
+            and a multiplex expert serving the Fraser Valley and Greater Vancouver. HIC also renovates
             existing homes, from focused rooms to connected whole-home work.
           </p>
         </Reveal>
@@ -100,7 +100,7 @@ export default function About() {
             <div>
               <dt>Our area</dt>
               <dd>
-                Greater Vancouver and the Fraser Valley, including Vancouver,
+                the Fraser Valley and Greater Vancouver, including Vancouver,
                 the North Shore, Burnaby, New Westminster, Coquitlam,
                 Richmond, Surrey, Maple Ridge, Abbotsford and Chilliwack.
               </dd>

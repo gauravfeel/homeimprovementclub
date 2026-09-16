@@ -1,5 +1,5 @@
 import { lazy, Suspense } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -7,8 +7,9 @@ import PageLoader from "@/components/PageLoader";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ENABLE_CONTRACTOR_MEMBERSHIP } from "@/lib/features";
 import RouteScroll from "@/components/RouteScroll";
+import Index from "./pages/Index";
+import Blog from "./pages/Blog";
 
-const Index = lazy(() => import("./pages/Index"));
 const HowItWorks = lazy(() => import("./pages/HowItWorks"));
 const Services = lazy(() => import("./pages/Services"));
 const AreasWeServe = lazy(() => import("./pages/AreasWeServe"));
@@ -19,8 +20,19 @@ const Testimonials = lazy(() => import("./pages/Testimonials"));
 const Rebates = lazy(() => import("./pages/Rebates"));
 const InvestmentPartnerships = lazy(() => import("./pages/InvestmentPartnerships"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
+const BuildEstimator = lazy(() => import("./pages/BuildEstimator"));
+const BlogPost = lazy(() => import("./pages/BlogPost"));
+const BlogAdmin = lazy(() => import("./pages/admin/BlogAdmin"));
+const Gallery = lazy(() => import("./pages/Gallery"));
+const GalleryProject = lazy(() => import("./pages/GalleryProject"));
 const ServiceDetail = lazy(() => import("./pages/ServiceDetail"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+
+function SiteChrome() {
+  const { pathname } = useLocation();
+  if (pathname.startsWith("/admin")) return null;
+  return <WhatsAppButton variant="floating" />;
+}
 
 const App = () => (
   <TooltipProvider>
@@ -28,7 +40,7 @@ const App = () => (
     <Sonner />
     <BrowserRouter>
       <RouteScroll />
-      <WhatsAppButton variant="floating" />
+      <SiteChrome />
       <Suspense fallback={<PageLoader />}>
         <Routes>
           <Route path="/" element={<Index />} />
@@ -46,6 +58,12 @@ const App = () => (
           <Route path="/rebates" element={<Rebates />} />
           <Route path="/investment-partnerships" element={<InvestmentPartnerships />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/estimator" element={<BuildEstimator />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/gallery/:slug" element={<GalleryProject />} />
+          <Route path="/admin/blog/*" element={<BlogAdmin />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
