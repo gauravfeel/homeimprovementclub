@@ -3,17 +3,9 @@ import { ArrowUpRight } from "lucide-react";
 import Layout from "@/components/Layout";
 import SEO from "@/components/SEO";
 import Reveal from "@/components/Reveal";
-import {
-  GALLERY_SECTIONS,
-  galleryProjectsByCategory,
-} from "@/data/projects";
+import { GALLERY_PROJECTS } from "@/data/projects";
 
 export default function Gallery() {
-  const sections = GALLERY_SECTIONS.map((section) => ({
-    ...section,
-    projects: galleryProjectsByCategory(section.label),
-  })).filter((section) => section.projects.length);
-
   return (
     <Layout>
       <SEO
@@ -30,76 +22,44 @@ export default function Gallery() {
             <em>in place.</em>
           </h1>
           <p className="gallery-opening-lede">
-            Custom homes and building design across the Fraser Valley and Greater
+            Custom homes and finishing & carpentry across the Fraser Valley and Greater
             Vancouver. Open a project for the cover, overview, and scope.
           </p>
-          {sections.length > 1 ? (
-            <nav className="gallery-jump" aria-label="Portfolio sections">
-              {sections.map((section) => (
-                <a key={section.id} href={`#gallery-${section.id}`}>
-                  {section.label}
-                </a>
-              ))}
-            </nav>
-          ) : null}
         </Reveal>
       </section>
 
-      {sections.map((section) => (
-        <section
-          key={section.id}
-          className="gallery-band"
-          aria-labelledby={`gallery-${section.id}`}
-        >
-          <div className="gallery-band-head editorial-section">
-            <p className="eyebrow" id={`gallery-${section.id}`}>
-              {section.label}
-            </p>
-            <p className="gallery-band-count">
-              {String(section.projects.length).padStart(2, "0")}
-            </p>
-          </div>
-          <ul className="gallery-mosaic">
-            {section.projects.map((project, index) => (
-              <li
-                key={project.slug}
-                className={
-                  index === 0 && section.projects.length > 2
-                    ? "is-featured"
-                    : undefined
-                }
+      <section className="gallery-band editorial-section" aria-label="Portfolio projects">
+        <ul className="gallery-grid">
+          {GALLERY_PROJECTS.map((project, index) => (
+            <li key={project.slug}>
+              <Link
+                className={`gallery-card${project.comingSoon ? " is-upcoming" : ""}${project.placeholderImage ? " is-placeholder" : ""}`}
+                to={`/gallery/${project.slug}`}
               >
-                <Reveal>
-                  <Link
-                    className={`gallery-tile${project.comingSoon ? " is-upcoming" : ""}${project.placeholderImage ? " is-placeholder" : ""}`}
-                    to={`/gallery/${project.slug}`}
-                  >
-                    <img
-                      src={project.image}
-                      alt={project.imageAlt}
-                      loading={index < 2 ? "eager" : "lazy"}
-                      width={1200}
-                      height={900}
-                      className={
-                        project.placeholderImage
-                          ? "is-logo-placeholder"
-                          : undefined
-                      }
-                    />
-                    {project.comingSoon ? (
-                      <span className="gallery-badge">Upcoming</span>
-                    ) : null}
-                    <span className="gallery-tile-meta">
-                      <span>{project.location}</span>
-                      <strong>{project.title}</strong>
-                    </span>
-                  </Link>
-                </Reveal>
-              </li>
-            ))}
-          </ul>
-        </section>
-      ))}
+                <span className="gallery-card-media">
+                  <img
+                    src={project.image}
+                    alt={project.imageAlt}
+                    loading={index < 3 ? "eager" : "lazy"}
+                    width={1200}
+                    height={900}
+                    className={
+                      project.placeholderImage
+                        ? "is-logo-placeholder"
+                        : undefined
+                    }
+                  />
+                  <span className="gallery-badge">{project.category}</span>
+                  <span className="gallery-card-meta">
+                    <span>{project.location}</span>
+                    <strong>{project.title}</strong>
+                  </span>
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
 
       <section className="editorial-section gallery-help">
         <Reveal>

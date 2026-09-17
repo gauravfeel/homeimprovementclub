@@ -51,8 +51,8 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     slug: "broadway-alma",
     title: "Broadway & Alma",
     location: "Vancouver, BC, Canada",
-    category: "Building design",
-    scope: "Building design",
+    category: "Finishing & Carpentry",
+    scope: "Finishing & Carpentry",
     teaser:
       "3709 West Broadway — contemporary mixed-use design with a glass storefront at street level and textured residential levels above.",
     overview: [
@@ -69,8 +69,8 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     slug: "joyce-2",
     title: "Joyce 2",
     location: "Vancouver, BC, Canada",
-    category: "Building design",
-    scope: "Building design",
+    category: "Finishing & Carpentry",
+    scope: "Finishing & Carpentry",
     teaser:
       "Modern residential tower with warm wood-toned exterior, a grid of balconies, and planted outdoor spaces.",
     overview: [
@@ -86,8 +86,8 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     slug: "m4-building",
     title: "M4 Building",
     location: "Vancouver, BC, Canada",
-    category: "Building design",
-    scope: "Building design",
+    category: "Finishing & Carpentry",
+    scope: "Finishing & Carpentry",
     teaser:
       "Contemporary mixed-use tower with bold stacked form and dark glass exterior in Vancouver.",
     overview: [
@@ -103,8 +103,8 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     slug: "the-grand",
     title: "The Grand",
     location: "Surrey, BC, Canada",
-    category: "Building design",
-    scope: "Building design",
+    category: "Finishing & Carpentry",
+    scope: "Finishing & Carpentry",
     teaser:
       "Tall residential tower on King George Boulevard with slim form, neutral exterior, and landscaped podium.",
     overview: [
@@ -120,8 +120,8 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     slug: "the-grand-lion",
     title: "The Grand Lion",
     location: "North Vancouver, BC, Canada",
-    category: "Building design",
-    scope: "Building design",
+    category: "Finishing & Carpentry",
+    scope: "Finishing & Carpentry",
     teaser:
       "Mid-rise Vancouver residential building with light exterior, large windows, and glass balconies.",
     overview: [
@@ -137,8 +137,8 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     slug: "the-butterfly",
     title: "The Butterfly",
     location: "Vancouver, BC, Canada",
-    category: "Building design",
-    scope: "Building design",
+    category: "Finishing & Carpentry",
+    scope: "Finishing & Carpentry",
     teaser:
       "Sculptural Vancouver tower with curved white form and twisting balconies on the skyline.",
     overview: [
@@ -222,7 +222,7 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     title: "Skyview",
     location: "Mission, BC, Canada",
     category: "Upcoming",
-    scope: "Building design",
+    scope: "Finishing & Carpentry",
     teaser:
       "Upcoming townhouse-style residences with large windows, private balconies, and landscaped walkways.",
     overview: [
@@ -240,7 +240,7 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     title: "SATORI",
     location: "Coquitlam, BC, Canada",
     category: "Upcoming",
-    scope: "Building design",
+    scope: "Finishing & Carpentry",
     teaser:
       "Upcoming Coquitlam low-rise homes with minimalist design, light exterior, and private outdoor space.",
     overview: [
@@ -258,7 +258,7 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     title: "Photon Control",
     location: "Richmond, BC, Canada",
     category: "Upcoming",
-    scope: "Building design",
+    scope: "Finishing & Carpentry",
     teaser:
       "Upcoming Richmond industrial and office development with modern, functional exterior.",
     overview: [
@@ -285,7 +285,7 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
 ];
 
 export const GALLERY_SECTIONS = [
-  { id: "building-design", label: "Building design" },
+  { id: "finishing-carpentry", label: "Finishing & Carpentry" },
   { id: "custom-home", label: "Custom home" },
   { id: "upcoming", label: "Upcoming" },
 ] as const;

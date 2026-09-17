@@ -77,7 +77,7 @@ export default function Navbar() {
               aria-controls="desktop-services-menu"
               onClick={() => setDesktopServicesOpen(true)}
             >
-              Build & renovate
+              Services
               <ChevronDown size={14} aria-hidden="true" />
             </button>
             <div id="desktop-services-menu" className="nav-dropdown-panel">
@@ -89,10 +89,10 @@ export default function Navbar() {
               ))}
             </div>
           </div>
-          <NavLink to="/how-it-works">Our process</NavLink>
-          <NavLink to="/about">About HIC</NavLink>
+          <NavLink to="/how-it-works">Process</NavLink>
+          <NavLink to="/about">About</NavLink>
           <NavLink to="/investment-partnerships">Investment</NavLink>
-          <NavLink to="/areas-we-serve">Service area</NavLink>
+          <NavLink to="/areas-we-serve">Service areas</NavLink>
           <NavLink to="/gallery">Portfolio</NavLink>
           <NavLink to="/blog">Blog</NavLink>
         </nav>
@@ -123,7 +123,9 @@ export default function Navbar() {
           <Link ref={firstLink} to="/" tabIndex={open ? 0 : -1}>
             Home
           </Link>
-          <div className={`mobile-services${mobileServicesOpen ? " is-open" : ""}`}>
+          <div
+            className={`mobile-services${mobileServicesOpen ? " is-open" : ""}`}
+          >
             <div className="mobile-services-row">
               <Link to="/services" tabIndex={open ? 0 : -1}>
                 All services
@@ -131,7 +133,9 @@ export default function Navbar() {
               <button
                 type="button"
                 className="mobile-services-toggle"
-                aria-label={mobileServicesOpen ? "Hide services" : "Show services"}
+                aria-label={
+                  mobileServicesOpen ? "Hide services" : "Show services"
+                }
                 aria-expanded={mobileServicesOpen}
                 aria-controls="mobile-services-list"
                 tabIndex={open ? 0 : -1}
@@ -156,16 +160,16 @@ export default function Navbar() {
             </div>
           </div>
           <Link to="/how-it-works" tabIndex={open ? 0 : -1}>
-            Our process
+            Process
           </Link>
           <Link to="/about" tabIndex={open ? 0 : -1}>
-            About HIC
+            About
           </Link>
           <Link to="/investment-partnerships" tabIndex={open ? 0 : -1}>
             Investment
           </Link>
           <Link to="/areas-we-serve" tabIndex={open ? 0 : -1}>
-            Service area
+            Service areas
           </Link>
           <Link to="/gallery" tabIndex={open ? 0 : -1}>
             Portfolio

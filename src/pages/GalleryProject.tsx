@@ -1,14 +1,9 @@
 import { Link, Navigate, useParams } from "react-router-dom";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, CalendarDays, MapPin } from "lucide-react";
 import Layout from "@/components/Layout";
 import SEO from "@/components/SEO";
 import Reveal from "@/components/Reveal";
-import {
-  getGalleryProject,
-  GALLERY_PROJECTS,
-  youtubeEmbedUrl,
-} from "@/data/projects";
-import { SERVICES } from "@/data/services";
+import { getGalleryProject, youtubeEmbedUrl } from "@/data/projects";
 
 export default function GalleryProject() {
   const { slug } = useParams();
@@ -18,18 +13,15 @@ export default function GalleryProject() {
     return <Navigate to="/gallery" replace />;
   }
 
-  const service = SERVICES.find((item) => item.slug === project.serviceSlug);
-  const sameCategory = GALLERY_PROJECTS.filter(
-    (item) => item.slug !== project.slug && item.category === project.category,
-  );
-  const related = (
-    sameCategory.length
-      ? sameCategory
-      : GALLERY_PROJECTS.filter((item) => item.slug !== project.slug)
-  ).slice(0, 3);
-  const embed = project.youtubeUrl
-    ? youtubeEmbedUrl(project.youtubeUrl)
-    : null;
+  const embed = project.youtubeUrl ? youtubeEmbedUrl(project.youtubeUrl) : null;
+  const highlights = project.workCompleted?.length
+    ? project.workCompleted
+    : (project.upcomingWork ?? []);
+  const highlightLabel = project.workCompleted?.length
+    ? "Key Highlights"
+    : project.upcomingWork?.length
+      ? "Upcoming Projects"
+      : null;
 
   return (
     <Layout>
@@ -40,109 +32,61 @@ export default function GalleryProject() {
         ogImage={project.placeholderImage ? undefined : project.image}
       />
 
-      <section className="gallery-project-stage">
-        <figure
-          className={`gallery-project-stage-media${project.placeholderImage ? " is-placeholder" : ""}`}
-        >
-          <img
-            src={project.image}
-            alt={project.imageAlt}
-            width={1920}
-            height={1080}
-            className={project.placeholderImage ? "is-logo-placeholder" : undefined}
-          />
-        </figure>
-        <div className="gallery-project-stage-copy">
+      <section className="gallery-project-hero editorial-section">
+        <div className="gallery-project-copy">
           <Link className="gallery-back" to="/gallery">
-            Portfolio
+            <ArrowLeft size={16} aria-hidden="true" /> Back to Portfolio
           </Link>
           <p className="eyebrow">{project.category}</p>
           <h1>{project.title}</h1>
-          <p className="gallery-project-location">{project.location}</p>
+          <p className="gallery-project-facts">
+            <span>
+              <MapPin size={15} aria-hidden="true" />
+              {project.location}
+            </span>
+            {project.year ? (
+              <span>
+                <CalendarDays size={15} aria-hidden="true" />
+                {project.year}
+              </span>
+            ) : null}
+          </p>
           {project.comingSoon ? (
             <p className="gallery-coming-soon-note">Upcoming project</p>
           ) : null}
         </div>
-      </section>
-
-      <section className="editorial-section gallery-project-dossier">
-        <Reveal>
-          <div className="gallery-project-dossier-grid">
-            <div>
-              <h2>Overview</h2>
-              {project.overview.map((paragraph) => (
-                <p key={paragraph.slice(0, 40)}>{paragraph}</p>
-              ))}
-              {project.beforeImage ? (
-                <figure className="gallery-before">
-                  <img
-                    src={project.beforeImage}
-                    alt={project.beforeAlt || `${project.title} before`}
-                    loading="lazy"
-                  />
-                  <figcaption>Before</figcaption>
-                </figure>
-              ) : null}
-            </div>
-            <dl className="gallery-spec">
-              <div>
-                <dt>Scope</dt>
-                <dd>{project.scope}</dd>
-              </div>
-              {project.year ? (
-                <div>
-                  <dt>Year</dt>
-                  <dd>{project.year}</dd>
-                </div>
-              ) : null}
-              {project.workCompleted?.length ? (
-                <div>
-                  <dt>Work completed</dt>
-                  <dd>
-                    <ul>
-                      {project.workCompleted.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-                  </dd>
-                </div>
-              ) : null}
-              {project.upcomingWork?.length ? (
-                <div>
-                  <dt>Upcoming work</dt>
-                  <dd>
-                    <ul>
-                      {project.upcomingWork.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-                  </dd>
-                </div>
-              ) : null}
-              {service ? (
-                <div>
-                  <dt>Related service</dt>
-                  <dd>
-                    <Link className="text-link" to={`/services/${service.slug}`}>
-                      {service.label} <ArrowUpRight size={16} />
-                    </Link>
-                  </dd>
-                </div>
-              ) : null}
-              <div>
-                <dt>Next</dt>
-                <dd>
-                  <Link
-                    className="solid-link"
-                    to={`/contact?service=${project.serviceSlug}`}
-                  >
-                    Discuss your project <ArrowUpRight size={16} />
-                  </Link>
-                </dd>
-              </div>
-            </dl>
-          </div>
-        </Reveal>
+        <figure
+          className={`gallery-project-photo${project.placeholderImage ? " is-placeholder" : ""}`}
+        >
+          <img
+            src={project.image}
+            alt={project.imageAlt}
+            width={1600}
+            height={2000}
+            className={
+              project.placeholderImage ? "is-logo-placeholder" : undefined
+            }
+          />
+        </figure>
+        <div className="gallery-project-body">
+          {project.overview[0] ? (
+            <p className="gallery-project-lede">{project.overview[0]}</p>
+          ) : (
+            <p className="gallery-project-lede">{project.teaser}</p>
+          )}
+          {highlights.length > 0 && highlightLabel ? (
+            <>
+              <p className="eyebrow gallery-project-highlights-label">
+                {highlightLabel}
+              </p>
+              <ul className="gallery-project-highlights">
+                {highlights.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </>
+          ) : null}
+        </div>
       </section>
 
       {embed ? (
@@ -162,34 +106,29 @@ export default function GalleryProject() {
         </section>
       ) : null}
 
-      {related.length > 0 ? (
-        <section className="editorial-section gallery-related">
-          <Reveal>
-            <p className="eyebrow">More work</p>
-            <ul className="gallery-related-grid">
-              {related.map((item) => (
-                <li key={item.slug}>
-                  <Link
-                    className="gallery-related-card"
-                    to={`/gallery/${item.slug}`}
-                  >
-                    <img
-                      src={item.image}
-                      alt={item.imageAlt}
-                      loading="lazy"
-                      className={
-                        item.placeholderImage ? "is-logo-placeholder" : undefined
-                      }
-                    />
-                    <span>{item.category}</span>
-                    <strong>{item.title}</strong>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-        </section>
-      ) : null}
+      <section className="editorial-section gallery-help">
+        <Reveal>
+          <div className="gallery-help-grid">
+            <h2>
+              Planning similar work?
+              <br />
+              <em>Tell us the property.</em>
+            </h2>
+            <div>
+              <p>
+                Custom home, multiplex, finishing, or renovation. Bring the
+                address, intended use, and budget context.
+              </p>
+              <Link
+                className="solid-link"
+                to={`/contact?service=${project.serviceSlug}`}
+              >
+                Book a consultation <ArrowUpRight size={18} />
+              </Link>
+            </div>
+          </div>
+        </Reveal>
+      </section>
     </Layout>
   );
 }
