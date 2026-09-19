@@ -12,7 +12,7 @@ import detailImage from "@/assets/lux-exterior.jpg";
 import customHomeImage from "@/assets/custom-home.jpg";
 import multiplexImage from "@/assets/multiplex-homes.jpg";
 
-const questions = [
+export const CUSTOM_HOME_FAQS = [
   {
     question: "Does HIC build both custom homes and multiplex projects?",
     answer:
@@ -29,6 +29,8 @@ const questions = [
       "No. Early ideas, priorities and budget context are enough to begin. If plans already exist, include them so the conversation can start from the work completed so far.",
   },
 ];
+
+const questions = CUSTOM_HOME_FAQS;
 
 export default function CustomHomesMultiplexPage({
   service,

@@ -46,6 +46,7 @@ const ROUTES = [
   "/gallery/satori",
   "/gallery/photon-control",
   "/privacy",
+  "/blog",
 ];
 
 const MIME_TYPES = {

@@ -45,6 +45,10 @@ export default function BlogPost() {
 
   const cover = post.featuredImageUrl || blogCoverFor(post.category ?? "Notes");
   const coverAlt = post.featuredImageAlt || "";
+  const authorName =
+    !post.author || post.author.trim().toLowerCase() === "developer"
+      ? "Home Improvement Club"
+      : post.author.trim();
   const metaTitle = post.seoTitle || `${post.title} | Home Improvement Club`;
   const metaDescription = post.seoDescription || post.excerpt;
   const ogImage = post.ogImageUrl || post.featuredImageUrl || `${SITE}/hic-social.jpg`;
@@ -64,8 +68,15 @@ export default function BlogPost() {
           datePublished: post.date,
           author: {
             "@type": "Organization",
-            name: post.author ?? "Home Improvement Club",
+            name: authorName,
           },
+          publisher: {
+            "@type": "Organization",
+            name: "Home Improvement Club",
+            url: SITE,
+            logo: `${SITE}/hic-logo.png`,
+          },
+          mainEntityOfPage: `${SITE}/blog/${post.slug}`,
           description: post.excerpt,
           image: ogImage,
           timeRequired: post.readingTimeMinutes
@@ -103,7 +114,7 @@ export default function BlogPost() {
             ) : null}
             <div>
               <dt>Author</dt>
-              <dd>{post.author ?? "Home Improvement Club"}</dd>
+              <dd>{authorName}</dd>
             </div>
           </dl>
           <Link className="text-link" to="/blog">

@@ -5,7 +5,7 @@ interface SEOProps {
   description: string;
   canonical?: string;
   ogImage?: string;
-  schema?: object;
+  schema?: object | object[];
 }
 
 const SITE = "https://homeimprovementclub.co";
@@ -25,8 +25,12 @@ const SEO = ({ title, description, canonical, ogImage, schema }: SEOProps) => {
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />
-      {schema && (
-        <script type="application/ld+json">{JSON.stringify(schema)}</script>
+      {(Array.isArray(schema) ? schema : schema ? [schema] : []).map(
+        (block, index) => (
+          <script key={index} type="application/ld+json">
+            {JSON.stringify(block)}
+          </script>
+        ),
       )}
     </Helmet>
   );

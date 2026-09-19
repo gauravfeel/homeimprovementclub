@@ -15,9 +15,9 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import Layout from "@/components/Layout";
 import SEO from "@/components/SEO";
+import { HOME_BUSINESS_SCHEMA } from "@/lib/geo-schema";
 import {
   SERVICE_AREA,
-  SERVICE_AREA_BC,
   SERVICE_CITIES,
 } from "@/lib/service-area";
 import { trackEvent, trackGoogleAdsLead } from "@/lib/analytics";
@@ -106,9 +106,10 @@ const Contact = () => {
   return (
     <Layout>
       <SEO
-        title={`Book a Free Consultation | Home Improvement Club — ${SERVICE_AREA_BC}`}
+        title="Book a Free Consultation | Home Improvement Club | Fraser Valley and Greater Vancouver, BC"
         description={`Discuss a custom home, multiplex or renovation project with Home Improvement Club in ${SERVICE_AREA}.`}
         canonical="/contact"
+        schema={HOME_BUSINESS_SCHEMA}
       />
       <section className="section-padding-lg contact-section">
         <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">

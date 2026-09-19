@@ -271,26 +271,49 @@ async function handleLead(req, res) {
   send(res, 200, { ok: true });
 }
 
+function serveSitemap(res) {
+  const candidates = [
+    join(DIST, "sitemap.xml"),
+    join(ROOT, "public", "sitemap.xml"),
+  ];
+  for (const filePath of candidates) {
+    try {
+      if (!existsSync(filePath)) continue;
+      res.writeHead(200, { "Content-Type": "application/xml; charset=utf-8" });
+      res.end(readFileSync(filePath));
+      return;
+    } catch (error) {
+      console.error("sitemap.xml read failed", error?.message || error);
+    }
+  }
+  send(res, 404, { ok: false, error: "sitemap.xml missing" });
+}
+
 function serveStatic(req, res) {
-  if (!existsSync(DIST)) {
-    send(res, 503, { ok: false, error: "Build dist/ first" });
-    return;
+  try {
+    if (!existsSync(DIST)) {
+      send(res, 503, { ok: false, error: "Build dist/ first" });
+      return;
+    }
+    const url = new URL(req.url || "/", "http://localhost");
+    let filePath = join(DIST, decodeURIComponent(url.pathname));
+    if (!normalize(filePath).startsWith(DIST)) {
+      send(res, 403, { ok: false });
+      return;
+    }
+    if (existsSync(filePath) && !extname(filePath)) {
+      filePath = join(filePath, "index.html");
+    }
+    if (!existsSync(filePath) || !extname(filePath)) {
+      filePath = join(DIST, "index.html");
+    }
+    const type = MIME[extname(filePath)] || "application/octet-stream";
+    res.writeHead(200, { "Content-Type": type });
+    res.end(readFileSync(filePath));
+  } catch (error) {
+    console.error("static serve failed", error?.message || error);
+    send(res, 500, { ok: false, error: "Could not serve file" });
   }
-  const url = new URL(req.url || "/", "http://localhost");
-  let filePath = join(DIST, decodeURIComponent(url.pathname));
-  if (!normalize(filePath).startsWith(DIST)) {
-    send(res, 403, { ok: false });
-    return;
-  }
-  if (existsSync(filePath) && !extname(filePath)) {
-    filePath = join(filePath, "index.html");
-  }
-  if (!existsSync(filePath) || !extname(filePath)) {
-    filePath = join(DIST, "index.html");
-  }
-  const type = MIME[extname(filePath)] || "application/octet-stream";
-  res.writeHead(200, { "Content-Type": type });
-  res.end(readFileSync(filePath));
 }
 
 const server = createServer(async (req, res) => {
@@ -298,6 +321,20 @@ const server = createServer(async (req, res) => {
   if (path === "/api/lead") {
     await handleLead(req, res);
     return;
+  }
+  if (path === "/sitemap.xml" || path === "/robots.txt") {
+    if (path === "/sitemap.xml") {
+      serveSitemap(res);
+      return;
+    }
+    const robots = join(DIST, "robots.txt");
+    const fallbackRobots = join(ROOT, "public", "robots.txt");
+    const file = existsSync(robots) ? robots : fallbackRobots;
+    if (existsSync(file)) {
+      res.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
+      res.end(readFileSync(file));
+      return;
+    }
   }
   if (process.env.NODE_ENV === "production") {
     serveStatic(req, res);

@@ -9,7 +9,9 @@ import LightingPage from "./service-pages/LightingPage";
 import FlooringPage from "./service-pages/FlooringPage";
 import SystemsPage from "./service-pages/SystemsPage";
 import ExteriorPage from "./service-pages/ExteriorPage";
-import CustomHomesMultiplexPage from "./service-pages/CustomHomesMultiplexPage";
+import CustomHomesMultiplexPage, {
+  CUSTOM_HOME_FAQS,
+} from "./service-pages/CustomHomesMultiplexPage";
 const pages = {
   "custom-homes-multiplex": CustomHomesMultiplexPage,
   "kitchen-cabinets": KitchenPage,
@@ -34,6 +36,7 @@ export default function ServiceDetail() {
       "@type": "HomeAndConstructionBusiness",
       name: "Home Improvement Club",
       url: "https://homeimprovementclub.co/",
+      telephone: "+1-236-380-4423",
     },
     areaServed: SERVICE_CITIES.map((name) => ({ "@type": "City", name })),
   };
@@ -47,7 +50,22 @@ export default function ServiceDetail() {
           ? "Fraser Valley's Premier Custom Home Builder. HIC builds custom homes and multiplex projects across the Fraser Valley and Greater Vancouver."
           : `${service.title} across the Fraser Valley and Greater Vancouver. ${service.short} Book a free consultation with HIC.`}
         canonical={`/services/${service.slug}`}
-        schema={schema}
+        schema={
+          service.slug === "custom-homes-multiplex"
+            ? [
+                schema,
+                {
+                  "@context": "https://schema.org",
+                  "@type": "FAQPage",
+                  mainEntity: CUSTOM_HOME_FAQS.map((faq) => ({
+                    "@type": "Question",
+                    name: faq.question,
+                    acceptedAnswer: { "@type": "Answer", text: faq.answer },
+                  })),
+                },
+              ]
+            : schema
+        }
       />
       <Page service={service} />
     </Layout>

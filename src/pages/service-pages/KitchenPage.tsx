@@ -21,7 +21,7 @@ export default function KitchenPage({ service }: { service: Service }) {
           <h1>
             Kitchen renovations
             <br />
-            <em>in Vancouver.</em>
+            <em>in the Fraser Valley.</em>
           </h1>
           <p>
             A kitchen has to do more than look good. It needs room to cook,
