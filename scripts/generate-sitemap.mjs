@@ -79,6 +79,11 @@ const STATIC = [
   { path: "/blog", priority: "0.7", lastmod: new Date().toISOString().slice(0, 10) },
 ];
 
+const BLOG_FALLBACK = [
+  { slug: "fraser-valley-custom-home-budget", lastmod: "2026-09-16" },
+  { slug: "top-5-high-roi-renovations-for-bc-properties", lastmod: "2026-09-16" },
+];
+
 function urlEntry(loc, lastmod, priority) {
   return `  <url><loc>${loc}</loc><lastmod>${lastmod}</lastmod><priority>${priority}</priority></url>`;
 }
@@ -117,7 +122,12 @@ async function main() {
   if (projectId) {
     blogPosts = await fetchBlogEntries(projectId, dataset, token);
   } else {
-    console.warn("No VITE_SANITY_PROJECT_ID; sitemap will omit blog posts.");
+    console.warn("No VITE_SANITY_PROJECT_ID; sitemap will use fallback blog URLs.");
+  }
+
+  const seen = new Set(blogPosts.map((post) => post.slug));
+  for (const fallback of BLOG_FALLBACK) {
+    if (!seen.has(fallback.slug)) blogPosts.push(fallback);
   }
 
   const blogLastmod =

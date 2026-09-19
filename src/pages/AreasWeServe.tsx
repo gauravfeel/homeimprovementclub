@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import SEO from "@/components/SEO";
-import { SERVICE_AREA, SERVICE_CITIES, SERVICE_CITIES_PROSE } from "@/lib/service-area";
+import { SERVICE_CITIES, SERVICE_CITIES_PROSE } from "@/lib/service-area";
 import { ContactInfo } from "@/components/ContactInfo";
 export default function AreasWeServe() {
   return (
     <Layout>
       <SEO
-        title={`${SERVICE_AREA} Building & Renovation Area | HIC`}
+        title="Fraser Valley and Greater Vancouver Building & Renovation Area | HIC"
         description={`HIC custom home, multiplex and renovation enquiries serve ${SERVICE_CITIES_PROSE}.`}
         canonical="/areas-we-serve"
       />

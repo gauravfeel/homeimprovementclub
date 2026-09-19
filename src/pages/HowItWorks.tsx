@@ -37,6 +37,19 @@ export default function HowItWorks() {
         title="Custom Home, Multiplex & Renovation Process | HIC"
         description="Understand how HIC moves custom home, multiplex and renovation conversations from early scope through construction and handover."
         canonical="/how-it-works"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "HowTo",
+          name: "How Home Improvement Club runs a residential project",
+          description:
+            "How HIC moves custom home, multiplex and renovation work from first conversation through handover.",
+          step: stages.map((stage, index) => ({
+            "@type": "HowToStep",
+            position: index + 1,
+            name: stage.title,
+            text: stage.body,
+          })),
+        }}
       />
       <section className="editorial-section process-opening">
         <p className="eyebrow">From enquiry to walkthrough</p>

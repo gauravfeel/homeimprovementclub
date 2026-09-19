@@ -4,6 +4,9 @@ import SEO from "@/components/SEO";
 import { ServiceImage } from "@/components/ServicePrimitives";
 import Reveal from "@/components/Reveal";
 import interior from "@/assets/lux-lighting.jpg";
+import { HOME_BUSINESS_SCHEMA } from "@/lib/geo-schema";
+import { CONTACT_PHONE_DISPLAY } from "@/lib/contact";
+import { SERVICE_CITIES_PROSE } from "@/lib/service-area";
 export default function About() {
   return (
     <Layout>
@@ -11,6 +14,7 @@ export default function About() {
         title="About HIC | Custom Homes, Multiplex & Renovations"
         description="Home Improvement Club is Fraser Valley's Premier Custom Home Builder, with multiplex work and renovations across the Fraser Valley and Greater Vancouver."
         canonical="/about"
+        schema={HOME_BUSINESS_SCHEMA}
       />
       <section className="editorial-section about-opening">
         <p className="eyebrow">About Home Improvement Club</p>
@@ -100,9 +104,10 @@ export default function About() {
             <div>
               <dt>Our area</dt>
               <dd>
-                the Fraser Valley and Greater Vancouver, including Vancouver,
-                the North Shore, Burnaby, New Westminster, Coquitlam,
-                Richmond, Surrey, Maple Ridge, Abbotsford and Chilliwack.
+                Fraser Valley and Greater Vancouver, including{" "}
+                {SERVICE_CITIES_PROSE}. Reach HIC by phone at{" "}
+                {CONTACT_PHONE_DISPLAY}. HIC works across this service area;
+                start with the property address rather than a public showroom.
               </dd>
             </div>
             <div>

@@ -4,6 +4,7 @@ import Layout from "@/components/Layout";
 import SEO from "@/components/SEO";
 import Reveal from "@/components/Reveal";
 import { getGalleryProject, youtubeEmbedUrl } from "@/data/projects";
+import { SITE_ORIGIN } from "@/lib/geo-schema";
 
 export default function GalleryProject() {
   const { slug } = useParams();
@@ -30,6 +31,26 @@ export default function GalleryProject() {
         description={project.teaser}
         canonical={`/gallery/${project.slug}`}
         ogImage={project.placeholderImage ? undefined : project.image}
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "CreativeWork",
+          name: project.title,
+          description: project.teaser,
+          url: `${SITE_ORIGIN}/gallery/${project.slug}`,
+          image: project.placeholderImage
+            ? undefined
+            : project.image.startsWith("http")
+              ? project.image
+              : `${SITE_ORIGIN}${project.image.startsWith("/") ? "" : "/"}${project.image}`,
+          contentLocation: project.location,
+          dateCreated: project.year,
+          about: project.category,
+          creator: {
+            "@type": "HomeAndConstructionBusiness",
+            name: "Home Improvement Club",
+            url: `${SITE_ORIGIN}/`,
+          },
+        }}
       />
 
       <section className="gallery-project-hero editorial-section">
