@@ -13,7 +13,11 @@ import residentialExterior from "@/assets/lux-exterior.jpg";
 import lighting from "@/assets/lux-lighting.jpg";
 import ProjectGallery from "@/components/ProjectGallery";
 import Reveal from "@/components/Reveal";
-import { FAQ_PAGE_SCHEMA, HOME_BUSINESS_SCHEMA } from "@/lib/geo-schema";
+import {
+  FAQ_PAGE_SCHEMA,
+  HOME_BUSINESS_SCHEMA,
+  SERVICE_DIRECTORY_SCHEMA,
+} from "@/lib/geo-schema";
 import { SITE_POSITIONING, SERVICE_AREA } from "@/lib/service-area";
 export default function Index() {
   return (
@@ -22,7 +26,11 @@ export default function Index() {
         title={`${SITE_POSITIONING} | Home Improvement Club`}
         description={`${SITE_POSITIONING}. Custom homes, multiplex, and renovations across ${SERVICE_AREA}.`}
         canonical="/"
-        schema={[HOME_BUSINESS_SCHEMA, FAQ_PAGE_SCHEMA]}
+        schema={[
+          HOME_BUSINESS_SCHEMA,
+          FAQ_PAGE_SCHEMA,
+          SERVICE_DIRECTORY_SCHEMA,
+        ]}
       />
       <section className="home-hero">
         <div className="hero-copy">
