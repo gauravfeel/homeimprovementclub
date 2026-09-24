@@ -1,10 +1,9 @@
 import { lazy, Suspense } from "react";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import PageLoader from "@/components/PageLoader";
-import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { ENABLE_CONTRACTOR_MEMBERSHIP } from "@/lib/features";
 import RouteScroll from "@/components/RouteScroll";
 import Index from "./pages/Index";
@@ -28,19 +27,12 @@ const GalleryProject = lazy(() => import("./pages/GalleryProject"));
 const ServiceDetail = lazy(() => import("./pages/ServiceDetail"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
-function SiteChrome() {
-  const { pathname } = useLocation();
-  if (pathname.startsWith("/admin")) return null;
-  return <WhatsAppButton variant="floating" />;
-}
-
 const App = () => (
   <TooltipProvider>
     <Toaster />
     <Sonner />
     <BrowserRouter>
       <RouteScroll />
-      <SiteChrome />
       <Suspense fallback={<PageLoader />}>
         <Routes>
           <Route path="/" element={<Index />} />

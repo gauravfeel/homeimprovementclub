@@ -13,7 +13,7 @@ const sections = [
         <li>Project type, budget, message and other project details</li>
         <li>Information included in later correspondence or documents you choose to provide</li>
       </ul>
-      <p>Our website may also collect device, browser, referral, page-view and interaction information through Google Analytics and Google Ads tags. The lead popup uses local and session browser storage to remember whether it was displayed or dismissed.</p>
+      <p>Our website may also collect device, browser, referral, page-view and interaction information through Google Analytics and Google Ads tags.</p>
     </>,
   ],
   [
@@ -42,7 +42,7 @@ const sections = [
     "Cookies, analytics and advertising",
     <>
       <p>Google technologies help us understand website use, measure submitted enquiries and evaluate advertising. These technologies may use cookies or similar identifiers. Your browser and Google advertising settings provide controls for cookies and personalized advertising. Blocking them may affect some website measurements or features.</p>
-      <p>Local and session storage used by our lead popup records timing and dismissal status; it does not contain form details.</p>
+      <p>The enquiry widget on each page submits the same consultation details as the contact form. It does not keep those details in browser storage after you send it.</p>
     </>,
   ],
   [

@@ -59,11 +59,8 @@ describe("conversion event contract", () => {
       }],
     ]);
   });
-  it.each([
-    ["floating", "floating_button"],
-    ["footer", "footer"],
-  ] as const)("tracks WhatsApp %s", (variant, location) => {
-    const { getByRole } = render(<WhatsAppButton variant={variant} />);
+  it("tracks WhatsApp from the footer", () => {
+    const { getByRole } = render(<WhatsAppButton />);
     const link = getByRole("link");
     link.addEventListener("click", (e) => e.preventDefault());
     expect(link.getAttribute("href")).toContain(
@@ -73,7 +70,7 @@ describe("conversion event contract", () => {
     expect(window.dataLayer).toEqual([
       ["event", "whatsapp_click", {
         lead_type: "whatsapp",
-        link_location: location,
+        link_location: "footer",
       }],
     ]);
   });

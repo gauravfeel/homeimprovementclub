@@ -152,7 +152,7 @@ const Contact = () => {
               </p>
             </div>
             <div className="contact-methods">
-              <ContactInfo />
+              <ContactInfo showAllPhones />
               <button
                 type="button"
                 className="quick-enquiry"

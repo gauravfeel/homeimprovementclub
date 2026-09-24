@@ -1,8 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useLocation } from "react-router-dom";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -14,7 +13,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
-import logo from "@/assets/hic-logo-small.png";
 import { trackEvent, trackGoogleAdsLead } from "@/lib/analytics";
 import { submitLead } from "@/lib/submit-lead";
 import { popupLeadSchema, type PopupLeadValues } from "@/lib/lead-schema";
@@ -25,41 +23,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
-const STORAGE_KEY = "hic_lead_popup_dismissed";
-const TIMER_KEY = "hic_lead_popup_timer_started";
-const SHOWN_KEY = "hic_lead_popup_shown";
-const AUTO_DELAY_MS = 8000;
-const DISMISS_MS = 5 * 60 * 1000;
-
-function clearLeadStorage() {
-  localStorage.removeItem(STORAGE_KEY);
-  sessionStorage.removeItem(SHOWN_KEY);
-  sessionStorage.removeItem(TIMER_KEY);
-}
-
-function isLeadSuppressed() {
-  const at = Number(localStorage.getItem(STORAGE_KEY));
-  if (!at) return false;
-  if (Date.now() - at >= DISMISS_MS) {
-    clearLeadStorage();
-    return false;
-  }
-  return true;
-}
-
-function markLeadDismissed() {
-  localStorage.setItem(STORAGE_KEY, String(Date.now()));
-}
-
-function isRadixSelectLayer(target: EventTarget | null) {
-  const el = target as HTMLElement | null;
-  return Boolean(
-    el?.closest?.(
-      "[data-radix-select-content], [data-radix-select-viewport], [data-radix-popper-content-wrapper]",
-    ),
-  );
-}
 
 const projectTypes = [
   "Custom Home",
@@ -88,28 +51,14 @@ const popupDefaults: PopupLeadValues = {
 };
 
 const LeadCapturePopup = () => {
-  const { pathname } = useLocation();
   const { toast } = useToast();
+  const panelId = useId();
   const [open, setOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const form = useForm<PopupLeadValues>({
     resolver: zodResolver(popupLeadSchema),
     defaultValues: popupDefaults,
   });
-  const dismissArmed = useRef(false);
-
-  useEffect(() => {
-    document.body.classList.toggle("lead-dialog-open", open);
-    if (!open) return;
-    dismissArmed.current = false;
-    const arm = window.setTimeout(() => {
-      dismissArmed.current = true;
-    }, 800);
-    return () => {
-      window.clearTimeout(arm);
-      document.body.classList.remove("lead-dialog-open");
-    };
-  }, [open]);
 
   useEffect(() => {
     const showManual = () => {
@@ -117,49 +66,28 @@ const LeadCapturePopup = () => {
       setOpen(true);
     };
     window.addEventListener("hic:open-enquiry", showManual);
+    return () => window.removeEventListener("hic:open-enquiry", showManual);
+  }, []);
 
-    const tryShow = () => {
-      if (isLeadSuppressed()) return;
-      if (sessionStorage.getItem(SHOWN_KEY)) return;
-      if (window.location.pathname === "/contact") return;
-      if (document.documentElement.classList.contains("menu-open")) return;
-      sessionStorage.setItem(SHOWN_KEY, "1");
-      setOpen(true);
+  useEffect(() => {
+    if (!open) return;
+    const y = window.scrollY;
+    const html = document.documentElement;
+    html.classList.add("enquiry-open");
+    document.body.classList.add("enquiry-open");
+    document.body.style.top = `-${y}px`;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
     };
-
-    let timer = 0;
-    let expiry = 0;
-    const dismissedAt = Number(localStorage.getItem(STORAGE_KEY));
-    if (dismissedAt && Date.now() - dismissedAt < DISMISS_MS) {
-      expiry = window.setTimeout(() => {
-        clearLeadStorage();
-        tryShow();
-      }, DISMISS_MS - (Date.now() - dismissedAt));
-    } else if (!isLeadSuppressed() && !sessionStorage.getItem(SHOWN_KEY) && pathname !== "/contact") {
-      if (!sessionStorage.getItem(TIMER_KEY)) {
-        sessionStorage.setItem(TIMER_KEY, String(Date.now()));
-      }
-      const elapsed = Date.now() - Number(sessionStorage.getItem(TIMER_KEY));
-      timer = window.setTimeout(tryShow, Math.max(0, AUTO_DELAY_MS - elapsed));
-    }
-
-    const onScroll = () => {
-      if (window.scrollY > 840) tryShow();
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-
+    window.addEventListener("keydown", onKey);
     return () => {
-      window.removeEventListener("hic:open-enquiry", showManual);
-      window.removeEventListener("scroll", onScroll);
-      if (timer) window.clearTimeout(timer);
-      if (expiry) window.clearTimeout(expiry);
+      window.removeEventListener("keydown", onKey);
+      html.classList.remove("enquiry-open");
+      document.body.classList.remove("enquiry-open");
+      document.body.style.top = "";
+      window.scrollTo(0, y);
     };
-  }, [pathname]);
-
-  const handleDismiss = () => {
-    markLeadDismissed();
-    setOpen(false);
-  };
+  }, [open]);
 
   const onSubmit = async (values: PopupLeadValues) => {
     try {
@@ -181,60 +109,52 @@ const LeadCapturePopup = () => {
       trackGoogleAdsLead();
       setSubmitted(true);
       form.reset(popupDefaults);
-      markLeadDismissed();
     } catch {
-      toast({ title: "Something went wrong", description: "Please try again or email homeimprovementclub.co@gmail.com", variant: "destructive" });
+      toast({
+        title: "Something went wrong",
+        description:
+          "Please try again or email homeimprovementclub.co@gmail.com",
+        variant: "destructive",
+      });
     }
   };
 
   return (
-    <Dialog
-      open={open}
-      onOpenChange={(next) => {
-        if (next) {
-          setOpen(true);
-          return;
-        }
-        if (!dismissArmed.current && !submitted) {
-          setOpen(true);
-          return;
-        }
-        if (submitted) setOpen(false);
-        else handleDismiss();
-      }}
-    >
-      <DialogContent
-        className="max-w-md w-full max-h-[90vh] overflow-y-auto"
-        onPointerDownOutside={(event) => {
-          if (!dismissArmed.current || isRadixSelectLayer(event.target)) {
-            event.preventDefault();
-          }
-        }}
-        onInteractOutside={(event) => {
-          if (!dismissArmed.current || isRadixSelectLayer(event.target)) {
-            event.preventDefault();
-          }
-        }}
-      >
-        {submitted ? (
-          <div className="text-center py-6 space-y-4">
-            <img src={logo} alt="Home Improvement Club" className="h-10 w-auto mx-auto" />
-            <h2 className="text-xl font-display font-semibold">Your enquiry is on its way.</h2>
-            <p className="text-muted-foreground text-sm" role="status">We’ll be in touch to discuss your project.</p>
-            <Button variant="hero" onClick={() => setOpen(false)} className="w-full">Close</Button>
-          </div>
-        ) : (
-          <>
-            <DialogHeader className="text-center items-center">
-              <img src={logo} alt="Home Improvement Club" className="h-9 w-auto mb-2" />
-              <DialogTitle className="text-xl font-display">A quick introduction</DialogTitle>
-              <DialogDescription className="text-sm">
-                Tell us a little about yourself and the project you are considering.
-              </DialogDescription>
-            </DialogHeader>
+    <div className="enquiry-dock">
+      {open ? (
+        <section
+          id={panelId}
+          className="enquiry-panel"
+          aria-label="Quick enquiry"
+        >
+          <header className="enquiry-panel-head">
+            <p>Quick enquiry</p>
+            <h2>Tell us the project.</h2>
+            <button
+              type="button"
+              className="enquiry-panel-close"
+              aria-label="Close enquiry"
+              onClick={() => setOpen(false)}
+            >
+              <X size={18} aria-hidden />
+            </button>
+          </header>
 
+          {submitted ? (
+            <div className="enquiry-panel-success" role="status">
+              <p>Your enquiry is on its way.</p>
+              <p>We’ll be in touch to discuss your project.</p>
+              <Button variant="hero" onClick={() => setOpen(false)}>
+                Close
+              </Button>
+            </div>
+          ) : (
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 mt-2 relative" noValidate>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="enquiry-panel-form"
+                noValidate
+              >
                 <div className="absolute -left-[9999px]" aria-hidden="true">
                   <FormField
                     control={form.control}
@@ -257,7 +177,12 @@ const LeadCapturePopup = () => {
                       <FormItem>
                         <FormLabel className="text-xs">First Name *</FormLabel>
                         <FormControl>
-                          <Input autoComplete="given-name" placeholder="John" maxLength={100} {...field} />
+                          <Input
+                            autoComplete="given-name"
+                            placeholder="John"
+                            maxLength={100}
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -270,7 +195,12 @@ const LeadCapturePopup = () => {
                       <FormItem>
                         <FormLabel className="text-xs">Last Name</FormLabel>
                         <FormControl>
-                          <Input autoComplete="family-name" placeholder="Smith" maxLength={100} {...field} />
+                          <Input
+                            autoComplete="family-name"
+                            placeholder="Smith"
+                            maxLength={100}
+                            {...field}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -284,7 +214,13 @@ const LeadCapturePopup = () => {
                     <FormItem>
                       <FormLabel className="text-xs">Phone</FormLabel>
                       <FormControl>
-                        <Input autoComplete="tel" type="tel" placeholder="(555) 123-4567" maxLength={20} {...field} />
+                        <Input
+                          autoComplete="tel"
+                          type="tel"
+                          placeholder="(555) 123-4567"
+                          maxLength={20}
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -297,7 +233,13 @@ const LeadCapturePopup = () => {
                     <FormItem>
                       <FormLabel className="text-xs">Email *</FormLabel>
                       <FormControl>
-                        <Input autoComplete="email" type="email" placeholder="john@example.com" maxLength={255} {...field} />
+                        <Input
+                          autoComplete="email"
+                          type="email"
+                          placeholder="john@example.com"
+                          maxLength={255}
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -308,7 +250,9 @@ const LeadCapturePopup = () => {
                   name="projectType"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-xs">What are you planning?</FormLabel>
+                      <FormLabel className="text-xs">
+                        What are you planning?
+                      </FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         value={field.value || undefined}
@@ -357,22 +301,38 @@ const LeadCapturePopup = () => {
                     </FormItem>
                   )}
                 />
-                <Button variant="hero" size="lg" type="submit" className="w-full" disabled={form.formState.isSubmitting}>
-                  {form.formState.isSubmitting ? "Sending…" : "Request my consultation"}
-                </Button>
-                <button
-                  type="button"
-                  onClick={handleDismiss}
-                  className="w-full text-xs text-muted-foreground hover:text-foreground transition-colors text-center"
+                <Button
+                  variant="hero"
+                  size="lg"
+                  type="submit"
+                  className="w-full"
+                  disabled={form.formState.isSubmitting}
                 >
-                  No thanks
-                </button>
+                  {form.formState.isSubmitting
+                    ? "Sending…"
+                    : "Request my consultation"}
+                </Button>
               </form>
             </Form>
-          </>
-        )}
-      </DialogContent>
-    </Dialog>
+          )}
+        </section>
+      ) : null}
+
+      {!open ? (
+      <button
+        type="button"
+        className="enquiry-fab"
+        aria-expanded={open}
+        aria-controls={panelId}
+        onClick={() => {
+          setSubmitted(false);
+          setOpen(true);
+        }}
+      >
+        <span className="enquiry-fab-label">Start a project</span>
+      </button>
+      ) : null}
+    </div>
   );
 };
 
