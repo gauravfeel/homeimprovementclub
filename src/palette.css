@@ -34,21 +34,129 @@ html {
   overflow-x: clip;
 }
 
-.whatsapp-fab {
-  background: var(--forest);
-  color: var(--whatsapp);
-  box-shadow: 0 8px 24px color-mix(in srgb, var(--forest-dark) 28%, transparent);
-}
-body.lead-dialog-open .whatsapp-fab {
-  visibility: hidden;
+.enquiry-dock {
+  position: fixed;
+  right: 0;
+  bottom: 4vh;
+  z-index: 100;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-end;
+  overflow: visible;
   pointer-events: none;
 }
-.whatsapp-fab:hover {
+.enquiry-fab {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: var(--forest);
+  color: var(--on-forest);
+  border: 0;
+  border-radius: 14px 0 0 14px;
+  font-family: var(--font-body);
+  font-size: var(--type-ui);
+  font-weight: 600;
+  line-height: 1;
+  pointer-events: auto;
+}
+.enquiry-fab-label {
+  display: block;
+  padding: 1.45rem 0.78rem;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  letter-spacing: 0.12em;
+}
+.enquiry-fab:hover {
   background: var(--forest-dark);
 }
-.whatsapp-fab:focus-visible {
-  outline: 2px solid var(--whatsapp);
+.enquiry-fab:focus-visible {
+  outline: 2px solid var(--forest);
   outline-offset: 3px;
+}
+.enquiry-panel {
+  position: fixed;
+  inset: 0;
+  z-index: 101;
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  max-height: none;
+  overflow: auto;
+  overscroll-behavior: contain;
+  pointer-events: auto;
+  background: var(--ivory);
+  color: var(--ink);
+  border: 0;
+}
+.enquiry-panel-head {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 1.35rem 3.25rem 1.1rem 1.5rem;
+  background: var(--forest);
+  color: var(--on-forest);
+}
+.enquiry-panel-head p {
+  margin: 0;
+  font-size: var(--type-meta);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--on-forest-muted);
+}
+.enquiry-panel-head h2 {
+  margin: 0.2em 0 0;
+  font-size: var(--type-h3);
+  font-weight: 400;
+  color: var(--on-forest);
+}
+.enquiry-panel-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: var(--on-forest);
+}
+.enquiry-panel-form,
+.enquiry-panel-success {
+  position: relative;
+  display: grid;
+  gap: 1rem;
+  width: min(36rem, 100%);
+  margin: 0 auto;
+  padding: 1.75rem 1.5rem 3rem;
+}
+.enquiry-panel-success {
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+html.enquiry-open,
+html.enquiry-open body {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+html.enquiry-open body {
+  position: fixed;
+  left: 0;
+  right: 0;
+  width: 100%;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .enquiry-panel {
+    animation: enquiry-rise 180ms ease-out;
+  }
+}
+@keyframes enquiry-rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 .whatsapp-footer {
   display: inline-flex;

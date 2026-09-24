@@ -25,8 +25,8 @@ export default function Footer() {
             <br />
             Fraser Valley and Greater Vancouver, British Columbia.
           </p>
-          <ContactInfo />
-          <WhatsAppButton variant="footer" />
+          <ContactInfo showAllPhones />
+          <WhatsAppButton />
         </div>
         <nav aria-label="Footer services">
           <p className="eyebrow">Build & renovate</p>

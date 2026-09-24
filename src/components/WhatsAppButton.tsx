@@ -17,38 +17,22 @@ function WhatsAppGlyph({ className }: { className?: string }) {
 }
 
 export type WhatsAppButtonProps = {
-  variant?: "floating" | "footer";
   className?: string;
 };
 
-export function WhatsAppButton({ variant = "floating", className }: WhatsAppButtonProps) {
+export function WhatsAppButton({ className }: WhatsAppButtonProps) {
   const href = getWhatsAppChatUrl();
-
-  if (variant === "floating") {
-    return (
-      <a
-        href={href}
-        onClick={() => trackEvent({ event: "whatsapp_click", lead_type: "whatsapp", link_location: "floating_button" })}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Chat on WhatsApp"
-        title="Chat on WhatsApp"
-        className={cn(
-          "whatsapp-fab",
-          "fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-[100]",
-          "flex h-14 w-14 items-center justify-center rounded-full",
-          className
-        )}
-      >
-        <WhatsAppGlyph className="h-7 w-7" />
-      </a>
-    );
-  }
 
   return (
     <a
       href={href}
-      onClick={() => trackEvent({ event: "whatsapp_click", lead_type: "whatsapp", link_location: "footer" })}
+      onClick={() =>
+        trackEvent({
+          event: "whatsapp_click",
+          lead_type: "whatsapp",
+          link_location: "footer",
+        })
+      }
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"

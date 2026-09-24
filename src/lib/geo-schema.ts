@@ -1,4 +1,5 @@
 import { GENERAL_FAQS } from "@/data/renovation";
+import { SERVICES } from "@/data/services";
 import { AREA_SERVED_SCHEMA, SITE_POSITIONING } from "@/lib/service-area";
 
 export const SITE_ORIGIN = "https://homeimprovementclub.co";
@@ -55,4 +56,29 @@ export const FAQ_PAGE_SCHEMA = {
       text: faq.answer,
     },
   })),
+};
+
+// Makes the primary service pages explicit in the site's machine-readable
+// structure. Google still chooses organic sitelinks, but this reinforces the
+// same hierarchy exposed through the visible navigation and sitemap.
+export const SERVICE_DIRECTORY_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Home Improvement Club services",
+  url: `${SITE_ORIGIN}/services`,
+  isPartOf: {
+    "@type": "WebSite",
+    name: "Home Improvement Club",
+    url: `${SITE_ORIGIN}/`,
+  },
+  mainEntity: {
+    "@type": "ItemList",
+    name: "Home renovation services",
+    itemListElement: SERVICES.map((service, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: service.title,
+      url: `${SITE_ORIGIN}/services/${service.slug}`,
+    })),
+  },
 };
