@@ -161,12 +161,12 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     teaser:
       "Two-storey custom home in Burnaby with a warm stucco and stone exterior, tall windows, and a wide concrete drive.",
     overview: [
-      "This custom home in Burnaby is a two-storey residence with warm stucco, stone accents, and tall black-framed windows. The photo shows the home during construction, with the garage opening and front yard still in progress.",
+      "This custom home in Burnaby is a two-storey residence with warm stucco, stone around the garage and entry, and tall black-framed windows. Landscape lighting and a finished lawn and drive complete the front elevation.",
     ],
     serviceSlug: "custom-homes-multiplex",
     image: customHomeBurnabyImg,
     imageAlt:
-      "Custom two-storey home in Burnaby, BC during construction, with stone garage, tall windows, and concrete drive",
+      "Finished two-storey custom home in Burnaby, BC with stucco, stone garage, wood door, and landscaped front yard",
   },
   {
     slug: "custom-home-project-stevenson",
@@ -175,15 +175,15 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     category: "Custom home",
     scope: "Custom home",
     teaser:
-      "Custom home under construction with a light gable facade, covered upper decks, and a walk-out lower level.",
+      "Finished custom home with a pale gable facade, covered entry, upper decks, and a dark garage door.",
     overview: [
-      "Project Stevenson is a custom home with a light gable facade, covered upper decks, and a walk-out lower level. The build is shown in progress, with the same multiplex project walkthrough used on the custom homes and multiplex service page.",
+      "Project Stevenson is a custom home with light siding, a gable porch, covered upper decks, and a walk-out lower level. The front yard, driveway, and garage are complete in this view.",
     ],
     youtubeUrl: "https://youtu.be/CuLh6_YciqM",
     serviceSlug: "custom-homes-multiplex",
     image: projectStevensonImg,
     imageAlt:
-      "Custom Home Project Stevenson under construction, with gable entry, upper decks, and open lower level",
+      "Finished custom home with grey siding, gable entry, upper decks, and a dark two-car garage",
   },
   {
     slug: "custom-home-delta",
