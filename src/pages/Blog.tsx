@@ -11,6 +11,7 @@ import {
   sanityConfigured,
   type SanityPostListItem,
 } from "@/lib/sanity";
+import { Button } from "@/components/ui/button";
 
 function dateLabel(iso: string) {
   return formatBlogDate(iso.slice(0, 10));
@@ -171,9 +172,11 @@ export default function Blog() {
             Use the estimator to test floor area against a rate band. Planning
             figure, not a quote.
           </p>
-          <Link className="solid-link" to="/estimator">
-            Open estimator <ArrowUpRight size={17} />
-          </Link>
+          <Button asChild>
+            <Link to="/estimator">
+              Open estimator <ArrowUpRight size={17} />
+            </Link>
+          </Button>
         </div>
       </section>
     </Layout>

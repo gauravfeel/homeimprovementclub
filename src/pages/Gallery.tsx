@@ -3,6 +3,7 @@ import { ArrowUpRight } from "lucide-react";
 import Layout from "@/components/Layout";
 import SEO from "@/components/SEO";
 import Reveal from "@/components/Reveal";
+import { Button } from "@/components/ui/button";
 import { GALLERY_PROJECTS } from "@/data/projects";
 
 export default function Gallery() {
@@ -75,9 +76,11 @@ export default function Gallery() {
                 Custom home, multiplex, or renovation. Start with the address,
                 intended use, and budget context.
               </p>
-              <Link className="solid-link" to="/contact">
-                Book a consultation <ArrowUpRight size={18} />
-              </Link>
+              <Button asChild>
+                <Link to="/contact">
+                  Book a consultation <ArrowUpRight size={18} />
+                </Link>
+              </Button>
             </div>
           </div>
         </Reveal>

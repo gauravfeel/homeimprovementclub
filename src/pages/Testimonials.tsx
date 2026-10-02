@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
+import { ArrowUpRight } from "lucide-react";
 import Layout from "@/components/Layout";
 import SEO from "@/components/SEO";
+import { Button } from "@/components/ui/button";
 export default function Testimonials() {
   return (
     <Layout>
@@ -28,9 +30,11 @@ export default function Testimonials() {
               Read the planning considerations for the room or project you have
               in mind.
             </p>
-            <Link className="text-link" to="/services">
-              Browse renovation services ↗
-            </Link>
+            <Button variant="link" asChild>
+              <Link to="/services">
+                Browse renovation services <ArrowUpRight size={18} />
+              </Link>
+            </Button>
           </article>
           <article>
             <span className="eyebrow">Understand the steps</span>
@@ -39,14 +43,18 @@ export default function Testimonials() {
               See how the conversation develops from the first enquiry to the
               final walkthrough.
             </p>
-            <Link className="text-link" to="/how-it-works">
-              Read about the process ↗
-            </Link>
+            <Button variant="link" asChild>
+              <Link to="/how-it-works">
+                Read about the process <ArrowUpRight size={18} />
+              </Link>
+            </Button>
           </article>
         </div>
-        <Link className="text-link" to="/contact">
-          Have a question for HIC? ↗
-        </Link>
+        <Button variant="link" asChild>
+          <Link to="/contact">
+            Have a question for HIC? <ArrowUpRight size={18} />
+          </Link>
+        </Button>
       </section>
     </Layout>
   );

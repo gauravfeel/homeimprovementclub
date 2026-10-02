@@ -25,7 +25,9 @@ const BlogAdmin = lazy(() => import("./pages/admin/BlogAdmin"));
 const Gallery = lazy(() => import("./pages/Gallery"));
 const GalleryProject = lazy(() => import("./pages/GalleryProject"));
 const ServiceDetail = lazy(() => import("./pages/ServiceDetail"));
+const UiComponents = lazy(() => import("./pages/UiComponents"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+const V2 = lazy(() => import("./v2/V2"));
 
 const App = () => (
   <TooltipProvider>
@@ -35,6 +37,7 @@ const App = () => (
       <RouteScroll />
       <Suspense fallback={<PageLoader />}>
         <Routes>
+          <Route path="/v2/*" element={<V2 />} />
           <Route path="/" element={<Index />} />
           <Route path="/how-it-works" element={<HowItWorks />} />
           <Route path="/services" element={<Services />} />
@@ -56,6 +59,7 @@ const App = () => (
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/gallery/:slug" element={<GalleryProject />} />
           <Route path="/admin/blog/*" element={<BlogAdmin />} />
+          <Route path="/ui/components" element={<UiComponents />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>

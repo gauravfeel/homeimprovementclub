@@ -387,7 +387,7 @@ const Contact = () => {
                               name={field.name}
                               onBlur={field.onBlur}
                               ref={field.ref}
-                              value={field.value ?? ""}
+                              value={field.value == null ? "" : String(field.value)}
                               onChange={(event) =>
                                 field.onChange(
                                   event.target.value === ""
@@ -420,8 +420,8 @@ const Contact = () => {
                       )}
                     />
                     <Button
-                      variant="hero"
-                      size="xl"
+                      variant="primary"
+                      size="lg"
                       type="submit"
                       className="w-full"
                       disabled={form.formState.isSubmitting}

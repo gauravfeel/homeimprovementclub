@@ -32,7 +32,12 @@
     --input: 70 10% 70%;
     --ring: 153 23% 25%;
 
-    --radius: 0.2rem;
+    --radius: 0px;
+
+    --success: 153 23% 25%;
+    --success-foreground: 42 33% 97%;
+    --warning: 22 20% 35%;
+    --warning-foreground: 42 33% 97%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;

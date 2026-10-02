@@ -1,5 +1,8 @@
+import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { FaqList } from "@/components/FaqList";
 import type { Service } from "@/data/services";
 import { SERVICES } from "@/data/services";
 export function ServiceBreadcrumb({ label }: { label: string }) {
@@ -18,13 +21,15 @@ export function EnquiryLink({
   children,
 }: {
   service: Service;
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
-    <Link className="solid-link" to={`/contact?service=${service.slug}`}>
-      {children}
-      <ArrowUpRight size={18} />
-    </Link>
+    <Button asChild>
+      <Link to={`/contact?service=${service.slug}`}>
+        {children}
+        <ArrowUpRight size={18} />
+      </Link>
+    </Button>
   );
 }
 export function ServiceImage({
@@ -56,22 +61,12 @@ export function ServiceImage({
 }
 export function QuestionList({
   items,
+  className,
 }: {
   items: { question: string; answer: string }[];
+  className?: string;
 }) {
-  return (
-    <div className="faq-list">
-      {items.map((q) => (
-        <details key={q.question}>
-          <summary>
-            {q.question}
-            <span aria-hidden="true">+</span>
-          </summary>
-          <p>{q.answer}</p>
-        </details>
-      ))}
-    </div>
-  );
+  return <FaqList items={items} className={className} />;
 }
 export function RelatedLinks({ slugs }: { slugs: string[] }) {
   return (
@@ -79,7 +74,7 @@ export function RelatedLinks({ slugs }: { slugs: string[] }) {
       {slugs.map((slug) => {
         const s = SERVICES.find((s) => s.slug === slug);
         return s ? (
-          <Link className="text-link" key={slug} to={`/services/${slug}`}>
+        <Link className="text-link" key={slug} to={`/services/${slug}`}>
             {s.label}
             <ArrowUpRight size={18} />
           </Link>

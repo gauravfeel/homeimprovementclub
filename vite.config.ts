@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
+import reviewEnvironment from "./src/v2/review-environment";
 
 export default defineConfig({
   server: {
@@ -19,7 +20,7 @@ export default defineConfig({
       },
     },
   },
-  plugins: [react()],
+  plugins: [react(), reviewEnvironment()],
   optimizeDeps: {
     entries: ["index.html"],
     include: [

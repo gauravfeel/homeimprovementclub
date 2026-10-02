@@ -8,6 +8,7 @@ import "./redesign.css";
 import "./page-compositions.css";
 import "./typography.css";
 import "./motion.css";
+import "./design-system.css";
 
 createRoot(document.getElementById("root")!).render(
   <HelmetProvider>

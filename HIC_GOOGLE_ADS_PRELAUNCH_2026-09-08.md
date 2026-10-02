@@ -59,7 +59,7 @@ Live site confirms:
 - HVAC and electrical upgrades
 - Exterior renovations
 
-Offer: free in-home consultation / free renovation plan. Phone: +1 236-380-4423. WhatsApp available.
+Offer: free in-home consultation / free renovation plan. Phone: +1 (778) 999-8471. WhatsApp available.
 
 Trust signals shown: licensed, insured, vetted contractors; local project examples; named testimonials with city/service labels. Owner should confirm substantiation before ads reuse these claims.
 

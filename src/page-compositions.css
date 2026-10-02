@@ -366,9 +366,6 @@
 .bathroom-questions {
   max-width: 980px;
 }
-.bathroom-questions .faq-list {
-  margin-top: 40px;
-}
 .lighting-opening {
   padding-block: 28px 65px;
 }
@@ -1293,41 +1290,6 @@
   color: var(--ink-muted);
   max-width: 42ch;
   margin-bottom: 24px;
-}
-.gallery-home-teaser {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-  margin-top: 32px;
-}
-.gallery-home-card {
-  display: grid;
-  gap: 20px;
-}
-.gallery-home-media {
-  display: block;
-  overflow: hidden;
-  aspect-ratio: 4 / 3;
-}
-.gallery-home-media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-.gallery-home-media:hover img {
-  transform: scale(1.03);
-}
-.gallery-home-card h3 {
-  margin: 8px 0 12px;
-  font-size: clamp(1.35rem, 1.1rem + 0.6vw, 1.75rem);
-}
-.gallery-home-card h3 a {
-  color: inherit;
-}
-.gallery-home-all {
-  display: inline-flex;
-  margin-top: 36px;
 }
 .gallery-project-hero.editorial-section {
   display: grid;
@@ -2304,7 +2266,6 @@
   .blog-help,
   .blog-dossier,
   .gallery-help-grid,
-  .gallery-home-teaser,
   .gallery-project-dossier-grid,
   .gallery-related-grid {
     grid-template-columns: 1fr;

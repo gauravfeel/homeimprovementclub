@@ -296,6 +296,8 @@ function serveStatic(req, res) {
       return;
     }
     const url = new URL(req.url || "/", "http://localhost");
+    const isV2 = /^\/v2(?:\/|$)/.test(url.pathname);
+    if (isV2) res.setHeader("X-Robots-Tag", "noindex, nofollow");
     let filePath = join(DIST, decodeURIComponent(url.pathname));
     if (!normalize(filePath).startsWith(DIST)) {
       send(res, 403, { ok: false });
@@ -305,7 +307,7 @@ function serveStatic(req, res) {
       filePath = join(filePath, "index.html");
     }
     if (!existsSync(filePath) || !extname(filePath)) {
-      filePath = join(DIST, "index.html");
+      filePath = join(DIST, isV2 ? "v2/index.html" : "index.html");
     }
     const type = MIME[extname(filePath)] || "application/octet-stream";
     res.writeHead(200, { "Content-Type": type });

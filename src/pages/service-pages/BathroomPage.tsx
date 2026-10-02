@@ -107,7 +107,7 @@ export default function BathroomPage({ service }: { service: Service }) {
       <section className="editorial-section bathroom-questions">
         <p className="eyebrow">Before you choose the tile</p>
         <h2>Bathroom planning questions.</h2>
-        <QuestionList
+        <QuestionList className="mt-10"
           items={[
             {
               question: "Can a bathtub become a walk-in shower?",

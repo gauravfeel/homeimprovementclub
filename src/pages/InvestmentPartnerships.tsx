@@ -4,6 +4,7 @@ import Layout from "@/components/Layout";
 import Reveal from "@/components/Reveal";
 import SEO from "@/components/SEO";
 import { ServiceImage } from "@/components/ServicePrimitives";
+import { Button } from "@/components/ui/button";
 import exterior from "@/assets/lux-exterior.jpg";
 
 const pathways = [
@@ -50,9 +51,11 @@ export default function InvestmentPartnerships() {
             partners exploring custom homes, multiplex projects and residential
             opportunities across the Fraser Valley and Greater Vancouver.
           </p>
-          <Link className="solid-link" to="/contact?service=investment-partnerships">
-            Start a conversation <ArrowUpRight size={17} />
-          </Link>
+          <Button asChild>
+            <Link to="/contact?service=investment-partnerships">
+              Start a conversation <ArrowUpRight size={17} />
+            </Link>
+          </Button>
         </Reveal>
       </section>
 
@@ -141,9 +144,11 @@ export default function InvestmentPartnerships() {
               will review the starting information before arranging a focused
               conversation.
             </p>
-            <Link className="solid-link" to="/contact?service=investment-partnerships">
-              Start the conversation <ArrowUpRight size={17} />
-            </Link>
+            <Button asChild>
+              <Link to="/contact?service=investment-partnerships">
+                Start the conversation <ArrowUpRight size={17} />
+              </Link>
+            </Button>
           </div>
           <aside className="investment-disclaimer">
             <span>Important note</span>

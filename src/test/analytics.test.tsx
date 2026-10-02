@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { cleanup, fireEvent, render } from "@testing-library/react";
+import { cleanup, render } from "@testing-library/react";
 import { trackEvent, trackGoogleAdsLead } from "@/lib/analytics";
 import { ContactInfo } from "@/components/ContactInfo";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
@@ -51,7 +51,7 @@ describe("conversion event contract", () => {
     const phone = getByRole("link");
     phone.addEventListener("click", (e) => e.preventDefault());
     expect(phone).toHaveAttribute("href", "tel:+12363804423");
-    fireEvent.click(phone);
+    phone.click();
     expect(window.dataLayer).toEqual([
       ["event", "phone_click", {
         lead_type: "phone",
@@ -66,7 +66,7 @@ describe("conversion event contract", () => {
     expect(link.getAttribute("href")).toContain(
       "https://wa.me/12363804423?text=",
     );
-    fireEvent.click(link);
+    link.click();
     expect(window.dataLayer).toEqual([
       ["event", "whatsapp_click", {
         lead_type: "whatsapp",

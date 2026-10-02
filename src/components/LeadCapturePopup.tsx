@@ -144,7 +144,7 @@ const LeadCapturePopup = () => {
             <div className="enquiry-panel-success" role="status">
               <p>Your enquiry is on its way.</p>
               <p>We’ll be in touch to discuss your project.</p>
-              <Button variant="hero" onClick={() => setOpen(false)}>
+              <Button variant="primary" onClick={() => setOpen(false)}>
                 Close
               </Button>
             </div>
@@ -302,7 +302,7 @@ const LeadCapturePopup = () => {
                   )}
                 />
                 <Button
-                  variant="hero"
+                  variant="primary"
                   size="lg"
                   type="submit"
                   className="w-full"

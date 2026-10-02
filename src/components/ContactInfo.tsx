@@ -28,7 +28,7 @@ export function ContactInfo({
   showAllPhones = false,
 }: ContactInfoProps) {
   const phones = showAllPhones
-    ? CONTACT_PHONES
+    ? CONTACT_PHONES.slice(0, 1)
     : [{ display: CONTACT_PHONE_DISPLAY, e164: CONTACT_PHONE_E164 }];
 
   return (

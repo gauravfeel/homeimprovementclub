@@ -48,7 +48,6 @@ h1 em,
 h2 em {
   font-weight: 400;
 }
-.hero-copy h1,
 .about-opening h1,
 .lighting-opening h1,
 .blog-masthead h1,
@@ -70,9 +69,6 @@ h2 em {
 .stories-next h2 {
   font-size: clamp(1.75rem, 1.35rem + 1.2vw, 2.5rem);
 }
-.other-services h3 {
-  font-size: clamp(1.375rem, 1.1rem + 0.6vw, 1.75rem);
-}
 main p:not(.eyebrow):not(.small-note),
 main dd {
   max-width: 65ch;
@@ -84,15 +80,13 @@ main
   font-size: var(--type-body);
   line-height: 1.65;
 }
-main .hero-description,
 main .about-lead p,
 main .body-lg {
   font-size: var(--type-large) !important;
   line-height: 1.6 !important;
   max-width: 52ch;
 }
-.eyebrow,
-.hero-copy .eyebrow {
+.eyebrow {
   font-family: var(--font-body);
   font-size: var(--type-meta);
   font-weight: 600;
@@ -112,9 +106,6 @@ main .body-lg {
 }
 .solid-link,
 .text-link,
-.hero-actions .text-link,
-.desktop-nav > a,
-.nav-dropdown-trigger,
 .directory-index a,
 .layer-buttons button,
 .quick-enquiry,
@@ -125,14 +116,9 @@ button[type="submit"] {
   line-height: 1.35;
   letter-spacing: 0;
 }
-.desktop-nav > a,
-.nav-dropdown-trigger {
-  font-weight: 500;
-}
 .footer-main nav a {
   font-size: var(--type-ui);
 }
-.faq-list summary,
 .plain-checklist li,
 .service-directory ul,
 .detailed-timeline dd,
@@ -169,7 +155,6 @@ form .text-xs {
   font-size: var(--type-small);
   line-height: 1.5;
 }
-.hero-copy,
 .service-hero-copy,
 .flooring-title,
 .editorial-section > div,
@@ -248,31 +233,11 @@ form .text-xs {
 @media (max-width: 760px) {
   .about-opening h1 br { display: none; }
   .about-opening h1 em { display: block; text-wrap: balance; }
-  .hero-copy h1 br {
-    display: none;
-  }
-  .hero-copy h1 em {
-    display: block;
-  }
-  .hero-actions {
-    flex-wrap: wrap;
-  }
-  .hero-image figcaption {
-    flex-wrap: wrap;
-  }
   .brand {
     font-size: 0.75rem;
   }
   .brand strong {
     font-size: 0.6875rem;
     letter-spacing: 0.04em;
-  }
-  .header-contact a[href^="tel:"] {
-    font-size: 0.6875rem;
-  }
-}
-@media (max-width: 360px) {
-  .header-contact a[href^="tel:"] {
-    font-size: 0;
   }
 }

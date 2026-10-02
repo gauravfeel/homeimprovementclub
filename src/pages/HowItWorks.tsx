@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import SEO from "@/components/SEO";
+import { Button } from "@/components/ui/button";
 const stages = [
   {
     title: "Describe the project.",
@@ -100,9 +101,9 @@ export default function HowItWorks() {
               A few notes are enough to start. Bring what you know, and use the
               consultation to discuss the rest.
             </p>
-            <Link className="solid-link" to="/contact">
-              Arrange a free consultation ↗
-            </Link>
+            <Button asChild>
+              <Link to="/contact">Arrange a free consultation ↗</Link>
+            </Button>
           </div>
           <ul>
             <li>

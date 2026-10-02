@@ -7,6 +7,7 @@ import interior from "@/assets/lux-lighting.jpg";
 import { HOME_BUSINESS_SCHEMA } from "@/lib/geo-schema";
 import { CONTACT_PHONE_DISPLAY } from "@/lib/contact";
 import { SERVICE_CITIES_PROSE } from "@/lib/service-area";
+import { Button } from "@/components/ui/button";
 export default function About() {
   return (
     <Layout>
@@ -126,9 +127,9 @@ export default function About() {
             <em>with your home.</em>
           </h2>
           <p>Tell us where you live and what you would like to change.</p>
-          <Link className="solid-link" to="/contact">
-            Talk to HIC ↗
-          </Link>
+          <Button asChild>
+            <Link to="/contact">Talk to HIC ↗</Link>
+          </Button>
         </div>
       </section>
     </Layout>

@@ -6,16 +6,18 @@ interface SEOProps {
   canonical?: string;
   ogImage?: string;
   schema?: object | object[];
+  robots?: string;
 }
 
 const SITE = "https://homeimprovementclub.co";
 
-const SEO = ({ title, description, canonical, ogImage, schema }: SEOProps) => {
+const SEO = ({ title, description, canonical, ogImage, schema, robots }: SEOProps) => {
   const url = canonical ? `${SITE}${canonical}` : SITE;
   const image = ogImage ?? `${SITE}/hic-social.jpg`;
   return (
     <Helmet>
       <title>{title}</title>
+      {robots ? <meta name="robots" content={robots} /> : null}
       <meta name="description" content={description} />
       <link rel="canonical" href={url} />
       <meta property="og:title" content={title} />

@@ -5,6 +5,7 @@ import SEO from "@/components/SEO";
 import Reveal from "@/components/Reveal";
 import { getGalleryProject, youtubeEmbedUrl } from "@/data/projects";
 import { SITE_ORIGIN } from "@/lib/geo-schema";
+import { Button } from "@/components/ui/button";
 
 export default function GalleryProject() {
   const { slug } = useParams();
@@ -140,12 +141,11 @@ export default function GalleryProject() {
                 Custom home, multiplex, finishing, or renovation. Bring the
                 address, intended use, and budget context.
               </p>
-              <Link
-                className="solid-link"
-                to={`/contact?service=${project.serviceSlug}`}
-              >
-                Book a consultation <ArrowUpRight size={18} />
-              </Link>
+              <Button asChild>
+                <Link to={`/contact?service=${project.serviceSlug}`}>
+                  Book a consultation <ArrowUpRight size={18} />
+                </Link>
+              </Button>
             </div>
           </div>
         </Reveal>

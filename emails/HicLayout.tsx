@@ -73,10 +73,10 @@ export function HicLayout({ preview, children }: HicLayoutProps) {
                   Custom homes, multiplexes &amp; renovations
                   <br />
                   <Link
-                    href="tel:+12363804423"
+                    href="tel:+17789998471"
                     className="text-forest no-underline"
                   >
-                    +1 236-380-4423
+                    +1 (778) 999-8471
                   </Link>
                   {" · "}
                   <Link href={site} className="text-forest no-underline">

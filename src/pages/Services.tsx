@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import SEO from "@/components/SEO";
 import { SERVICES } from "@/data/services";
+import { Button } from "@/components/ui/button";
 export default function Services() {
   return (
     <Layout>
@@ -73,9 +74,9 @@ export default function Services() {
             Tell us about the whole project. Property, layout, flooring,
             lighting, cabinetry and systems are easier to discuss as one brief.
           </p>
-          <Link className="solid-link" to="/contact">
-            Discuss the whole scope ↗
-          </Link>
+          <Button asChild>
+            <Link to="/contact">Discuss the whole scope ↗</Link>
+          </Button>
         </div>
       </section>
     </Layout>

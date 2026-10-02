@@ -3,6 +3,7 @@ import Layout from "@/components/Layout";
 import SEO from "@/components/SEO";
 import { SERVICE_CITIES, SERVICE_CITIES_PROSE } from "@/lib/service-area";
 import { ContactInfo } from "@/components/ContactInfo";
+import { Button } from "@/components/ui/button";
 export default function AreasWeServe() {
   return (
     <Layout>
@@ -79,9 +80,9 @@ export default function AreasWeServe() {
             about availability for your project.
           </p>
           <div className="contact-methods">
-            <Link className="solid-link" to="/contact">
-              Enquire about my location ↗
-            </Link>
+            <Button asChild>
+              <Link to="/contact">Enquire about my location ↗</Link>
+            </Button>
             <ContactInfo />
           </div>
         </div>

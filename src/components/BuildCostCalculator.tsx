@@ -1,5 +1,4 @@
 import { useId, useState } from "react";
-import { ArrowUpRight } from "lucide-react";
 import {
   ESTIMATE_AREA_DEFAULT,
   ESTIMATE_AREA_MAX,
@@ -11,6 +10,7 @@ import {
   formatCad,
   formatSqFt,
 } from "@/lib/build-estimate";
+import { Button } from "@/components/ui/button";
 
 function fill(value: number, min: number, max: number) {
   const percent = ((value - min) / (max - min)) * 100;
@@ -89,13 +89,9 @@ export default function BuildCostCalculator() {
           Floor area × rate. A planning figure only. Property, design,
           approvals, finishes and timing set what the project actually costs.
         </p>
-        <button
-          type="button"
-          className="solid-link w-full"
-          onClick={() => window.dispatchEvent(new Event("hic:open-enquiry"))}
-        >
+        <Button type="button" size="lg" onClick={() => window.dispatchEvent(new Event("hic:open-enquiry"))}>
           Get a custom quote
-        </button>
+        </Button>
       </div>
     </div>
   );

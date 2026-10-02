@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
+import { ArrowUpRight } from "lucide-react";
 import { Helmet } from "react-helmet-async";
 import Layout from "@/components/Layout";
+import { Button } from "@/components/ui/button";
 export default function NotFound() {
   return (
     <Layout>
@@ -19,13 +21,17 @@ export default function NotFound() {
           This page is not available. Explore our renovation services or start a
           conversation about your home.
         </p>
-        <div className="hero-actions">
-          <Link className="solid-link" to="/">
-            Return home ↗
-          </Link>
-          <Link className="text-link" to="/services">
-            Explore services ↗
-          </Link>
+        <div className="mt-8 flex flex-wrap items-center gap-[22px]">
+          <Button asChild>
+            <Link to="/">
+              Return home <ArrowUpRight size={18} />
+            </Link>
+          </Button>
+          <Button variant="link" asChild>
+            <Link to="/services">
+              Explore services <ArrowUpRight size={18} />
+            </Link>
+          </Button>
         </div>
       </section>
     </Layout>
