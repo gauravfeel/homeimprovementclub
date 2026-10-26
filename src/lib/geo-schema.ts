@@ -4,6 +4,9 @@ import { AREA_SERVED_SCHEMA, SITE_POSITIONING } from "@/lib/service-area";
 
 export const SITE_ORIGIN = "https://homeimprovementclub.co";
 
+/** GAF Emerald Pledge eligibility is unconfirmed; hide badge and schema until true. */
+export const SHOW_GAF_EMERALD = false;
+
 export const HOME_BUSINESS_SCHEMA = {
   "@context": "https://schema.org",
   "@type": "HomeAndConstructionBusiness",
@@ -35,6 +38,22 @@ export const HOME_BUSINESS_SCHEMA = {
       "@type": "EducationalOccupationalCredential",
       name: "2-5-10 Year Warranty",
     },
+    {
+      "@type": "EducationalOccupationalCredential",
+      name: "GAF Certified Plus Contractor",
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      name: "GAF Silver Pledge Limited Warranty",
+    },
+    ...(SHOW_GAF_EMERALD
+      ? [
+          {
+            "@type": "EducationalOccupationalCredential",
+            name: "GAF Emerald Pledge Limited Warranty",
+          },
+        ]
+      : []),
   ],
   contactPoint: {
     "@type": "ContactPoint",

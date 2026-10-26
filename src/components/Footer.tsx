@@ -6,6 +6,10 @@ import { SERVICES } from "@/data/services";
 import bcHousingLogo from "@/assets/partners/bc-housing.png";
 import warrantyLogo from "@/assets/partners/2-5-10-warranty.png";
 import wbiLogo from "@/assets/partners/wbi-home-warranty.png";
+import gafCertifiedPlusLogo from "@/assets/partners/gaf-certified-plus-contractor.svg";
+import gafSilverPledgeLogo from "@/assets/partners/gaf-silver-pledge-limited-warranty.png";
+import gafEmeraldPledgeLogo from "@/assets/partners/gaf-emerald-pledge-limited-warranty.png";
+import { SHOW_GAF_EMERALD } from "@/lib/geo-schema";
 export default function Footer() {
   return (
     <footer className="site-footer">
@@ -56,6 +60,23 @@ export default function Footer() {
           <img src={wbiLogo} alt="WBI Home Warranty" />
           <img src={bcHousingLogo} alt="BC Housing" />
           <img src={warrantyLogo} alt="2-5-10 Year Warranty" />
+          <img
+            src={gafCertifiedPlusLogo}
+            alt="GAF Certified Plus Contractor"
+            loading="lazy"
+          />
+          <img
+            src={gafSilverPledgeLogo}
+            alt="GAF Silver Pledge Limited Warranty"
+            loading="lazy"
+          />
+          {SHOW_GAF_EMERALD ? (
+            <img
+              src={gafEmeraldPledgeLogo}
+              alt="GAF Emerald Pledge Limited Warranty"
+              loading="lazy"
+            />
+          ) : null}
         </div>
       </div>
       <div className="footer-bottom">

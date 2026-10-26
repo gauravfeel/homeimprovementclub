@@ -355,7 +355,7 @@ div[id] {
   object-fit: contain;
   object-position: left center;
 }
-.footer-credential-logos img:last-child {
+.footer-credential-logos img:nth-child(3) {
   max-height: 108px;
 }
 .service-hero {
@@ -705,7 +705,7 @@ div[id] {
     max-width: 100%;
     max-height: 72px;
   }
-  .footer-credential-logos img:last-child {
+  .footer-credential-logos img:nth-child(3) {
     max-height: 88px;
   }
   .scope-section {
