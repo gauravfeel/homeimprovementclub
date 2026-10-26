@@ -6,7 +6,7 @@ import { SERVICES } from "@/data/services";
 import bcHousingLogo from "@/assets/partners/bc-housing.png";
 import warrantyLogo from "@/assets/partners/2-5-10-warranty.png";
 import wbiLogo from "@/assets/partners/wbi-home-warranty.png";
-import gafCertifiedPlusLogo from "@/assets/partners/gaf-certified-plus-contractor.svg";
+import gafCertifiedPlusLogo from "@/assets/partners/gaf-certified-plus-contractor.png";
 import gafSilverPledgeLogo from "@/assets/partners/gaf-silver-pledge-limited-warranty.png";
 import gafEmeraldPledgeLogo from "@/assets/partners/gaf-emerald-pledge-limited-warranty.png";
 import { SHOW_GAF_EMERALD } from "@/lib/geo-schema";
