@@ -73,7 +73,7 @@ const STATIC = [
   { path: "/gallery/custom-home-project-stevenson", priority: "0.6", lastmod: "2026-09-16" },
   { path: "/gallery/custom-home-delta", priority: "0.6", lastmod: "2026-09-16" },
   { path: "/gallery/project-cloverdale", priority: "0.6", lastmod: "2026-09-16" },
-  { path: "/gallery/skyview", priority: "0.5", lastmod: "2026-09-15" },
+  // Skyview is hidden (src/data/projects.ts hidden: true). Restore this URL when re-enabling.
   { path: "/gallery/satori", priority: "0.5", lastmod: "2026-09-15" },
   { path: "/gallery/photon-control", priority: "0.5", lastmod: "2026-09-15" },
   { path: "/blog", priority: "0.7", lastmod: new Date().toISOString().slice(0, 10) },

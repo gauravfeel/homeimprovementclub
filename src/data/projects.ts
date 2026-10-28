@@ -33,6 +33,8 @@ export type GalleryProject = {
   placeholderImage?: boolean;
   verified?: boolean;
   youtubeUrl?: string;
+  /** When true, omit from public listings, teasers, and /gallery/:slug. */
+  hidden?: boolean;
 };
 
 const STANDARD_DOOR_PACKAGE: string[] = [
@@ -234,6 +236,10 @@ export const GALLERY_PROJECTS: GalleryProject[] = [
     image: skyviewImg,
     imageAlt: "Rendering of Skyview townhouses in Mission, BC",
     comingSoon: true,
+    // Hidden from the public gallery. To re-enable: set hidden to false (or remove it),
+    // then restore /gallery/skyview in scripts/generate-sitemap.mjs, scripts/prerender.mjs,
+    // public/sitemap.xml, and src/v2/qa.mjs.
+    hidden: true,
   },
   {
     slug: "satori",
@@ -290,12 +296,21 @@ export const GALLERY_SECTIONS = [
   { id: "upcoming", label: "Upcoming" },
 ] as const;
 
+export function isGalleryProjectVisible(project: GalleryProject) {
+  return !project.hidden;
+}
+
+/** Public gallery entries. Hidden projects stay in GALLERY_PROJECTS for later re-enable. */
+export const VISIBLE_GALLERY_PROJECTS = GALLERY_PROJECTS.filter(
+  isGalleryProjectVisible,
+);
+
 export function getGalleryProject(slug: string) {
-  return GALLERY_PROJECTS.find((project) => project.slug === slug);
+  return VISIBLE_GALLERY_PROJECTS.find((project) => project.slug === slug);
 }
 
 export function galleryProjectsByCategory(category: string) {
-  return GALLERY_PROJECTS.filter(
+  return VISIBLE_GALLERY_PROJECTS.filter(
     (project) => project.category.toLowerCase() === category.toLowerCase(),
   );
 }
@@ -323,7 +338,7 @@ export interface VerifiedProject {
   verified: true;
 }
 
-export const VERIFIED_PROJECTS: VerifiedProject[] = GALLERY_PROJECTS.filter(
+export const VERIFIED_PROJECTS: VerifiedProject[] = VISIBLE_GALLERY_PROJECTS.filter(
   (project) => project.verified && !project.comingSoon,
 ).map((project) => ({
   title: project.title,

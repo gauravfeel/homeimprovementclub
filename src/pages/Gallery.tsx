@@ -4,7 +4,7 @@ import Layout from "@/components/Layout";
 import SEO from "@/components/SEO";
 import Reveal from "@/components/Reveal";
 import { Button } from "@/components/ui/button";
-import { GALLERY_PROJECTS } from "@/data/projects";
+import { VISIBLE_GALLERY_PROJECTS } from "@/data/projects";
 
 export default function Gallery() {
   return (
@@ -31,7 +31,7 @@ export default function Gallery() {
 
       <section className="gallery-band editorial-section" aria-label="Portfolio projects">
         <ul className="gallery-grid">
-          {GALLERY_PROJECTS.map((project, index) => (
+          {VISIBLE_GALLERY_PROJECTS.map((project, index) => (
             <li key={project.slug}>
               <Link
                 className={`gallery-card${project.comingSoon ? " is-upcoming" : ""}${project.placeholderImage ? " is-placeholder" : ""}`}

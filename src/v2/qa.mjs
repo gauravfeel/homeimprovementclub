@@ -3,7 +3,7 @@ import { chromium } from 'playwright';
 import { mkdir, writeFile } from 'node:fs/promises';
 const origin=process.env.QA_ORIGIN||'http://127.0.0.1:5182';
 const services=['custom-homes-multiplex','kitchen-cabinets','bathrooms','lighting','flooring','hvac-electrical','exterior'];
-const projects=['broadway-alma','joyce-2','m4-building','the-grand','the-grand-lion','the-butterfly','custom-home-burnaby','custom-home-project-stevenson','custom-home-delta','project-cloverdale','skyview','satori','photon-control'];
+const projects=['broadway-alma','joyce-2','m4-building','the-grand','the-grand-lion','the-butterfly','custom-home-burnaby','custom-home-project-stevenson','custom-home-delta','project-cloverdale','satori','photon-control'];
 const routes=['','how-it-works','services',...services.map(s=>'services/'+s),'areas-we-serve','about','contact','testimonials','rebates','investment-partnerships','privacy','estimator','blog','blog/missing','gallery',...projects.map(s=>'gallery/'+s),'404','unknown'];
 const browser=await chromium.launch({executablePath:`${process.env.LOCALAPPDATA}/ms-playwright/chromium-1217/chrome-win64/chrome.exe`,headless:true});
 const context=await browser.newContext({reducedMotion:'reduce'});

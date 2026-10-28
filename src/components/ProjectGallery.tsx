@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
-import { GALLERY_PROJECTS } from "@/data/projects";
+import { VISIBLE_GALLERY_PROJECTS } from "@/data/projects";
 import { ImageCard } from "@/components/sections/image-card";
 import { Button } from "@/components/ui/button";
 import { editorialFrame } from "@/lib/editorial-frame";
 
 export default function ProjectGallery() {
-  const featured = GALLERY_PROJECTS.filter((project) => !project.comingSoon).slice(0, 2);
+  const featured = VISIBLE_GALLERY_PROJECTS.filter((project) => !project.comingSoon).slice(0, 2);
   if (!featured.length) return null;
 
   return (
