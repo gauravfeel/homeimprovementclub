@@ -81,7 +81,7 @@ import { ImageCard } from "@/components/sections/image-card";
 import { ServiceFeatureCard } from "@/components/sections/service-feature-card";
 import { ServiceBreadcrumb, QuestionList } from "@/components/ServicePrimitives";
 import CTASection from "@/components/CTASection";
-import { GALLERY_PROJECTS } from "@/data/projects";
+import { VISIBLE_GALLERY_PROJECTS } from "@/data/projects";
 import { SERVICES } from "@/data/services";
 import lighting from "@/assets/lux-lighting.jpg";
 
@@ -120,7 +120,7 @@ const TYPE_ROWS = [
 
 const SPACES = [1, 2, 3, 4, 6, 8, 12, 16, 24] as const;
 
-const sampleProject = GALLERY_PROJECTS.find((project) => !project.comingSoon) ?? GALLERY_PROJECTS[0];
+const sampleProject = VISIBLE_GALLERY_PROJECTS.find((project) => !project.comingSoon) ?? VISIBLE_GALLERY_PROJECTS[0];
 const sampleService = SERVICES[0];
 
 export default function UiComponents() {

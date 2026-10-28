@@ -42,7 +42,7 @@ const ROUTES = [
   "/gallery/custom-home-project-stevenson",
   "/gallery/custom-home-delta",
   "/gallery/project-cloverdale",
-  "/gallery/skyview",
+  // Skyview is hidden (src/data/projects.ts hidden: true). Restore this route when re-enabling.
   "/gallery/satori",
   "/gallery/photon-control",
   "/privacy",
