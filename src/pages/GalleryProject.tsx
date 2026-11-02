@@ -5,7 +5,12 @@ import SEO from "@/components/SEO";
 import Reveal from "@/components/Reveal";
 import { getGalleryProject, youtubeEmbedUrl } from "@/data/projects";
 import { SITE_ORIGIN } from "@/lib/geo-schema";
+import EstimatorCta from "@/components/EstimatorCta";
 import { Button } from "@/components/ui/button";
+
+function isCustomHomeOrMultiplex(category: string) {
+  return /custom home|multiplex/i.test(category);
+}
 
 export default function GalleryProject() {
   const { slug } = useParams();
@@ -125,6 +130,12 @@ export default function GalleryProject() {
               />
             </div>
           </Reveal>
+        </section>
+      ) : null}
+
+      {isCustomHomeOrMultiplex(project.category) ? (
+        <section className="editorial-section">
+          <EstimatorCta />
         </section>
       ) : null}
 

@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import SEO from "@/components/SEO";
 import { SERVICES } from "@/data/services";
+import EstimatorCta from "@/components/EstimatorCta";
 import { Button } from "@/components/ui/button";
 export default function Services() {
   return (
@@ -59,6 +60,9 @@ export default function Services() {
               <Link className="text-link" to={`/services/${s.slug}`}>
                 Explore {s.label.toLowerCase()} ↗
               </Link>
+              {s.slug === "custom-homes-multiplex" ? (
+                <EstimatorCta compact className="directory-estimator-cta" />
+              ) : null}
             </div>
           </article>
         ))}

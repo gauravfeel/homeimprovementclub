@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Layout from "@/components/Layout";
 import SEO from "@/components/SEO";
+import EstimatorCta from "@/components/EstimatorCta";
 import { Button } from "@/components/ui/button";
 const stages = [
   {
@@ -84,6 +85,7 @@ export default function HowItWorks() {
                   <dd>{s.decision}</dd>
                 </div>
               </dl>
+              {i === 1 ? <EstimatorCta compact className="process-estimator-cta" /> : null}
             </div>
           </article>
         ))}

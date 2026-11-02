@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import Layout from "@/components/Layout";
 import SEO from "@/components/SEO";
 import CTASection from "@/components/CTASection";
+import EstimatorCta from "@/components/EstimatorCta";
 import BlogPortableText from "@/components/BlogPortableText";
 import NotFound from "@/pages/NotFound";
 import { blogCoverFor } from "@/lib/blog-covers";
@@ -125,6 +126,13 @@ export default function BlogPost() {
           <BlogPortableText value={post.body} />
         </div>
       </article>
+
+      {post.slug === "multiplex-planning-fraser-valley" ||
+      post.slug === "custom-home-or-major-renovation" ? (
+        <section className="editorial-section">
+          <EstimatorCta />
+        </section>
+      ) : null}
 
       <CTASection
         title="Bring the property into the conversation."

@@ -852,6 +852,54 @@
 .estimator-board {
   padding-top: 0;
 }
+.estimator-board > h2 {
+  margin-top: 12px;
+}
+.estimator-embed-lead {
+  max-width: 42ch;
+  color: var(--ink-muted);
+  font-size: var(--type-body);
+  line-height: 1.8;
+  margin: 22px 0 36px;
+}
+.estimator-home {
+  border-top: 1px solid var(--line);
+  padding-top: 74px;
+  padding-bottom: 90px;
+}
+.estimator-cta {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 48px;
+  align-items: end;
+  border: 1px solid var(--line);
+  padding: 36px 40px;
+  background: var(--ivory);
+}
+.estimator-cta h2 {
+  max-width: 14ch;
+}
+.estimator-cta p:not(.eyebrow) {
+  color: var(--ink-muted);
+  max-width: 42ch;
+  margin-bottom: 24px;
+  font-size: var(--type-body);
+  line-height: 1.8;
+}
+.estimator-cta.is-compact {
+  grid-template-columns: 1fr;
+  gap: 18px;
+  padding: 28px 28px 30px;
+  margin-top: 28px;
+}
+.estimator-cta.is-compact h2 {
+  font-size: var(--type-h3);
+  max-width: none;
+}
+.directory-estimator-cta,
+.process-estimator-cta {
+  margin-top: 32px;
+}
 .blog-masthead {
   padding-bottom: 28px;
 }
@@ -2265,6 +2313,7 @@
   .blog-row,
   .blog-help,
   .blog-dossier,
+  .estimator-cta,
   .gallery-help-grid,
   .gallery-project-dossier-grid,
   .gallery-related-grid {

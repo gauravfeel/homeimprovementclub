@@ -14,6 +14,7 @@ import residentialExterior from "@/assets/lux-exterior.jpg";
 import lighting from "@/assets/lux-lighting.jpg";
 import ProjectGallery from "@/components/ProjectGallery";
 import Reveal from "@/components/Reveal";
+import BuildCostCalculator from "@/components/BuildCostCalculator";
 import { SectionHeader } from "@/components/sections/section-header";
 import { editorialFrame } from "@/lib/editorial-frame";
 import {
@@ -128,6 +129,20 @@ export default function Index() {
           }
         />
         <ServiceCollection />
+      </section>
+      <section className={cn(editorialFrame, "estimator-home")}>
+        <SectionHeader
+          eyebrow="Project estimator"
+          title={
+            <>
+              Planning a build?
+              <br />
+              <em>Estimate your cost.</em>
+            </>
+          }
+          description="Set floor area and a rate from $150 to $700 per sq ft. A planning figure for a custom home or multiplex, not a quote."
+        />
+        <BuildCostCalculator />
       </section>
       <section className="mx-auto mt-5 grid max-w-[1600px] grid-cols-1 bg-[var(--stone)] min-[641px]:grid-cols-2 max-sm:mt-0">
         <figure className="relative min-h-[580px] max-[900px]:min-h-[500px] max-sm:min-h-[340px]">

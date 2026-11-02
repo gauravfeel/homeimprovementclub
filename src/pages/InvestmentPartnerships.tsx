@@ -4,6 +4,7 @@ import Layout from "@/components/Layout";
 import Reveal from "@/components/Reveal";
 import SEO from "@/components/SEO";
 import { ServiceImage } from "@/components/ServicePrimitives";
+import EstimatorCta from "@/components/EstimatorCta";
 import { Button } from "@/components/ui/button";
 import exterior from "@/assets/lux-exterior.jpg";
 
@@ -103,6 +104,10 @@ export default function InvestmentPartnerships() {
             </article>
           ))}
         </div>
+      </section>
+
+      <section className="editorial-section">
+        <EstimatorCta />
       </section>
 
       <section className="investment-brief">
