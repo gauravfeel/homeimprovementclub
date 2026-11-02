@@ -1,5 +1,6 @@
 import type { Service } from "@/data/services";
 import { Link } from "react-router-dom";
+import BuildCostCalculator from "@/components/BuildCostCalculator";
 import CTASection from "@/components/CTASection";
 import Reveal from "@/components/Reveal";
 import {
@@ -146,9 +147,6 @@ export default function CustomHomesMultiplexPage({
               <span>05</span>Build coordination and handover
             </li>
           </ol>
-          <Link className="text-link" to="/estimator">
-            Open the project estimator ↗
-          </Link>
           <Link className="text-link" to="/how-it-works">
             See how projects move forward ↗
           </Link>
@@ -169,6 +167,20 @@ export default function CustomHomesMultiplexPage({
           </p>
         </div>
         <QuestionList items={questions} />
+      </section>
+
+      <section className="editorial-section estimator-board">
+        <p className="eyebrow">Project estimator</p>
+        <h2>
+          Planning a build?
+          <br />
+          <em>Estimate your cost.</em>
+        </h2>
+        <p className="estimator-embed-lead">
+          Set floor area and a rate from $150 to $700 per sq ft. A planning
+          figure, not a quote.
+        </p>
+        <BuildCostCalculator />
       </section>
 
       <CTASection

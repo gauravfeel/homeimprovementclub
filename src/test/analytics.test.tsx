@@ -3,6 +3,7 @@ import { cleanup, render } from "@testing-library/react";
 import { trackEvent, trackGoogleAdsLead } from "@/lib/analytics";
 import { ContactInfo } from "@/components/ContactInfo";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { CONTACT_PHONE_E164 } from "@/lib/contact";
 afterEach(() => {
   cleanup();
   delete window.dataLayer;
@@ -50,7 +51,7 @@ describe("conversion event contract", () => {
     const { getByRole } = render(<ContactInfo />);
     const phone = getByRole("link");
     phone.addEventListener("click", (e) => e.preventDefault());
-    expect(phone).toHaveAttribute("href", "tel:+12363804423");
+    expect(phone).toHaveAttribute("href", `tel:+${CONTACT_PHONE_E164}`);
     phone.click();
     expect(window.dataLayer).toEqual([
       ["event", "phone_click", {
@@ -64,7 +65,7 @@ describe("conversion event contract", () => {
     const link = getByRole("link");
     link.addEventListener("click", (e) => e.preventDefault());
     expect(link.getAttribute("href")).toContain(
-      "https://wa.me/12363804423?text=",
+      `https://wa.me/${CONTACT_PHONE_E164}?text=`,
     );
     link.click();
     expect(window.dataLayer).toEqual([
