@@ -28,12 +28,12 @@ npm install
 
 Put secrets in `.env`. Do not commit that file.
 
-Leads POST to `/api/lead`. The Node server appends a Google Sheet row, then emails via Resend.
+Leads POST to `/api/lead`. The Node server sends the lead to GoHighLevel first. GHL saves the contact, alerts the team, and sends the confirmation email. The Google Sheet is a backup only.
 
-1. Create a Google Sheet. Row 1 headers: Timestamp, Source, First name, Last name, Email, Phone, Property address, City, Best contact time, Project, Budget, Message.
-2. Paste `scripts/google-apps-script-leads.js` into Apps Script. Set Script Property `WEBHOOK_SECRET`. Deploy as web app (Execute as Me, Anyone). Put the `/exec` URL in `GOOGLE_SHEETS_WEBHOOK_URL`.
-3. Create a Resend API key. Verify `homeimprovementclub.co` (or use Resend onboarding domain for tests). Set `RESEND_FROM` to a verified sender.
-4. DigitalOcean: this is no longer a static-only site. HTTP service, `npm run build`, run `npm start`, expose `$PORT`. Set the same env vars on the app. Do not set `VITE_` copies of keys.
+1. In GHL, create an inbound webhook workflow. Put the webhook URL in `GHL_LEAD_WEBHOOK_URL`. Map `source` (`contact_page` or `lead_popup`) for tagging.
+2. Optional backup sheet: create a Google Sheet. Row 1 headers: Timestamp, Source, First name, Last name, Email, Phone, Property address, City, Best contact time, Project, Budget, Message.
+3. Optional: paste `scripts/google-apps-script-leads.js` into Apps Script. Set Script Property `WEBHOOK_SECRET`. Deploy as web app (Execute as Me, Anyone). Put the `/exec` URL in `GOOGLE_SHEETS_WEBHOOK_URL`.
+4. DigitalOcean: this is no longer a static-only site. HTTP service, `npm run build`, run `npm start`, expose `$PORT`. Set `GHL_LEAD_WEBHOOK_URL` on the app. Do not set `VITE_` copies of keys.
 
 ## Development
 
