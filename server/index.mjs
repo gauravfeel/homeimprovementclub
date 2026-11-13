@@ -1,11 +1,6 @@
 import { appendFileSync, existsSync, mkdirSync, readFileSync } from "node:fs";
 import { createServer } from "node:http";
 import { extname, join, normalize } from "node:path";
-import { Resend } from "resend";
-import {
-  renderProspectHtml,
-  renderStaffLeadHtml,
-} from "../emails/render-lead.tsx";
 
 const ROOT = process.cwd();
 const DIST = join(ROOT, "dist");
@@ -105,8 +100,7 @@ async function appendSheet(lead) {
     if (process.env.NODE_ENV === "production") {
       throw new Error("GOOGLE_SHEETS_WEBHOOK_URL is not set");
     }
-    saveLocalLead(lead);
-    console.warn("No GOOGLE_SHEETS_WEBHOOK_URL; wrote data/leads.jsonl");
+    console.warn("No GOOGLE_SHEETS_WEBHOOK_URL; skip sheet");
     return;
   }
   const res = await fetch(url, {
@@ -123,61 +117,46 @@ async function appendSheet(lead) {
   }
 }
 
-async function notifyEmail(lead) {
-  const key = process.env.RESEND_API_KEY;
-  if (!key) {
+async function postToGhl(lead) {
+  const url = process.env.GHL_LEAD_WEBHOOK_URL;
+  if (!url) {
     if (process.env.NODE_ENV === "production") {
-      throw new Error("RESEND_API_KEY is not set");
+      throw new Error("GHL_LEAD_WEBHOOK_URL is not set");
     }
-    console.warn("No RESEND_API_KEY; skip email");
+    saveLocalLead(lead);
+    console.warn("No GHL_LEAD_WEBHOOK_URL; wrote data/leads.jsonl");
     return;
   }
-  const resend = new Resend(key);
-  const to = (process.env.LEAD_EMAIL_TO || "homeimprovementclub.co@gmail.com")
-    .split(",")
-    .map((item) => item.trim())
-    .filter(Boolean);
-  const from =
-    process.env.RESEND_FROM || "Home Improvement Club <beth.t@example.com>";
-  const subject =
-    lead.source === "lead_popup"
-      ? `New HIC lead: ${lead.projectType || "project enquiry"}`
-      : `New HIC enquiry: ${lead.projectType || "project"} in ${lead.city || "service area"}`;
-  const html = await renderStaffLeadHtml(lead);
-  const { error } = await resend.emails.send({
-    from,
-    to,
-    replyTo: lead.email,
-    subject,
-    html,
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      firstName: lead.firstName,
+      lastName: lead.lastName,
+      email: lead.email,
+      phone: lead.phone,
+      propertyAddress: lead.propertyAddress,
+      city: lead.city,
+      bestContactTime: lead.bestContactTime,
+      projectType: lead.projectType,
+      budget: lead.budget,
+      message: lead.message,
+      source: lead.source,
+      leadSource: "Website form",
+      submittedAt: new Date().toISOString(),
+    }),
   });
-  if (error) throw new Error(error.message);
+  if (!res.ok) {
+    throw new Error(`GHL webhook ${res.status}`);
+  }
 }
 
-async function confirmProspect(lead) {
-  const key = process.env.RESEND_API_KEY;
-  if (!key) return;
-  const resend = new Resend(key);
-  const from =
-    process.env.RESEND_FROM || "Home Improvement Club <leads@homeimprovementclub.co>";
-  const staff =
-    (process.env.LEAD_EMAIL_TO || "homeimprovementclub.co@gmail.com")
-      .split(",")
-      .map((item) => item.trim())
-      .filter(Boolean)[0] || "homeimprovementclub.co@gmail.com";
-  const html = await renderProspectHtml(lead);
-  const { error } = await resend.emails.send({
-    from,
-    to: lead.email,
-    replyTo: staff,
-    subject: "Your HIC project enquiry is in",
-    html,
-  });
-  if (error) throw new Error(error.message);
+function resetLeadRateLimit() {
+  hits.clear();
 }
 
 async function handleLead(req, res) {
-  if (process.env.NODE_ENV !== "production") {
+  if (process.env.NODE_ENV !== "production" && !process.env.VITEST) {
     loadEnv({ override: true });
   }
   if (req.method === "OPTIONS") {
@@ -192,7 +171,10 @@ async function handleLead(req, res) {
     send(res, 405, { ok: false });
     return;
   }
-  const ip = req.headers["x-forwarded-for"]?.split(",")[0]?.trim() || req.socket.remoteAddress || "unknown";
+  const ip =
+    req.headers["x-forwarded-for"]?.split(",")[0]?.trim() ||
+    req.socket.remoteAddress ||
+    "unknown";
   if (tooMany(ip)) {
     send(res, 429, { ok: false, error: "Too many requests" });
     return;
@@ -233,7 +215,9 @@ async function handleLead(req, res) {
   }
   if (lead.source === "contact_page") {
     const budget = Number(lead.budget);
-    const timeOk = ["Morning", "Afternoon", "Evening"].includes(lead.bestContactTime);
+    const timeOk = ["Morning", "Afternoon", "Evening"].includes(
+      lead.bestContactTime,
+    );
     if (phoneDigits.length < 10 || phoneDigits.length > 15) {
       send(res, 400, { ok: false, error: "Enter a valid phone number" });
       return;
@@ -247,26 +231,24 @@ async function handleLead(req, res) {
       return;
     }
     if (!Number.isFinite(budget) || budget <= 10000) {
-      send(res, 400, { ok: false, error: "Budget must be greater than $10,000 CAD" });
+      send(res, 400, {
+        ok: false,
+        error: "Budget must be greater than $10,000 CAD",
+      });
       return;
     }
   }
   try {
-    await appendSheet(lead);
+    await postToGhl(lead);
   } catch (error) {
     console.error(error?.message || error);
     send(res, 500, { ok: false, error: "Could not save lead" });
     return;
   }
   try {
-    await notifyEmail(lead);
+    await appendSheet(lead);
   } catch (error) {
-    console.error("Resend failed", error?.message || error);
-  }
-  try {
-    await confirmProspect(lead);
-  } catch (error) {
-    console.error("Prospect email failed", error?.message || error);
+    console.error("Sheet webhook failed", error?.message || error);
   }
   send(res, 200, { ok: true });
 }
@@ -345,6 +327,10 @@ const server = createServer(async (req, res) => {
   send(res, 404, { ok: false });
 });
 
-server.listen(PORT, () => {
-  console.log(`Lead API on http://127.0.0.1:${PORT}/api/lead`);
-});
+if (!process.env.VITEST) {
+  server.listen(PORT, () => {
+    console.log(`Lead API on http://127.0.0.1:${PORT}/api/lead`);
+  });
+}
+
+export { handleLead, postToGhl, resetLeadRateLimit };
