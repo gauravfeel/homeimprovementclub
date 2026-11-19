@@ -33,5 +33,6 @@ export const blockContent = defineType({
       options: { hotspot: true },
       fields: [{ name: "alt", type: "string", title: "Alt text" }],
     }),
+    defineArrayMember({ type: "tableBlock" }),
   ],
 });

@@ -1,20 +1,99 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState, type RefObject } from "react";
 import { Link, useParams } from "react-router-dom";
 import Layout from "@/components/Layout";
 import SEO from "@/components/SEO";
 import CTASection from "@/components/CTASection";
 import EstimatorCta from "@/components/EstimatorCta";
-import BlogPortableText from "@/components/BlogPortableText";
+import BlogPortableText, {
+  extractHeadings,
+  type ArticleHeading,
+} from "@/components/BlogPortableText";
 import NotFound from "@/pages/NotFound";
 import { blogCoverFor } from "@/lib/blog-covers";
 import { formatBlogDate } from "@/lib/blog";
-import { fetchPostBySlug, type SanityPost } from "@/lib/sanity";
+import {
+  fetchPostBySlug,
+  fetchPublishedPosts,
+  type SanityPost,
+  type SanityPostListItem,
+} from "@/lib/sanity";
+import { ArrowLeft } from "lucide-react";
 
 const SITE = "https://homeimprovementclub.co";
+
+function ReadingProgress({
+  targetRef,
+}: {
+  targetRef: RefObject<HTMLElement | null>;
+}) {
+  const [pct, setPct] = useState(0);
+  useEffect(() => {
+    const onScroll = () => {
+      const el = targetRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const total = rect.height - window.innerHeight * 0.6;
+      const done = Math.min(
+        Math.max(-rect.top + window.innerHeight * 0.2, 0),
+        Math.max(total, 0),
+      );
+      setPct(total > 0 ? (done / total) * 100 : 0);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [targetRef]);
+  return (
+    <div className="article-progress" aria-hidden="true">
+      <span style={{ transform: `scaleX(${pct / 100})` }} />
+    </div>
+  );
+}
+
+function ArticleToc({ headings }: { headings: ArticleHeading[] }) {
+  const [active, setActive] = useState(headings[0]?.id ?? "");
+  useEffect(() => {
+    const els = headings
+      .map((h) => document.getElementById(h.id))
+      .filter((el): el is HTMLElement => Boolean(el));
+    if (!els.length) return;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        const hit = entries.find((e) => e.isIntersecting);
+        if (hit) setActive(hit.target.id);
+      },
+      { rootMargin: "-15% 0px -70% 0px" },
+    );
+    els.forEach((el) => obs.observe(el));
+    return () => obs.disconnect();
+  }, [headings]);
+  if (headings.length < 3) return null;
+  return (
+    <nav className="article-toc" aria-label="In this article">
+      <p className="article-toc-title">In this article</p>
+      <ol>
+        {headings.map((h, i) => (
+          <li key={h.id} className={active === h.id ? "is-active" : undefined}>
+            <a href={`#${h.id}`}>
+              <span>{String(i + 1).padStart(2, "0")}</span>
+              {h.text}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  );
+}
 
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
   const [post, setPost] = useState<SanityPost | null | undefined>(undefined);
+  const [more, setMore] = useState<SanityPostListItem[]>([]);
+  const articleRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     if (!slug) {
@@ -29,6 +108,16 @@ export default function BlogPost() {
       .catch(() => {
         if (!cancelled) setPost(null);
       });
+    return () => {
+      cancelled = true;
+    };
+  }, [slug]);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetchPublishedPosts().then((rows) => {
+      if (!cancelled) setMore(rows.filter((r) => r.slug !== slug).slice(0, 3));
+    });
     return () => {
       cancelled = true;
     };
@@ -52,8 +141,13 @@ export default function BlogPost() {
       : post.author.trim();
   const metaTitle = post.seoTitle || `${post.title} | Home Improvement Club`;
   const metaDescription = post.seoDescription || post.excerpt;
-  const ogImage = post.ogImageUrl || post.featuredImageUrl || `${SITE}/hic-social.jpg`;
+  const ogImage =
+    post.ogImageUrl || post.featuredImageUrl || `${SITE}/hic-social.jpg`;
   const dateLabel = post.date ? formatBlogDate(post.date.slice(0, 10)) : "";
+  const headings = extractHeadings(post.body);
+  const readMins = post.readingTimeMinutes
+    ? Math.max(1, post.readingTimeMinutes)
+    : null;
 
   return (
     <Layout>
@@ -86,43 +180,47 @@ export default function BlogPost() {
         }}
       />
 
-      <section className="blog-stage">
-        <figure className="blog-stage-media">
-          <img src={cover} alt={coverAlt} width={1920} height={1080} loading="eager" />
-        </figure>
-        <div className="blog-stage-copy">
-          <Link className="gallery-back" to="/blog">
-            Journal
-          </Link>
-          <p className="eyebrow">{post.category ?? "Article"}</p>
+      <ReadingProgress targetRef={articleRef} />
+
+      <section className="editorial-section article-masthead">
+        <p className="eyebrow">{post.category ?? "Article"}</p>
+        <div className="article-masthead-grid">
           <h1>{post.title}</h1>
-          {post.excerpt ? <p className="blog-stage-lede">{post.excerpt}</p> : null}
+          {post.excerpt ? <p className="article-lede">{post.excerpt}</p> : null}
         </div>
       </section>
 
-      <article className="editorial-section blog-dossier">
-        <aside className="blog-dossier-meta">
+      <figure className="article-cover">
+        <img
+          src={cover}
+          alt={coverAlt}
+          width={1920}
+          height={1080}
+          loading="eager"
+        />
+      </figure>
+
+      <article className="editorial-section article-layout" ref={articleRef}>
+        <aside className="article-rail">
           <dl>
             <div>
               <dt>Published</dt>
               <dd>{dateLabel}</dd>
             </div>
-            {post.readingTimeMinutes ? (
+            {readMins ? (
               <div>
                 <dt>Reading</dt>
-                <dd>{post.readingTimeMinutes} min</dd>
+                <dd>{readMins} min</dd>
               </div>
             ) : null}
-            <div>
-              <dt>Author</dt>
-              <dd>{authorName}</dd>
-            </div>
           </dl>
+          <ArticleToc headings={headings} />
           <Link className="text-link" to="/blog">
-            All notes
+            <ArrowLeft className="w-3.5 h-3.5" />
+            All Blog
           </Link>
         </aside>
-        <div className="blog-body">
+        <div className="article-body blog-body">
           <BlogPortableText value={post.body} />
         </div>
       </article>
@@ -131,6 +229,36 @@ export default function BlogPost() {
       post.slug === "custom-home-or-major-renovation" ? (
         <section className="editorial-section">
           <EstimatorCta />
+        </section>
+      ) : null}
+
+      {more.length ? (
+        <section className="editorial-section article-more">
+          <p className="eyebrow">Keep reading</p>
+          <div className="article-more-grid">
+            {more.map((m, i) => (
+              <Link
+                key={m._id}
+                to={`/blog/${m.slug}`}
+                className="article-more-card"
+              >
+                <span className="article-more-media">
+                  <img
+                    src={
+                      m.featuredImageUrl || blogCoverFor(m.category ?? "Notes")
+                    }
+                    alt=""
+                    loading="lazy"
+                  />
+                </span>
+                <span className="article-more-meta">
+                  <span>{String(i + 1).padStart(2, "0")}</span>
+                  <em>{m.category}</em>
+                </span>
+                <strong>{m.title}</strong>
+              </Link>
+            ))}
+          </div>
         </section>
       ) : null}
 
