@@ -5,7 +5,6 @@ import Layout from "@/components/Layout";
 import SEO from "@/components/SEO";
 import Reveal from "@/components/Reveal";
 import { blogCoverFor } from "@/lib/blog-covers";
-import { formatBlogDate } from "@/lib/blog";
 import {
   fetchPublishedPosts,
   sanityConfigured,
@@ -13,22 +12,21 @@ import {
 } from "@/lib/sanity";
 import { Button } from "@/components/ui/button";
 
-function dateLabel(iso: string) {
-  return formatBlogDate(iso.slice(0, 10));
-}
-
 function BlogIndexSeo() {
   return (
     <SEO
-      title="Journal | Home Improvement Club"
-      description="Notes on custom homes, multiplex planning, permits and renovations in the Fraser Valley."
+      title="Blog | Home Improvement Club"
+      description="Articles on custom homes, multiplex planning, permits and renovations in the Fraser Valley."
       canonical="/blog"
     />
   );
 }
 
 export default function Blog() {
-  const [posts, setPosts] = useState<SanityPostListItem[] | undefined>(undefined);
+  const [posts, setPosts] = useState<SanityPostListItem[] | undefined>(
+    undefined,
+  );
+  const [filter, setFilter] = useState("All");
 
   useEffect(() => {
     let cancelled = false;
@@ -44,107 +42,122 @@ export default function Blog() {
     };
   }, []);
 
-  const [featured, ...rest] = posts ?? [];
-
   if (posts === undefined) {
     return (
       <Layout>
         <BlogIndexSeo />
-        <section className="editorial-section blog-masthead">
-          <p className="eyebrow">Journal</p>
+        <section className="editorial-section blog-masthead journal-masthead">
+          <p className="eyebrow">Blog</p>
           <div className="blog-masthead-grid">
             <h1>
               Field notes
               <br />
-              <em>before drawings lock.</em>
+              <em>for better building decisions.</em>
             </h1>
             <div className="blog-skeleton-copy" aria-hidden />
           </div>
         </section>
-        <div className="blog-skeleton-hero" aria-hidden />
+        <div
+          className="editorial-section journal-loading"
+          aria-label="Loading articles"
+        >
+          {[0, 1, 2].map((item) => (
+            <div
+              className="journal-card-skeleton"
+              key={item}
+              aria-hidden="true"
+            >
+              <div />
+              <span />
+              <span />
+              <span />
+            </div>
+          ))}
+        </div>
       </Layout>
     );
   }
 
+  const categories = Array.from(
+    new Set(posts.map((p) => p.category).filter(Boolean)),
+  );
+  const activeFilter =
+    filter === "All" || categories.includes(filter) ? filter : "All";
+  const visible =
+    activeFilter === "All"
+      ? posts
+      : posts.filter((p) => p.category === activeFilter);
+
   return (
     <Layout>
       <BlogIndexSeo />
-      <section className="editorial-section blog-masthead">
-        <p className="eyebrow">Journal</p>
+      <section className="editorial-section blog-masthead journal-masthead">
+        <p className="eyebrow">Blog</p>
         <div className="blog-masthead-grid">
           <Reveal variant="heading">
             <h1>
               Field notes
               <br />
-              <em>before drawings lock.</em>
+              <em>for better building decisions.</em>
             </h1>
           </Reveal>
           <Reveal variant="copy">
             <p>
-              Custom homes, multiplex work and permits across the Fraser Valley.
-              Written so you can ask sharper questions before scope hardens.
+              Practical articles on custom homes, multiplex projects, and
+              permits across the Fraser Valley. Ask sharper questions before
+              scope hardens.
             </p>
-            {posts.length > 0 ? (
-              <p className="blog-count">
-                <span>{String(posts.length).padStart(2, "0")}</span>
-                <em>published</em>
-              </p>
-            ) : null}
           </Reveal>
         </div>
       </section>
 
-      {featured ? (
-        <Link className="blog-hero" to={`/blog/${featured.slug}`}>
-          <img
-            src={featured.featuredImageUrl || blogCoverFor(featured.category)}
-            alt=""
-            width={1920}
-            height={1080}
-            loading="eager"
-          />
-          <div className="blog-hero-copy">
-            <p className="eyebrow">{featured.category}</p>
-            <h2>{featured.title}</h2>
-            <p>
-              {dateLabel(featured.date)}
-              <span aria-hidden="true"> · </span>
-              {featured.author}
-            </p>
-          </div>
-        </Link>
+      {categories.length > 1 ? (
+        <nav
+          className="editorial-section journal-filters"
+          aria-label="Filter articles by topic"
+        >
+          {["All", ...categories].map((c) => (
+            <button
+              key={c}
+              type="button"
+              className={c === activeFilter ? "is-active" : undefined}
+              aria-pressed={c === activeFilter}
+              onClick={() => setFilter(c)}
+            >
+              {c}
+              <span>
+                {c === "All"
+                  ? posts.length
+                  : posts.filter((p) => p.category === c).length}
+              </span>
+            </button>
+          ))}
+        </nav>
       ) : null}
 
-      {rest.length > 0 ? (
-        <section className="editorial-section blog-ledger">
-          {rest.map((post, i) => (
-            <article
-              key={post._id}
-              className={`blog-row${i % 2 === 1 ? " is-flip" : ""}`}
-            >
-              <Link className="blog-row-media" to={`/blog/${post.slug}`}>
-                <img
-                  src={post.featuredImageUrl || blogCoverFor(post.category)}
-                  alt=""
-                  width={900}
-                  height={720}
-                  loading="lazy"
-                />
+      {visible.length > 0 ? (
+        <section className="editorial-section journal-grid">
+          {visible.map((post) => (
+            <article key={post._id} className="journal-card">
+              <Link className="journal-card-link" to={`/blog/${post.slug}`}>
+                <span className="journal-card-media">
+                  <img
+                    src={post.featuredImageUrl || blogCoverFor(post.category)}
+                    alt={
+                      post.featuredImageUrl
+                        ? post.featuredImageAlt || post.title
+                        : ""
+                    }
+                    width={900}
+                    height={600}
+                    loading="lazy"
+                  />
+                </span>
+                <h2>{post.title}</h2>
+                {post.excerpt ? (
+                  <p className="journal-excerpt">{post.excerpt}</p>
+                ) : null}
               </Link>
-              <div className="blog-row-copy">
-                <span className="blog-row-index">{String(i + 2).padStart(2, "0")}</span>
-                <p className="blog-row-kicker">
-                  <em>{post.category}</em>
-                  <span>{dateLabel(post.date)}</span>
-                </p>
-                <h2>
-                  <Link to={`/blog/${post.slug}`}>{post.title}</Link>
-                </h2>
-                <p>{post.excerpt}</p>
-                <Link className="text-link" to={`/blog/${post.slug}`}>
-                  Continue <ArrowUpRight size={18} />
-                </Link>
-              </div>
             </article>
           ))}
         </section>
@@ -161,7 +174,7 @@ export default function Blog() {
         </section>
       ) : null}
 
-      <section className="editorial-section blog-help">
+      <section className="editorial-section blog-help journal-help">
         <h2>
           Numbers before
           <br />

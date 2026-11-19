@@ -32,6 +32,8 @@ export type SanityPostListItem = {
   category: string;
   author: string;
   featuredImageUrl: string | null;
+  featuredImageAlt: string;
+  readingTimeMinutes?: number | null;
 };
 
 export type SanityPost = SanityPostListItem & {
@@ -51,7 +53,9 @@ const LIST_QUERY = `*[_type == "post" && defined(slug.current) && defined(publis
   "date": publishedAt,
   "category": coalesce(category->title, "Notes"),
   "author": coalesce(author->name, "Home Improvement Club"),
-  "featuredImageUrl": featuredImage.asset->url
+  "featuredImageUrl": featuredImage.asset->url,
+  "featuredImageAlt": coalesce(featuredImage.alt, ""),
+  "readingTimeMinutes": round(length(pt::text(body)) / 900)
 }`;
 
 const DETAIL_QUERY = `*[_type == "post" && slug.current == $slug && defined(publishedAt) && publishedAt <= now()][0] {
