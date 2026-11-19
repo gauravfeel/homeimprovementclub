@@ -58,7 +58,7 @@ export default function CustomHomesMultiplexPage({
         <Reveal variant="clip">
           <figure className="editorial-photo build-hero-video">
             <iframe
-              src="https://www.youtube-nocookie.com/embed/CuLh6_YciqM?rel=0"
+              src="https://www.youtube-nocookie.com/embed/a-m0rQE_yCs?rel=0"
               title="Home Improvement Club custom homes and multiplex project video"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
